@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TechTatva\'17</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="fest_name"><b>TechTatva\'17</b></string>
+    <string name="fest_tag_line"><i>Replace with tag line</i></string>
+
+    <string name="drawer_home">Home</string>
+    <string name="drawer_favourites">Favourites</string>
+    <string name="drawer_online_events">Online Events</string>
+    <string name="drawer_results">Results</string>
+
+    <string name="drawer_developers">Developers</string>
+    <string name="drawer_about_us">About Us</string>
+
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_events">Events</string>
+    <string name="bottom_nav_categories">Categories</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
