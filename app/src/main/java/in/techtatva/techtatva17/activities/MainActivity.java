@@ -4,10 +4,12 @@ package in.techtatva.techtatva17.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,7 +30,15 @@ import in.techtatva.techtatva17.fragments.HomeFragment;
 import in.techtatva.techtatva17.fragments.OnlineEventsFragment;
 import in.techtatva.techtatva17.fragments.ResultsFragment;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+
 public class MainActivity extends AppCompatActivity  {
+    private FragmentManager fm;
+    private NavigationView drawerView;
+    private BottomNavigationView navigation;
+    private AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +60,19 @@ public class MainActivity extends AppCompatActivity  {
         toggle.syncState();
 
 
-        NavigationView drawerView = (NavigationView) findViewById(R.id.nav_view);
+         drawerView = (NavigationView) findViewById(R.id.nav_view);
         drawerView.setNavigationItemSelectedListener(mOnDrawerItemSelectedListener);
         drawerView.setCheckedItem(R.id.drawer_home);
         drawerView.setSelected(true);
 
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
         navigation.setOnNavigationItemSelectedListener(mOnBottomNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.bottom_nav_home);
         navigation.setSelected(true);
+
+        fm = getSupportFragmentManager();
     }
 
 
@@ -104,50 +116,50 @@ public class MainActivity extends AppCompatActivity  {
 
             if (id == R.id.drawer_home) {
 
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(View.VISIBLE);
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(View.VISIBLE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(VISIBLE);
+                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(VISIBLE);
 
                 selectedFragment = HomeFragment.newInstance();
 
             } else if (id == R.id.drawer_favourites) {
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(View.VISIBLE);
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(View.GONE);
+                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(VISIBLE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(GONE);
 
                 selectedFragment = FavouritesFragment.newInstance();
 
             } else if (id == R.id.drawer_online_events) {
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(View.GONE);
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(View.GONE);
+                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(GONE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(GONE);
 
                 selectedFragment = OnlineEventsFragment.newInstance();
 
             } else if (id == R.id.drawer_results) {
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(View.VISIBLE);
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(View.GONE);
+                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(VISIBLE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(GONE);
 
                 selectedFragment = ResultsFragment.newInstance();
 
             } else if (id == R.id.drawer_developers) {
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(View.GONE);
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(View.GONE);
+                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(GONE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(GONE);
 
                 selectedFragment = DevelopersFragment.newInstance();
 
             } else if (id == R.id.drawer_about_us) {
-                AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(View.GONE);
-                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(View.GONE);
+                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(GONE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(GONE);
 
                 selectedFragment = AboutUsFragment.newInstance();
 
@@ -170,8 +182,22 @@ public class MainActivity extends AppCompatActivity  {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        }
+        else {
+            if (drawerView.getMenu().getItem(0).isChecked() &&  navigation.getMenu().getItem(0).isChecked() ){
+                super.onBackPressed();
+            }
+            else{
+                fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
+                drawerView.setCheckedItem(R.id.drawer_home);
+                navigation.setSelectedItemId(R.id.bottom_nav_home);
+
+                if(navigation.getVisibility()==GONE)
+                { navigation.setVisibility(VISIBLE);}
+
+                if(appBarLayout!=null)
+                {appBarLayout.setVisibility(VISIBLE);}
+            }
         }
     }
 
