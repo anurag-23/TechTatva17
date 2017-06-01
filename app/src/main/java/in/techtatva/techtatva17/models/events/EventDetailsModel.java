@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by sapta on 5/27/2017.
@@ -16,6 +17,7 @@ public class EventDetailsModel extends RealmObject {
     private String eventName;
     @SerializedName("eid")
     @Expose
+    @PrimaryKey
     private String eventID;
     @SerializedName("edesc")
     @Expose
