@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.techtatva.techtatva17.fragments.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="in.techtatva.techtatva17.fragments.DaysFragment">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/days_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/home_fragment" />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

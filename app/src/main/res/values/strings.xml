@@ -24,8 +24,15 @@
     <string name="categories">Categories</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Blank Fragment</string>
 
-    <string name="event_fragment">Events</string>
+    <string name="home_fragment">Home</string>
+    <string name="event_fragment">Events </string>
+    <string name="about_fragment">About Us  </string>
+    <string name="developers_fragment">Developers</string>
+    <string name="favourites_fragment">Favourites</string>
+    <string name="online_fragment">Online Events</string>
+    <string name="results_fragment">Results</string>
 
+    <string name="venue">Venue</string>
 </resources>
