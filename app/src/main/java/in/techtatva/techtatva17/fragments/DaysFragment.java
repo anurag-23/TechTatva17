@@ -1,12 +1,18 @@
 package in.techtatva.techtatva17.fragments;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,6 +22,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
+import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
 import io.realm.Realm;
@@ -24,9 +31,11 @@ import io.realm.Realm;
 public class DaysFragment extends Fragment {
     private static final String ARG_PARAM1 = "day";
     private int day;
+    private MenuItem searchItem;
     private EventsListModel currentDayEvents  = new EventsListModel();
     RecyclerView daysRecyclerView;
-    EventsAdapter adapter;
+    public static EventsAdapter adapter;
+    List<EventDetailsModel> events;
     Realm realm = Realm.getDefaultInstance();
 
     @Override
@@ -60,6 +69,7 @@ public class DaysFragment extends Fragment {
         if (getArguments() != null) {
             day = getArguments().getInt(ARG_PARAM1);
         }
+        setHasOptionsMenu(true);
         getDataFromRealm();
     }
 
@@ -93,9 +103,72 @@ public class DaysFragment extends Fragment {
         daysRecyclerView.setAdapter(adapter);
         return view;
     }
+
     public void getDataFromRealm(){
-        List<EventDetailsModel> events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").findAll();
+        events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").findAllSorted("eventName");
         currentDayEvents.setEvents(events);
+
+
     }
+
+    public void getSearchDataFromRealm(String text){
+        events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
+        currentDayEvents.setEvents(events);
+        adapter.notifyDataSetChanged();
+
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_hardware, menu);
+        searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView)searchItem.getActionView();
+
+        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+
+        searchView.setSubmitButtonEnabled(false);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                getSearchDataFromRealm(text);
+                TechTatva.searchOpen = 2;
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                getSearchDataFromRealm(text);
+                TechTatva.searchOpen = 2;
+                return false;
+            }
+        });
+        searchView.setQueryHint("Search Events");
+
+
+
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                getSearchDataFromRealm("");
+                searchView.clearFocus();
+
+                TechTatva.searchOpen = 2;
+                return false;
+            }
+
+
+        });
+    }
+
+
+
+
 
 }

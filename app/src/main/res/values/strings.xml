@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
 
     <string name="fest_name"><b>TechTatva\'17</b></string>
     <string name="fest_tag_line"><i>Replace with tag line</i></string>

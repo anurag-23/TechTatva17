@@ -4,7 +4,6 @@ package in.techtatva.techtatva17.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -17,12 +16,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.fragments.AboutUsFragment;
 import in.techtatva.techtatva17.fragments.CategoriesFragment;
+import in.techtatva.techtatva17.fragments.DaysFragment;
 import in.techtatva.techtatva17.fragments.DevelopersFragment;
 import in.techtatva.techtatva17.fragments.EventsFragment;
 import in.techtatva.techtatva17.fragments.FavouritesFragment;
@@ -184,13 +184,32 @@ public class MainActivity extends AppCompatActivity  {
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
+
             if (drawerView.getMenu().getItem(0).isChecked() &&  navigation.getMenu().getItem(0).isChecked() ){
                 super.onBackPressed();
             }
             else{
-                fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
-                drawerView.setCheckedItem(R.id.drawer_home);
-                navigation.setSelectedItemId(R.id.bottom_nav_home);
+                if(TechTatva.searchOpen ==1 && drawerView.getMenu().getItem(0).isChecked()){
+
+                    fm.beginTransaction().replace(R.id.main_frame_layout, new CategoriesFragment()).commit();
+
+                    TechTatva.searchOpen =0;
+                }
+
+                if(TechTatva.searchOpen ==2 && drawerView.getMenu().getItem(0).isChecked()){
+
+                    fm.beginTransaction().replace(R.id.main_frame_layout, new EventsFragment()).commit();
+
+                    TechTatva.searchOpen =0;
+                }
+
+                else{
+                    fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
+                    drawerView.setCheckedItem(R.id.drawer_home);
+                    navigation.setSelectedItemId(R.id.bottom_nav_home);
+
+                }
+
 
                 if(navigation.getVisibility()==GONE)
                 { navigation.setVisibility(VISIBLE);}
@@ -211,11 +230,8 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    /*
 
-
-    For menu option... Not implemented yet
-
+/*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -224,6 +240,9 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
+
+
+    For menu option... Not implemented yet
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

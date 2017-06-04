@@ -29,6 +29,10 @@ import retrofit2.Response;
 public class EventsFragment extends Fragment {
     private List<EventDetailsModel> events = new ArrayList<>();
     Realm realm = Realm.getDefaultInstance();
+    View result;
+
+
+
     public EventsFragment() {
         // Required empty public constructor
     }
@@ -57,7 +61,7 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View result = inflater.inflate(R.layout.fragment_events, container, false);
+        result = inflater.inflate(R.layout.fragment_events, container, false);
         ViewPager viewPager = (ViewPager)result.findViewById(R.id.events_view_pager);
         TabLayout tabLayout = (TabLayout) result.findViewById(R.id.events_tab_layout);
         viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager()));
@@ -74,6 +78,8 @@ public class EventsFragment extends Fragment {
                     events = response.body().getEvents();
                     events.addAll(response.body().getEvents());
                     saveDataToRealm();
+                    Log.i("RESPONSE", "Reached here");
+
                 }else{
                     Log.i("RESPONSE", "Bad response");
                 }
@@ -83,8 +89,13 @@ public class EventsFragment extends Fragment {
                 Log.i("RESPONSE", "No response");
             }
         });
+
+
+
+
     }
     private void saveDataToRealm(){
+
 
         try{
             realm.executeTransaction(new Realm.Transaction() {
