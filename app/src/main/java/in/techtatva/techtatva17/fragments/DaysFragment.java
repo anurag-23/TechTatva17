@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -30,8 +31,10 @@ import io.realm.Realm;
 
 public class DaysFragment extends Fragment {
     private static final String ARG_PARAM1 = "day";
+    private static final String ARG_PARAM2 = "search";
     private int day;
-    private MenuItem searchItem;
+    private String searchTerm;
+
     private EventsListModel currentDayEvents  = new EventsListModel();
     RecyclerView daysRecyclerView;
     public static EventsAdapter adapter;
@@ -55,10 +58,11 @@ public class DaysFragment extends Fragment {
      * @param day  This is the day which is selected by the user.
      * @return A new instance of fragment DaysFragment.
      */
-    public static DaysFragment newInstance(int day) {
+    public static DaysFragment newInstance(int day, String searchTerm) {
         DaysFragment fragment = new DaysFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, day);
+        args.putString(ARG_PARAM2, searchTerm);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,9 +72,11 @@ public class DaysFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             day = getArguments().getInt(ARG_PARAM1);
+            searchTerm =  getArguments().getString(ARG_PARAM2,"");
         }
-        setHasOptionsMenu(true);
-        getDataFromRealm();
+
+        getSearchDataFromRealm(searchTerm);
+        Log.i("REALM", String.valueOf(day) );
     }
 
     @Override
@@ -101,6 +107,8 @@ public class DaysFragment extends Fragment {
         daysRecyclerView.setLayoutManager(layoutManager);
         daysRecyclerView.setItemAnimator(new DefaultItemAnimator());
         daysRecyclerView.setAdapter(adapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        daysRecyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
 
@@ -114,57 +122,8 @@ public class DaysFragment extends Fragment {
     public void getSearchDataFromRealm(String text){
         events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
         currentDayEvents.setEvents(events);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
 
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_hardware, menu);
-        searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView)searchItem.getActionView();
-
-        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-
-        searchView.setSubmitButtonEnabled(false);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String text) {
-                getSearchDataFromRealm(text);
-                TechTatva.searchOpen = 2;
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String text) {
-                getSearchDataFromRealm(text);
-                TechTatva.searchOpen = 2;
-                return false;
-            }
-        });
-        searchView.setQueryHint("Search Events");
-
-
-
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                getSearchDataFromRealm("");
-                searchView.clearFocus();
-
-                TechTatva.searchOpen = 2;
-                return false;
-            }
-
-
-        });
     }
 
 

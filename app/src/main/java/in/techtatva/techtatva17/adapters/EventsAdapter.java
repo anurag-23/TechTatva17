@@ -1,12 +1,12 @@
 package in.techtatva.techtatva17.adapters;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import in.techtatva.techtatva17.R;
@@ -35,7 +35,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     public class EventViewHolder extends RecyclerView.ViewHolder{
         public TextView eventName, eventVenue, eventTime;
         public ImageView eventIcon, fav;
-        public LinearLayout eventItem;
+        public RelativeLayout eventItem;
         public EventViewHolder(View view){
             super(view);
             eventIcon = (ImageView)view.findViewById(R.id.event_logo_image_view);
@@ -43,7 +43,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventName = (TextView)view.findViewById(R.id.event_name_text_view);
             eventVenue = (TextView)view.findViewById(R.id.event_venue_text_view);
             eventTime = (TextView)view.findViewById(R.id.event_time_text_view);
-            eventItem = (LinearLayout)view.findViewById(R.id.event_item_linear_layout);
+            eventItem = (RelativeLayout)view.findViewById(R.id.event_item_relative_layout);
         }
         public void onBind(final EventDetailsModel event, final EventClickListener eventListener, final FavouriteClickListener favouriteListener){
             eventName.setText(event.getEventName());
