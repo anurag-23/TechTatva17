@@ -1,4 +1,4 @@
-package in.techtatva.techtatva17.models;
+package in.techtatva.techtatva17.models.favourites;
 
 import io.realm.RealmObject;
 

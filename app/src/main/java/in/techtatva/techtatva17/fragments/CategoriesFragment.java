@@ -1,26 +1,29 @@
 package in.techtatva.techtatva17.fragments;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.CategoriesAdapter;
+import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.categories.CategoriesListModel;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
 import in.techtatva.techtatva17.network.APIClient;
@@ -39,6 +42,7 @@ public class CategoriesFragment extends Fragment {
     private ProgressDialog dialog;
     private static final int LOAD_CATEGORIES = 0;
     private static final int UPDATE_CATEGORIES = 1;
+    private MenuItem searchItem;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -53,6 +57,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         getActivity().setTitle(R.string.categories);
         mDatabase = Realm.getDefaultInstance();
 
@@ -77,6 +82,8 @@ public class CategoriesFragment extends Fragment {
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        categoriesRecyclerView.addItemDecoration(dividerItemDecoration);
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
             displayData();
@@ -113,12 +120,30 @@ public class CategoriesFragment extends Fragment {
     private void displayData(){
 
         if (mDatabase != null){
+            categoriesList.clear();
             RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
 
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    private void displaySearchData(String text){
+
+        if (mDatabase != null){
+            categoriesList.clear();
+            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName");
+
+            if (!categoryResults.isEmpty()){
+                categoriesList.clear();
+                categoriesList.addAll(categoryResults);
+                adapter.notifyDataSetChanged();
+            }
+            else{
+
             }
         }
     }
@@ -131,5 +156,69 @@ public class CategoriesFragment extends Fragment {
         if (dialog != null && dialog.isShowing())
             dialog.hide();
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_hardware, menu);
+        searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView)searchItem.getActionView();
+
+        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+
+        searchView.setSubmitButtonEnabled(false);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                displaySearchData(text);
+                TechTatva.searchOpen = 1;
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                displaySearchData(text);
+                TechTatva.searchOpen = 1;
+                return false;
+            }
+        });
+        searchView.setQueryHint("Search Categotries");
+
+
+
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                displayData();
+                searchView.clearFocus();
+
+                TechTatva.searchOpen = 1;
+                return false;
+            }
+
+
+        });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        setHasOptionsMenu(false);
+        setMenuVisibility(false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+
 
 }

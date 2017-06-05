@@ -1,12 +1,19 @@
 package in.techtatva.techtatva17.fragments;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,6 +23,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
+import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
 import io.realm.Realm;
@@ -23,10 +31,14 @@ import io.realm.Realm;
 
 public class DaysFragment extends Fragment {
     private static final String ARG_PARAM1 = "day";
+    private static final String ARG_PARAM2 = "search";
     private int day;
+    private String searchTerm;
+
     private EventsListModel currentDayEvents  = new EventsListModel();
     RecyclerView daysRecyclerView;
-    EventsAdapter adapter;
+    public static EventsAdapter adapter;
+    List<EventDetailsModel> events;
     Realm realm = Realm.getDefaultInstance();
 
     @Override
@@ -46,10 +58,11 @@ public class DaysFragment extends Fragment {
      * @param day  This is the day which is selected by the user.
      * @return A new instance of fragment DaysFragment.
      */
-    public static DaysFragment newInstance(int day) {
+    public static DaysFragment newInstance(int day, String searchTerm) {
         DaysFragment fragment = new DaysFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, day);
+        args.putString(ARG_PARAM2, searchTerm);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,8 +72,11 @@ public class DaysFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             day = getArguments().getInt(ARG_PARAM1);
+            searchTerm =  getArguments().getString(ARG_PARAM2,"");
         }
-        getDataFromRealm();
+
+        getSearchDataFromRealm(searchTerm);
+        Log.i("REALM", String.valueOf(day) );
     }
 
     @Override
@@ -91,11 +107,27 @@ public class DaysFragment extends Fragment {
         daysRecyclerView.setLayoutManager(layoutManager);
         daysRecyclerView.setItemAnimator(new DefaultItemAnimator());
         daysRecyclerView.setAdapter(adapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        daysRecyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
+
     public void getDataFromRealm(){
-        List<EventDetailsModel> events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").findAll();
+        events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").findAllSorted("eventName");
         currentDayEvents.setEvents(events);
+
+
     }
+
+    public void getSearchDataFromRealm(String text){
+        events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
+        currentDayEvents.setEvents(events);
+        //adapter.notifyDataSetChanged();
+
+    }
+
+
+
+
 
 }

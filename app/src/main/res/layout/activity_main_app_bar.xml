@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="in.techtatva.techtatva17.activities.MainActivity"
+    >
+
+<android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="in.techtatva.techtatva17.activities.MainActivity">
+    android:layout_above="@+id/bottom_nav"
+    android:layout_alignParentTop="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
+        app:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,6 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            app:cardElevation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
             >
             <!-- Card Elevation Error-->
 
@@ -27,7 +37,28 @@
         </android.support.v7.widget.CardView>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/activity_main_content"
-         />
 
-</LinearLayout>
+    <include layout="@layout/activity_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+         />
+</android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:elevation="10dp"
+
+        app:menu="@menu/menu_bottom_nav"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+
+
+</RelativeLayout>
