@@ -2,7 +2,6 @@ package in.techtatva.techtatva17.fragments;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -26,9 +25,10 @@ import in.techtatva.techtatva17.adapters.EventsTabsPagerAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
+import in.techtatva.techtatva17.models.events.ScheduleListModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.network.APIClient;
 import io.realm.Realm;
-import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 public class EventsFragment extends Fragment {
     private List<EventDetailsModel> events = new ArrayList<>();
-    Realm realm = Realm.getDefaultInstance();
+    Realm mDatabase = Realm.getDefaultInstance();
     View result;
     ViewPager viewPager;
     private MenuItem searchItem;
@@ -56,7 +56,7 @@ public class EventsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        realm.close();
+        mDatabase.close();
     }
 
     @Override
@@ -114,15 +114,12 @@ public class EventsFragment extends Fragment {
             }
         });
 
-
-
-
     }
     private void saveDataToRealm(){
 
 
         try{
-            realm.executeTransaction(new Realm.Transaction() {
+            mDatabase.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     if(events.size()!=0){

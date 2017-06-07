@@ -1,7 +1,9 @@
 package in.techtatva.techtatva17.fragments;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.activities.EventActivity;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
@@ -34,7 +37,7 @@ public class DaysFragment extends Fragment {
     private static final String ARG_PARAM2 = "search";
     private int day;
     private String searchTerm;
-
+    Activity activity;
     private EventsListModel currentDayEvents  = new EventsListModel();
     RecyclerView daysRecyclerView;
     public static EventsAdapter adapter;
@@ -97,8 +100,9 @@ public class DaysFragment extends Fragment {
         EventsAdapter.EventClickListener eventClickListener = new EventsAdapter.EventClickListener() {
             @Override
             public void onItemClick(EventDetailsModel event) {
-                //Event Item Clicked
-                //TODO : Launch Event Activity
+
+                Intent intent=new Intent(getActivity(), EventActivity.class);
+                getActivity().startActivity(intent);
             }
         };
 

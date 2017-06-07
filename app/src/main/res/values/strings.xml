@@ -35,4 +35,11 @@
     <string name="results_fragment">Results</string>
 
     <string name="venue">Venue</string>
+    <string name="filter_events">Filter Events</string>
+
+    <string name="day_1">Day 1</string>
+    <string name="day_2">Day 2</string>
+    <string name="day_3">Day 3</string>
+    <string name="day_4">Day 4</string>
+    <string name="no_events">No events</string>
 </resources>
