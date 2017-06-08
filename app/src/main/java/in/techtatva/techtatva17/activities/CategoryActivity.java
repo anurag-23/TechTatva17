@@ -34,6 +34,7 @@ public class CategoryActivity extends AppCompatActivity {
     private String catName;
     private String catID;
     private String catDesc;
+    private String text;
     private Realm mDatabase;
     private TextView noEventsDay1;
     private TextView noEventsDay2;
@@ -122,17 +123,17 @@ public class CategoryActivity extends AppCompatActivity {
                 case "4": day4List.add(event);
                     break;
             }
-
-            eventSort(day1List);
-            eventSort(day2List);
-            eventSort(day3List);
-            eventSort(day4List);
         }
+        eventSort(day1List);
+        eventSort(day2List);
+        eventSort(day3List);
+        eventSort(day4List);
 
         RecyclerView recyclerViewDay1 =(RecyclerView)findViewById(R.id.category_day_1_recycler_view);
         if(day1List.isEmpty()){
             noEventsDay1.setVisibility(View.VISIBLE);
             recyclerViewDay1.setVisibility(View.GONE);
+            //Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
         }
         else{
             recyclerViewDay1.setAdapter(new CategoryEventsAdapter(day1List,this));
