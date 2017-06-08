@@ -66,8 +66,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 @Override
                 public void onClick(View v) {
                     eventListener.onItemClick(event);
-                    /*Intent intent=new Intent(activity, EventActivity.class);
-                    activity.startActivity(intent);*/
                 }
             });
 

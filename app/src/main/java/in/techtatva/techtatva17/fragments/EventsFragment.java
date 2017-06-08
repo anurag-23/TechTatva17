@@ -113,7 +113,6 @@ public class EventsFragment extends Fragment {
                 Log.i("RESPONSE", "No response");
             }
         });
-
     }
     private void saveDataToRealm(){
 

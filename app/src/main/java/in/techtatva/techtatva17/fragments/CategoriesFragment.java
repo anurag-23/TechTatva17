@@ -26,6 +26,8 @@ import in.techtatva.techtatva17.adapters.CategoriesAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.categories.CategoriesListModel;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
+import in.techtatva.techtatva17.models.events.ScheduleListModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.network.APIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -97,7 +99,7 @@ public class CategoriesFragment extends Fragment {
 
     private void prepareData(){
         Call<CategoriesListModel> categoriesCall= APIClient.getAPIInterface().getCategoriesList();
-
+        Call<ScheduleListModel> scheduleCall = APIClient.getAPIInterface().getScheduleList();
         categoriesCall.enqueue(new Callback<CategoriesListModel>() {
             @Override
             public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
@@ -116,6 +118,22 @@ public class CategoriesFragment extends Fragment {
 
             }
         });
+
+        scheduleCall.enqueue(new Callback<ScheduleListModel>() {
+            @Override
+            public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
+                if (response.body() != null && mDatabase != null) {
+                    mDatabase.beginTransaction();
+                    mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.commitTransaction();
+                }
+            }
+            @Override
+            public void onFailure(Call<ScheduleListModel> call, Throwable t){
+            }
+        });
+
     }
     private void displayData(){
 
