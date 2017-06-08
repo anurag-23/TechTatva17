@@ -1,5 +1,7 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.activities.EventActivity;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
 
@@ -63,6 +66,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 @Override
                 public void onClick(View v) {
                     eventListener.onItemClick(event);
+                    /*Intent intent=new Intent(activity, EventActivity.class);
+                    activity.startActivity(intent);*/
                 }
             });
 
