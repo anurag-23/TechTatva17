@@ -1,6 +1,8 @@
 package in.techtatva.techtatva17.application;
 
 import android.app.Application;
+import android.graphics.Point;
+import android.view.Display;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -19,6 +21,7 @@ public class TechTatva extends Application {
         Realm.init(this);
         RealmConfiguration realmConfiguration= new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);
+
 
     }
 }

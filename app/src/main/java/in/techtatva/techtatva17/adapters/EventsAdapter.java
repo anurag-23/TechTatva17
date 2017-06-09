@@ -25,6 +25,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     private EventsListModel eventList;
     private final EventClickListener eventListener;
     private final FavouriteClickListener favouriteListener;
+    private final EventLongPressListener eventLongPressListener;
 
 
     //Interfaces to ClickListener of the item and of the Favourite Icon in the item
@@ -33,6 +34,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     }
     public interface FavouriteClickListener {
         void onItemClick(EventDetailsModel event);
+    }
+
+    public interface EventLongPressListener{
+        void onItemLongPress(EventDetailsModel event);
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder{
@@ -48,7 +53,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventTime = (TextView)view.findViewById(R.id.event_time_text_view);
             eventItem = (RelativeLayout)view.findViewById(R.id.event_item_relative_layout);
         }
-        public void onBind(final EventDetailsModel event, final EventClickListener eventListener, final FavouriteClickListener favouriteListener){
+        public void onBind(final EventDetailsModel event, final EventClickListener eventListener,final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
             eventName.setText(event.getEventName());
 
             //TODO: Change this once the Data Models are updated to include these fields
@@ -69,12 +74,21 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 }
             });
 
+            eventItem.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    eventLongPressListener.onItemLongPress(event);
+                    return false;
+                }
+            });
+
         }
     }
-    public EventsAdapter(EventsListModel events,EventClickListener eventListener, FavouriteClickListener favouriteListener){
+    public EventsAdapter(EventsListModel events,EventClickListener eventListener,EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
         this.eventList = events;
         this.eventListener = eventListener;
         this.favouriteListener = favouriteListener;
+        this.eventLongPressListener=eventLongPressListener;
     }
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -87,7 +101,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         EventDetailsModel event = eventList.getEvents().get(position);
-        holder.onBind(event,eventListener, favouriteListener);
+        holder.onBind(event,eventListener, eventLongPressListener,favouriteListener );
     }
 
     @Override

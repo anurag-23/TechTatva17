@@ -102,7 +102,8 @@ public class EventsFragment extends Fragment {
                     saveDataToRealm();
                     Log.i("RESPONSE", "Reached here");
 
-                    viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(),""));  //add this line to refresh layout
+                    viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(),""));//add this line to refresh layout
+
 
                 }else{
                     Log.i("RESPONSE", "Bad response");
