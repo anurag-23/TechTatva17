@@ -1,34 +1,27 @@
 package in.techtatva.techtatva17.fragments;
 
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.activities.EventActivity;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
-import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
+import in.techtatva.techtatva17.models.events.ScheduleListModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 import io.realm.Realm;
 
 
@@ -38,10 +31,10 @@ public class DaysFragment extends Fragment {
     private int day;
     private String searchTerm;
     Activity activity;
-    private EventsListModel currentDayEvents  = new EventsListModel();
+    private ScheduleListModel currentDayEvents  = new ScheduleListModel();
     RecyclerView daysRecyclerView;
     public static EventsAdapter adapter;
-    List<EventDetailsModel> events;
+    List<ScheduleModel> events;
     Realm realm = Realm.getDefaultInstance();
 
     @Override
@@ -77,6 +70,7 @@ public class DaysFragment extends Fragment {
             day = getArguments().getInt(ARG_PARAM1);
             searchTerm =  getArguments().getString(ARG_PARAM2,"");
         }
+        //getDataFromRealm();
 
         getSearchDataFromRealm(searchTerm);
         Log.i("REALM", String.valueOf(day) );
@@ -92,41 +86,90 @@ public class DaysFragment extends Fragment {
         daysRecyclerView =(RecyclerView) view.findViewById(R.id.days_recycler_view);
         EventsAdapter.FavouriteClickListener favouriteClickListener = new EventsAdapter.FavouriteClickListener() {
             @Override
-            public void onItemClick(EventDetailsModel event) {
+            public void onItemClick(ScheduleModel event) {
                 //Favourite Clicked
                 //TODO : Add the favourite Event to the DB and make the Favourite Icon red
             }
         };
+
         EventsAdapter.EventClickListener eventClickListener = new EventsAdapter.EventClickListener() {
             @Override
-            public void onItemClick(EventDetailsModel event) {
+            public void onItemClick(ScheduleModel event) {
 
-                Intent intent=new Intent(getActivity(), EventActivity.class);
-                getActivity().startActivity(intent);
+                View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
+                final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
+
+                String eventID = event.getEventID();
+
+                EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
+
+
+                TextView eventName = (TextView)view.findViewById(R.id.event_name);
+                eventName.setText(event.getEventName());
+
+                TextView eventRound = (TextView)view.findViewById(R.id.event_round);
+                eventRound.setText(event.getRound());
+
+                TextView eventDate = (TextView)view.findViewById(R.id.event_date);
+                eventDate.setText(event.getDate());
+
+                TextView eventTime = (TextView)view.findViewById(R.id.event_time);
+                eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
+
+                TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
+                eventVenue.setText(event.getVenue());
+
+                TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
+                eventTeamSize.setText(schedule.getMaxTeamSize());
+
+                TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
+                eventCategory.setText(event.getCatName());
+
+                TextView eventContact = (TextView)view.findViewById(R.id.event_contact);
+                eventContact.setText(schedule.getContactName() + " ( " + schedule.getContactNo() + " )");
+
+                TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
+                eventDescription.setText(schedule.getDescription());
+
+
+
+
+                dialog.setContentView(view);
+                dialog.show();
+
+
+
             }
         };
 
-        adapter = new EventsAdapter(currentDayEvents, eventClickListener, favouriteClickListener);
+        EventsAdapter.EventLongPressListener eventLongPressListener=new EventsAdapter.EventLongPressListener() {
+            @Override
+            public void onItemLongPress(ScheduleModel event) {
+
+
+
+
+
+
+            }
+        };
+
+        adapter = new EventsAdapter(currentDayEvents, eventClickListener,eventLongPressListener, favouriteClickListener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         daysRecyclerView.setLayoutManager(layoutManager);
         daysRecyclerView.setItemAnimator(new DefaultItemAnimator());
         daysRecyclerView.setAdapter(adapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         daysRecyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
 
-    public void getDataFromRealm(){
-        events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").findAllSorted("eventName");
-        currentDayEvents.setEvents(events);
 
-
-    }
 
     public void getSearchDataFromRealm(String text){
-        events = realm.where(EventDetailsModel.class).equalTo("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
-        currentDayEvents.setEvents(events);
-        //adapter.notifyDataSetChanged();
+        events = realm.where(ScheduleModel.class).contains("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
+        currentDayEvents.setData(events);
+
 
     }
 

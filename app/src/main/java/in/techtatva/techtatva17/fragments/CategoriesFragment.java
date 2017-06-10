@@ -84,57 +84,17 @@ public class CategoriesFragment extends Fragment {
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         categoriesRecyclerView.addItemDecoration(dividerItemDecoration);
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
             displayData();
-            prepareData();
+
         }
-        else{
-                prepareData();
-            }
+
         return view;
     }
 
-    private void prepareData(){
-        Call<CategoriesListModel> categoriesCall= APIClient.getAPIInterface().getCategoriesList();
-        Call<ScheduleListModel> scheduleCall = APIClient.getAPIInterface().getScheduleList();
-        categoriesCall.enqueue(new Callback<CategoriesListModel>() {
-            @Override
-            public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
-                if (response.body() != null && mDatabase != null){
-                    mDatabase.beginTransaction();
-                    mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getCategoriesList());
-                    mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
-                    mDatabase.commitTransaction();
-                }
-                displayData();
-            }
-
-            @Override
-            public void onFailure(Call<CategoriesListModel> call, Throwable t) {
-
-            }
-        });
-
-        scheduleCall.enqueue(new Callback<ScheduleListModel>() {
-            @Override
-            public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
-                if (response.body() != null && mDatabase != null) {
-                    mDatabase.beginTransaction();
-                    mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
-                    mDatabase.copyToRealm(response.body().getData());
-                    mDatabase.commitTransaction();
-                }
-            }
-            @Override
-            public void onFailure(Call<ScheduleListModel> call, Throwable t){
-            }
-        });
-
-    }
     private void displayData(){
 
         if (mDatabase != null){
@@ -160,9 +120,7 @@ public class CategoriesFragment extends Fragment {
                 categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
             }
-            else{
 
-            }
         }
     }
 
@@ -205,7 +163,7 @@ public class CategoriesFragment extends Fragment {
                 return false;
             }
         });
-        searchView.setQueryHint("Search Categotries");
+        searchView.setQueryHint("Search Categories");
 
 
 

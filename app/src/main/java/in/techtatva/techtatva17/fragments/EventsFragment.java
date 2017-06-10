@@ -25,8 +25,6 @@ import in.techtatva.techtatva17.adapters.EventsTabsPagerAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
-import in.techtatva.techtatva17.models.events.ScheduleListModel;
-import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.network.APIClient;
 import io.realm.Realm;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
@@ -74,7 +72,7 @@ public class EventsFragment extends Fragment {
         }catch(NullPointerException e){
             e.printStackTrace();
         }
-        prepareData();
+
 
     }
 
@@ -90,47 +88,7 @@ public class EventsFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         return result;
     }
-    private void prepareData(){
-        APIClient.APIInterface api = APIClient.getAPIInterface();
-        Call<EventsListModel> call = api.getEventsList();
-        call.enqueue(new Callback<EventsListModel>() {
-            @Override
-            public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
-                if(response.isSuccess()){
-                    events = response.body().getEvents();
-                    events.addAll(response.body().getEvents());
-                    saveDataToRealm();
-                    Log.i("RESPONSE", "Reached here");
 
-                    viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(),""));  //add this line to refresh layout
-
-                }else{
-                    Log.i("RESPONSE", "Bad response");
-                }
-            }
-            @Override
-            public void onFailure(Call<EventsListModel> call, Throwable t) {
-                Log.i("RESPONSE", "No response");
-            }
-        });
-    }
-    private void saveDataToRealm(){
-
-
-        try{
-            mDatabase.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    if(events.size()!=0){
-                        realm.copyToRealm(events);
-                    }
-                }
-            });
-        }catch (RealmPrimaryKeyConstraintException e){
-            //Duplicate Record
-            Log.i("REALM", "RealmPKConstraintException(Perhaps a duplicate record)"+e);
-        }
-    }
 
 
     @Override

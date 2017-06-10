@@ -20,5 +20,6 @@ public class TechTatva extends Application {
         RealmConfiguration realmConfiguration= new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
+
     }
 }

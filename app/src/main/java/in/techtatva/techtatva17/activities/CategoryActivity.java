@@ -1,8 +1,8 @@
 package in.techtatva.techtatva17.activities;
 
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -136,7 +135,7 @@ public class CategoryActivity extends AppCompatActivity {
             //Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
         }
         else{
-            recyclerViewDay1.setAdapter(new CategoryEventsAdapter(day1List,this));
+            recyclerViewDay1.setAdapter(new CategoryEventsAdapter(day1List,this,getBaseContext()));
             recyclerViewDay1.setNestedScrollingEnabled(false);
             recyclerViewDay1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
@@ -147,7 +146,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay2.setVisibility(View.GONE);
         }
         else{
-            recyclerViewDay2.setAdapter(new CategoryEventsAdapter(day2List,this));
+            recyclerViewDay2.setAdapter(new CategoryEventsAdapter(day2List,this,getBaseContext()));
             recyclerViewDay2.setNestedScrollingEnabled(false);
             recyclerViewDay2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
@@ -158,7 +157,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay3.setVisibility(View.GONE);
         }
         else {
-            recyclerViewDay3.setAdapter(new CategoryEventsAdapter(day3List, this));
+            recyclerViewDay3.setAdapter(new CategoryEventsAdapter(day3List, this,getBaseContext()));
             recyclerViewDay3.setNestedScrollingEnabled(false);
             recyclerViewDay3.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
@@ -169,7 +168,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay4.setVisibility(View.GONE);
         }
         else {
-            recyclerViewDay4.setAdapter(new CategoryEventsAdapter(day3List, this));
+            recyclerViewDay4.setAdapter(new CategoryEventsAdapter(day4List, this,getBaseContext()));
             recyclerViewDay4.setNestedScrollingEnabled(false);
             recyclerViewDay4.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }
