@@ -11,6 +11,8 @@ import android.widget.TextView;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
+import in.techtatva.techtatva17.models.events.ScheduleListModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 
 /**
  * Created by skvrahul on 30/5/17.
@@ -18,7 +20,7 @@ import in.techtatva.techtatva17.models.events.EventsListModel;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
 
-    private EventsListModel eventList;
+    private ScheduleListModel eventList;
     private final EventClickListener eventListener;
     private final FavouriteClickListener favouriteListener;
     private final EventLongPressListener eventLongPressListener;
@@ -26,14 +28,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     //Interfaces to ClickListener of the item and of the Favourite Icon in the item
     public interface EventClickListener {
-        void onItemClick(EventDetailsModel event);
+        void onItemClick(ScheduleModel event);
     }
     public interface FavouriteClickListener {
-        void onItemClick(EventDetailsModel event);
+        void onItemClick(ScheduleModel event);
     }
 
     public interface EventLongPressListener{
-        void onItemLongPress(EventDetailsModel event);
+        void onItemLongPress(ScheduleModel event);
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder{
@@ -49,13 +51,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventTime = (TextView)view.findViewById(R.id.event_time_text_view);
             eventItem = (RelativeLayout)view.findViewById(R.id.event_item_relative_layout);
         }
-        public void onBind(final EventDetailsModel event, final EventClickListener eventListener,final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
+        public void onBind(final ScheduleModel event, final EventClickListener eventListener,final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
             eventName.setText(event.getEventName());
 
-            //TODO: Change this once the Data Models are updated to include these fields
-            eventTime.setText("12:00AM- 12:00PM");
+
+            eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
             eventIcon.setImageResource(R.drawable.ic_sample_image_24dp);
-            eventVenue.setText("NLH 404");
+            eventVenue.setText(event.getVenue());
             //Individual OnClickListeners for the Favourite Icon and the entire Item
             fav.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,12 +82,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         }
     }
-    public EventsAdapter(EventsListModel events,EventClickListener eventListener,EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
+
+
+    public EventsAdapter(ScheduleListModel events,EventClickListener eventListener,EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
         this.eventList = events;
         this.eventListener = eventListener;
         this.favouriteListener = favouriteListener;
         this.eventLongPressListener=eventLongPressListener;
     }
+
+
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -96,12 +102,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        EventDetailsModel event = eventList.getEvents().get(position);
+        ScheduleModel event = eventList.getData().get(position);
         holder.onBind(event,eventListener, eventLongPressListener,favouriteListener );
     }
 
     @Override
     public int getItemCount() {
-        return eventList.getEvents().size();
+        return eventList.getData().size();
     }
 }

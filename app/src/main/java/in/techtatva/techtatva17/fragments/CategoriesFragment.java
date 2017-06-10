@@ -84,7 +84,7 @@ public class CategoriesFragment extends Fragment {
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(categoriesRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         categoriesRecyclerView.addItemDecoration(dividerItemDecoration);
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){

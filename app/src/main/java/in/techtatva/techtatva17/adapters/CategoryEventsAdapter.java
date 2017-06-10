@@ -23,9 +23,11 @@ import in.techtatva.techtatva17.models.events.EventModel;
 public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAdapter.CategoryEventsViewHolder> {
 
     private List<EventModel> eventsList;
+
     private Activity activity;
     private Context context;
     EventModel event;
+
 
     public CategoryEventsAdapter(List<EventModel> eventsList, Activity activity,Context context){
         this.eventsList=eventsList;
@@ -87,8 +89,20 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         @Override
         public void onClick(View view) {
+
+            EventModel event = eventsList.get(getLayoutPosition());
+
+
+
+
+
             Context context=view.getContext();
             view = View.inflate(context,R.layout.activity_event_dialogue,null);
+
+
+
+
+
 
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
 

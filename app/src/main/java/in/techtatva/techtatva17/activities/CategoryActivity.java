@@ -168,7 +168,7 @@ public class CategoryActivity extends AppCompatActivity {
             recyclerViewDay4.setVisibility(View.GONE);
         }
         else {
-            recyclerViewDay4.setAdapter(new CategoryEventsAdapter(day3List, this,getBaseContext()));
+            recyclerViewDay4.setAdapter(new CategoryEventsAdapter(day4List, this,getBaseContext()));
             recyclerViewDay4.setNestedScrollingEnabled(false);
             recyclerViewDay4.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         }

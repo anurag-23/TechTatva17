@@ -20,6 +20,7 @@ import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
+import in.techtatva.techtatva17.models.events.ScheduleListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import io.realm.Realm;
 
@@ -30,10 +31,10 @@ public class DaysFragment extends Fragment {
     private int day;
     private String searchTerm;
     Activity activity;
-    private EventsListModel currentDayEvents  = new EventsListModel();
+    private ScheduleListModel currentDayEvents  = new ScheduleListModel();
     RecyclerView daysRecyclerView;
     public static EventsAdapter adapter;
-    List<EventDetailsModel> events;
+    List<ScheduleModel> events;
     Realm realm = Realm.getDefaultInstance();
 
     @Override
@@ -85,7 +86,7 @@ public class DaysFragment extends Fragment {
         daysRecyclerView =(RecyclerView) view.findViewById(R.id.days_recycler_view);
         EventsAdapter.FavouriteClickListener favouriteClickListener = new EventsAdapter.FavouriteClickListener() {
             @Override
-            public void onItemClick(EventDetailsModel event) {
+            public void onItemClick(ScheduleModel event) {
                 //Favourite Clicked
                 //TODO : Add the favourite Event to the DB and make the Favourite Icon red
             }
@@ -93,42 +94,42 @@ public class DaysFragment extends Fragment {
 
         EventsAdapter.EventClickListener eventClickListener = new EventsAdapter.EventClickListener() {
             @Override
-            public void onItemClick(EventDetailsModel event) {
+            public void onItemClick(ScheduleModel event) {
 
                 View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
                 final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
 
                 String eventID = event.getEventID();
 
-                ScheduleModel schedule = realm.where(ScheduleModel.class).equalTo("eventID",eventID).findFirst();
+                EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
 
 
                 TextView eventName = (TextView)view.findViewById(R.id.event_name);
                 eventName.setText(event.getEventName());
 
                 TextView eventRound = (TextView)view.findViewById(R.id.event_round);
-                eventRound.setText(schedule.getRound());
+                eventRound.setText(event.getRound());
 
                 TextView eventDate = (TextView)view.findViewById(R.id.event_date);
-                eventDate.setText(schedule.getDate());
+                eventDate.setText(event.getDate());
 
                 TextView eventTime = (TextView)view.findViewById(R.id.event_time);
-                eventTime.setText(schedule.getStartTime() + " - " + schedule.getEndTime());
+                eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
 
                 TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
-                eventVenue.setText(schedule.getVenue());
+                eventVenue.setText(event.getVenue());
 
                 TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
-                eventTeamSize.setText(event.getMaxTeamSize());
+                eventTeamSize.setText(schedule.getMaxTeamSize());
 
                 TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
                 eventCategory.setText(event.getCatName());
 
                 TextView eventContact = (TextView)view.findViewById(R.id.event_contact);
-                eventContact.setText(event.getContactName() + " ( " + event.getContactNo() + " )");
+                eventContact.setText(schedule.getContactName() + " ( " + schedule.getContactNo() + " )");
 
                 TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
-                eventDescription.setText(event.getDescription());
+                eventDescription.setText(schedule.getDescription());
 
 
 
@@ -143,7 +144,7 @@ public class DaysFragment extends Fragment {
 
         EventsAdapter.EventLongPressListener eventLongPressListener=new EventsAdapter.EventLongPressListener() {
             @Override
-            public void onItemLongPress(EventDetailsModel event) {
+            public void onItemLongPress(ScheduleModel event) {
 
 
 
@@ -158,23 +159,17 @@ public class DaysFragment extends Fragment {
         daysRecyclerView.setLayoutManager(layoutManager);
         daysRecyclerView.setItemAnimator(new DefaultItemAnimator());
         daysRecyclerView.setAdapter(adapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(),getResources().getConfiguration().orientation);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         daysRecyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
 
-    public void getDataFromRealm(){
 
-        events = realm.where(EventDetailsModel.class).contains("day",(day+1)+"").findAllSorted("eventName");
-        currentDayEvents.setEvents(events);
-
-
-    }
 
     public void getSearchDataFromRealm(String text){
-        events = realm.where(EventDetailsModel.class).contains("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
-        currentDayEvents.setEvents(events);
-        //adapter.notifyDataSetChanged();
+        events = realm.where(ScheduleModel.class).contains("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
+        currentDayEvents.setData(events);
+
 
     }
 
