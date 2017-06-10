@@ -1,8 +1,6 @@
 package in.techtatva.techtatva17.application;
 
 import android.app.Application;
-import android.graphics.Point;
-import android.view.Display;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

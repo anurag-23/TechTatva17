@@ -1,7 +1,5 @@
 package in.techtatva.techtatva17.models.events;
 
-import io.realm.RealmObject;
-
 /**
  * Created by sapta on 5/27/2017.
  */

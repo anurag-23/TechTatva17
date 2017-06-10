@@ -16,13 +16,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.fragments.AboutUsFragment;
 import in.techtatva.techtatva17.fragments.CategoriesFragment;
-import in.techtatva.techtatva17.fragments.DaysFragment;
 import in.techtatva.techtatva17.fragments.DevelopersFragment;
 import in.techtatva.techtatva17.fragments.EventsFragment;
 import in.techtatva.techtatva17.fragments.FavouritesFragment;
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity  {
         else {
 
             if (drawerView.getMenu().getItem(0).isChecked() &&  navigation.getMenu().getItem(0).isChecked() ){
-                super.onBackPressed();
+                finishAffinity();
             }
             else{
                 if(TechTatva.searchOpen ==1 && drawerView.getMenu().getItem(0).isChecked()){

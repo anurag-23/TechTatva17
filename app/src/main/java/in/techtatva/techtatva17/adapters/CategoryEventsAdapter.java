@@ -2,7 +2,6 @@ package in.techtatva.techtatva17.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,10 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.activities.CategoryActivity;
-import in.techtatva.techtatva17.activities.EventActivity;
 import in.techtatva.techtatva17.models.events.EventModel;
-import in.techtatva.techtatva17.models.events.ScheduleModel;
 
 /**
  * Created by sapta on 6/6/2017.

@@ -2,12 +2,9 @@ package in.techtatva.techtatva17.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import in.techtatva.techtatva17.fragments.DaysFragment;
-
-import static android.support.v4.view.PagerAdapter.POSITION_NONE;
 
 /**
  * Created by skvrahul on 30/5/17.

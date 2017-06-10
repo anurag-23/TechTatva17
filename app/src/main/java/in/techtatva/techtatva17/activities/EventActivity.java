@@ -1,7 +1,7 @@
 package in.techtatva.techtatva17.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import in.techtatva.techtatva17.R;
 

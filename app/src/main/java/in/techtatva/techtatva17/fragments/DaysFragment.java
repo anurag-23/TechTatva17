@@ -1,46 +1,27 @@
 package in.techtatva.techtatva17.fragments;
 
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.activities.EventActivity;
-import in.techtatva.techtatva17.activities.MainActivity;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
-import in.techtatva.techtatva17.application.TechTatva;
-import in.techtatva.techtatva17.dialogues.EventDialogue;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 
 public class DaysFragment extends Fragment {
