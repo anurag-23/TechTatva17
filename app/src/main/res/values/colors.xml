@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
     <color name="fav_deselected">#E0E0E0</color>
+    <color name="fav_selected">#EF5350</color>
     <color name="item_divider">#757575</color>
     <color name="transparent">#00000000</color>
 
