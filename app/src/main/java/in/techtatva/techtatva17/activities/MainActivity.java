@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment=null;
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawerView = (NavigationView) findViewById(R.id.nav_view);
             int id = item.getItemId();
 
             if (id == R.id.drawer_home) {
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity  {
                 navigation.setVisibility(VISIBLE);
                  appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
-
+                navigation.setSelectedItemId(R.id.bottom_nav_home);
                 selectedFragment = HomeFragment.newInstance();
 
             } else if (id == R.id.drawer_favourites) {
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity  {
             transaction.replace(R.id.main_frame_layout, selectedFragment);
             transaction.commit();
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }

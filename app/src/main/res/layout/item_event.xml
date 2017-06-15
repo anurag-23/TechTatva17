@@ -108,8 +108,9 @@
             android:layout_gravity="end"
             android:clickable="true"
             android:contentDescription="Favourite Icon"
-            android:src="@drawable/ic_fav"
-            android:tint="@color/fav_deselected" />
+            android:src="@drawable/ic_fav_deselected"
+            android:tag="deselected"
+            />
     </RelativeLayout>
 
 
