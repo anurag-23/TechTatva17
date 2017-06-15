@@ -179,11 +179,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         realm.where(FavouritesModel.class).equalTo("id",eventSchedule.getEventID()).equalTo("day",eventSchedule.getDay()).findAll().deleteAllFromRealm();
         realm.commitTransaction();
 
-        for(FavouritesModel favourite : favourites){
+        for(int i=0;i<favourites.size();i++){
             //Removing corresponding FavouritesModel from favourites
+            FavouritesModel favourite = favourites.get(i);
             if((favourite.getId().equals(eventSchedule.getEventID()))&&(favourite.getDay().equals(eventSchedule.getDay()))){
                 favourites.remove(favourite);
-
             }
         }
     }
