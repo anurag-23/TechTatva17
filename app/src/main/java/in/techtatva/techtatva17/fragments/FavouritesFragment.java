@@ -38,6 +38,10 @@ public class FavouritesFragment extends Fragment {
     RecyclerView recyclerViewDay2;
     RecyclerView recyclerViewDay3;
     RecyclerView recyclerViewDay4;
+    private TextView noEventsDay1;
+    private TextView noEventsDay2;
+    private TextView noEventsDay3;
+    private TextView noEventsDay4;
     public FavouritesFragment() {
         // Required empty public constructor
     }
@@ -52,6 +56,7 @@ public class FavouritesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.favourites_fragment);
         favouritesDay1 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","1").findAll());
         favouritesDay2 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","2").findAll());
         favouritesDay3 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","3").findAll());
@@ -75,11 +80,17 @@ public class FavouritesFragment extends Fragment {
         recyclerViewDay3 = (RecyclerView)view.findViewById(R.id.favourites_day_3_recycler_view);
         recyclerViewDay4 = (RecyclerView)view.findViewById(R.id.favourites_day_4_recycler_view);
 
+        noEventsDay1 = (TextView)view.findViewById(R.id.fav_day_1_no_events);
+        noEventsDay2 = (TextView)view.findViewById(R.id.fav_day_2_no_events);
+        noEventsDay3 = (TextView)view.findViewById(R.id.fav_day_3_no_events);
+        noEventsDay4 = (TextView)view.findViewById(R.id.fav_day_4_no_events);
+
         displayEvents();
         return view;
     }
 
     public void displayEvents(){
+
         FavouritesEventsAdapter.EventClickListener eventListener = new  FavouritesEventsAdapter.EventClickListener(){
             @Override
             public void onItemClick(FavouritesModel event) {
@@ -91,6 +102,8 @@ public class FavouritesFragment extends Fragment {
         if(favouritesDay1.isEmpty()){
             recyclerViewDay1.setVisibility(View.GONE);
             ((View)recyclerViewDay1.getParent()).setVisibility(View.GONE);
+            noEventsDay1.setVisibility(View.VISIBLE);
+            ((View)noEventsDay1.getParent()).setVisibility(View.VISIBLE);
 
         }else{
             FavouritesEventsAdapter adapter = new FavouritesEventsAdapter(favouritesDay1, eventListener);
@@ -103,6 +116,8 @@ public class FavouritesFragment extends Fragment {
         if(favouritesDay2.isEmpty()){
             recyclerViewDay2.setVisibility(View.GONE);
             ((View)recyclerViewDay2.getParent()).setVisibility(View.GONE);
+            noEventsDay2.setVisibility(View.VISIBLE);
+            ((View)noEventsDay2.getParent()).setVisibility(View.VISIBLE);
         }else{
             recyclerViewDay2.setAdapter(new FavouritesEventsAdapter(favouritesDay2, eventListener));
             recyclerViewDay2.setNestedScrollingEnabled(false);
@@ -111,6 +126,8 @@ public class FavouritesFragment extends Fragment {
         if(favouritesDay3.isEmpty()){
             recyclerViewDay3.setVisibility(View.GONE);
             ((View)recyclerViewDay3.getParent()).setVisibility(View.GONE);
+            noEventsDay3.setVisibility(View.VISIBLE);
+            ((View)noEventsDay3.getParent()).setVisibility(View.VISIBLE);
 
         }else{
             recyclerViewDay3.setAdapter(new FavouritesEventsAdapter(favouritesDay3, eventListener));
@@ -120,6 +137,8 @@ public class FavouritesFragment extends Fragment {
         if(favouritesDay4.isEmpty()){
             recyclerViewDay4.setVisibility(View.GONE);
             ((View)recyclerViewDay4.getParent()).setVisibility(View.GONE);
+            noEventsDay4.setVisibility(View.VISIBLE);
+            ((View)noEventsDay4.getParent()).setVisibility(View.VISIBLE);
 
         }else{
             recyclerViewDay4.setAdapter(new FavouritesEventsAdapter(favouritesDay4, eventListener));

@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity  {
                  appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(GONE);
                  navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(GONE);
+                navigation.setVisibility(VISIBLE);
 
                 selectedFragment = OnlineEventsFragment.newInstance();
 
