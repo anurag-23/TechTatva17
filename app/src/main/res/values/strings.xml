@@ -36,6 +36,8 @@
 
     <string name="venue">Venue</string>
     <string name="filter_events">Filter Events</string>
+    <string name="qualified_teams">Qualified Teams • Round:</string>
+    <string name="team_id">Team ID:</string>
 
     <string name="day_1">Day 1</string>
     <string name="day_2">Day 2</string>

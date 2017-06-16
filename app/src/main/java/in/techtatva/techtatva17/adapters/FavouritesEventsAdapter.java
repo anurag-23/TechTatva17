@@ -74,7 +74,7 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
 
             eventName.setText(event.getEventName());
             eventRound.setText(event.getRound());
-            eventTime.setText(event.getStartTime()+" - "+event.getEndTime());
+            eventTime.setText(event.getStartTime()+" - "+ event.getEndTime());
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

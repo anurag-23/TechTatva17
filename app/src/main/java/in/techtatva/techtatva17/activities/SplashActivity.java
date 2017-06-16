@@ -18,6 +18,8 @@ import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventsListModel;
 import in.techtatva.techtatva17.models.events.ScheduleListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
+import in.techtatva.techtatva17.models.result.ResultModel;
+import in.techtatva.techtatva17.models.result.ResultsListModel;
 import in.techtatva.techtatva17.network.APIClient;
 import io.realm.Realm;
 import retrofit2.Call;
@@ -77,6 +79,7 @@ public class SplashActivity extends AppCompatActivity {
                 loadAllFromInternet();
             }
             else{
+                loadResultsFromInternet(); //Updating every time on reload
                 moveForward();
             }
         }
@@ -101,6 +104,7 @@ public class SplashActivity extends AppCompatActivity {
         loadEventsFromInternet();
         loadSchedulesFromInternet();
         loadCategoriesFromInternet();
+        loadResultsFromInternet();
 
         test = new Runnable() {
             @Override
@@ -214,6 +218,31 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CategoriesListModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void loadResultsFromInternet(){
+
+        Call<ResultsListModel> resultsCall = APIClient.getAPIInterface().getResultsList();
+
+        resultsCall.enqueue(new Callback<ResultsListModel>() {
+
+            @Override
+            public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
+                if (response.isSuccess() && response.body() != null && mDatabase != null) {
+
+                    mDatabase.beginTransaction();
+                    mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(response.body().getData());
+                    mDatabase.commitTransaction();
+                    Log.d("TAG","Results");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultsListModel> call, Throwable t) {
 
             }
         });

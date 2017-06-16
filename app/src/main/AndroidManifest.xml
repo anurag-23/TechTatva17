@@ -33,7 +33,6 @@
         <activity
             android:name=".activities.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBarActivityTheme" />
-        <activity android:name=".activities.EventActivity" />
 
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
