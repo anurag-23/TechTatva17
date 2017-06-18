@@ -5,13 +5,8 @@
     android:id="@+id/event_item_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="7dp"
-    android:paddingEnd="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingStart="5dp"
-    android:paddingTop="7dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="10dp">
 
 
     <ImageView
@@ -23,7 +18,7 @@
 
         android:layout_centerVertical="true"
 
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="10dp"
         android:contentDescription="Event Logo"
         android:src="@drawable/ic_sample_image_24dp" />
 
@@ -37,7 +32,8 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/event_logo_image_view"
         android:layout_toRightOf="@+id/event_logo_image_view"
-        android:gravity="bottom">
+        android:gravity="center"
+        android:paddingBottom="2dp">
 
         <TextView
             android:id="@+id/event_name_text_view"
@@ -50,6 +46,8 @@
 
 
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/event_time_text_view"
             android:fontFamily="sans-serif-medium"
             android:maxLines="2"
@@ -62,15 +60,15 @@
             android:id="@+id/event_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+
             android:layout_alignBaseline="@+id/event_name_text_view"
+
             android:layout_alignBottom="@+id/event_name_text_view"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-
-
             android:layout_gravity="top"
-
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:paddingTop="4dp"
             android:text="sdasd"
             android:textSize="12sp" />
@@ -82,35 +80,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout"
-        android:layout_toEndOf="@+id/event_logo_image_view"
 
+        android:layout_toEndOf="@+id/event_logo_image_view"
         android:layout_toRightOf="@+id/event_logo_image_view"
-        android:gravity="top">
+        android:gravity="center"
+        android:paddingTop="2dp">
 
         <TextView
             android:id="@+id/event_venue_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="NLH 404"
+            android:layout_alignParentLeft="true"
 
 
-            />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            tools:text="NLH 404" />
 
 
         <ImageView
             android:id="@+id/event_fav_ico"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
 
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="end"
+            android:layout_marginTop="4dp"
             android:clickable="true"
             android:contentDescription="Favourite Icon"
             android:src="@drawable/ic_fav_deselected"
-            android:tag="deselected"
-            />
+            android:tag="deselected" />
     </RelativeLayout>
 
 

@@ -19,7 +19,6 @@ public class DevelopersFragment extends Fragment {
 
     public static DevelopersFragment newInstance() {
         DevelopersFragment fragment = new DevelopersFragment();
-
         return fragment;
     }
 

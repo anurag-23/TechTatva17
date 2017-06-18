@@ -19,7 +19,6 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
-import in.techtatva.techtatva17.models.events.EventsListModel;
 import in.techtatva.techtatva17.models.events.ScheduleListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import io.realm.Realm;
@@ -47,13 +46,7 @@ public class DaysFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param day  This is the day which is selected by the user.
-     * @return A new instance of fragment DaysFragment.
-     */
+
     public static DaysFragment newInstance(int day, String searchTerm) {
         DaysFragment fragment = new DaysFragment();
         Bundle args = new Bundle();
@@ -131,25 +124,14 @@ public class DaysFragment extends Fragment {
                 TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
                 eventDescription.setText(schedule.getDescription());
 
-
-
-
                 dialog.setContentView(view);
                 dialog.show();
-
-
-
             }
         };
 
         EventsAdapter.EventLongPressListener eventLongPressListener=new EventsAdapter.EventLongPressListener() {
             @Override
             public void onItemLongPress(ScheduleModel event) {
-
-
-
-
-
 
             }
         };
@@ -164,17 +146,8 @@ public class DaysFragment extends Fragment {
         return view;
     }
 
-
-
     public void getSearchDataFromRealm(String text){
         events = realm.where(ScheduleModel.class).contains("day",(day+1)+"").contains("eventName",text).findAllSorted("eventName");
         currentDayEvents.setData(events);
-
-
     }
-
-
-
-
-
 }

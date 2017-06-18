@@ -12,7 +12,6 @@ import java.util.List;
 
 public class CategoriesListModel {
 
-
         @SerializedName("data")
         @Expose
         private List<CategoryModel> categoriesList = new ArrayList<>();

@@ -4,7 +4,6 @@ package in.techtatva.techtatva17.fragments;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,14 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.adapters.EventsAdapter;
 import in.techtatva.techtatva17.adapters.FavouritesEventsAdapter;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import io.realm.Realm;
-import io.realm.RealmResults;
-
-import static android.content.ContentValues.TAG;
 
 
 public class FavouritesFragment extends Fragment {

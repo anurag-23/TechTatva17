@@ -9,7 +9,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,13 +23,7 @@ import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.EventsTabsPagerAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
-import in.techtatva.techtatva17.models.events.EventsListModel;
-import in.techtatva.techtatva17.network.APIClient;
 import io.realm.Realm;
-import io.realm.exceptions.RealmPrimaryKeyConstraintException;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class EventsFragment extends Fragment {
     private List<EventDetailsModel> events = new ArrayList<>();
@@ -39,12 +32,9 @@ public class EventsFragment extends Fragment {
     ViewPager viewPager;
     private MenuItem searchItem;
 
-
-
     public EventsFragment() {
         // Required empty public constructor
     }
-
 
     public static EventsFragment newInstance() {
         EventsFragment fragment = new EventsFragment();
@@ -72,8 +62,6 @@ public class EventsFragment extends Fragment {
         }catch(NullPointerException e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -98,49 +86,30 @@ public class EventsFragment extends Fragment {
         final SearchView searchView = (SearchView)searchItem.getActionView();
 
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-
         searchView.setSubmitButtonEnabled(false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-
             @Override
             public boolean onQueryTextSubmit(String text) {
-
                 viewPager.getAdapter().notifyDataSetChanged();
-
-
-
                 viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(),text));
                 viewPager.getAdapter().notifyDataSetChanged();
-
-
-
-
                 TechTatva.searchOpen = 2;
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String text) {
-
                 viewPager.getAdapter().notifyDataSetChanged();
-
                 viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(),text));
                 viewPager.getAdapter().notifyDataSetChanged();
-
-
                 TechTatva.searchOpen = 2;
                 return false;
             }
         });
+
         searchView.setQueryHint("Search Events");
-
-
-
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
@@ -155,7 +124,4 @@ public class EventsFragment extends Fragment {
 
         });
     }
-
-
-
 }

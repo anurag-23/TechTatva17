@@ -12,19 +12,14 @@ import in.techtatva.techtatva17.R;
 
 public class HomeFragment extends Fragment {
 
-
-
-
-
     public HomeFragment() {
         // Required empty public constructor
     }
 
 
-    // TODO: Rename and change types and number of parameters
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
-
         return fragment;
     }
 
@@ -41,6 +36,4 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
-
-
 }
