@@ -73,6 +73,10 @@ public class SplashActivity extends AppCompatActivity {
                 moveForward();
             }
 
+            else{
+                moveForward();
+            }
+
         }
 
         else{

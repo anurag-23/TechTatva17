@@ -22,4 +22,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="DefaultNumberPickerTheme" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
 </resources>
