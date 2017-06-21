@@ -12,23 +12,18 @@ import in.techtatva.techtatva17.R;
 
 public class AboutUsFragment extends Fragment {
 
-
-
     public AboutUsFragment() {
         // Required empty public constructor
     }
 
-
     public static AboutUsFragment newInstance() {
         AboutUsFragment fragment = new AboutUsFragment();
-
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -37,5 +32,4 @@ public class AboutUsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
-
 }

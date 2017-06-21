@@ -82,8 +82,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             logoFrame = (FrameLayout) itemView.findViewById(R.id.fav_event_logo_frame);
             eventRound = (TextView) itemView.findViewById(R.id.cat_event_round_text_view);
 
-
-
             itemView.setOnClickListener(this);
         }
 
@@ -92,21 +90,10 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
             EventModel event = eventsList.get(getLayoutPosition());
 
-
-
-
-
             Context context=view.getContext();
             view = View.inflate(context,R.layout.activity_event_dialogue,null);
 
-
-
-
-
-
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
-
-
 
             TextView eventName = (TextView)view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());
@@ -134,9 +121,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
             TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
             eventDescription.setText(event.getDescription());
-
-
-
 
             dialog.setContentView(view);
             dialog.show();

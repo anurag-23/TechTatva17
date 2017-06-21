@@ -35,6 +35,8 @@ public class SplashActivity extends AppCompatActivity {
 
     private Realm mDatabase;
 
+    boolean dataAvailableLocally;
+
     private int counter = 0;
 
     private Context context = this;
@@ -46,13 +48,6 @@ public class SplashActivity extends AppCompatActivity {
     private boolean categoriesDataAvailableLocally = false;
 
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +56,7 @@ public class SplashActivity extends AppCompatActivity {
         mDatabase = Realm.getDefaultInstance();
 
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        boolean dataAvailableLocally = sharedPref.getBoolean("dataAvailableLocally",false);
-
-
+        dataAvailableLocally = sharedPref.getBoolean("dataAvailableLocally",false);
 
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -74,14 +67,16 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         if (dataAvailableLocally){
-            if(isConnected && isWiFi){
+            if(isConnected){
                 Toast.makeText(context, "Updating data", Toast.LENGTH_SHORT).show();
                 loadAllFromInternet();
-            }
-            else{
-                loadResultsFromInternet(); //Updating every time on reload
                 moveForward();
             }
+
+            else{
+                moveForward();
+            }
+
         }
 
         else{
@@ -94,9 +89,6 @@ public class SplashActivity extends AppCompatActivity {
                 Toast.makeText(context, "Loading data for the first time. Takes a couple of seconds", Toast.LENGTH_SHORT).show();
                 loadAllFromInternet();
             }
-
-
-
         }
     }
 
@@ -115,13 +107,16 @@ public class SplashActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("dataAvailableLocally",true);
                     editor.apply();
-                    moveForward();
+                    if(!dataAvailableLocally){
+                        moveForward();
+                    }
+
                 }
 
                 if (!(eventsDataAvailableLocally && schedulesDataAvailableLocally && categoriesDataAvailableLocally)){
                     counter++;
 
-                    if (counter == 10){
+                    if (counter == 10 && !dataAvailableLocally){
                         if(eventsDataAvailableLocally || schedulesDataAvailableLocally || categoriesDataAvailableLocally){
                             Toast.makeText(context, "Possible slow internet connection", Toast.LENGTH_SHORT).show();
                         }
@@ -132,7 +127,6 @@ public class SplashActivity extends AppCompatActivity {
                     mHandler.postDelayed(test,1000);
 
                 }
-
             }
         };
 
@@ -247,18 +241,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
 
-        if(eventsCall.isExecuted()||schedulesCall.isExecuted()||categoriesCall.isExecuted()){
-            eventsCall.cancel();
-            schedulesCall.cancel();
-            categoriesCall.cancel();
-        }
-    }
-*/
     @Override
     public void onDestroy() {
         super.onDestroy();

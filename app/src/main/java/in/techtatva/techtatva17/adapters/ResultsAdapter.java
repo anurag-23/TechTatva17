@@ -1,6 +1,5 @@
 package in.techtatva.techtatva17.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -9,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.fragments.ResultsFragment;
-import in.techtatva.techtatva17.models.result.ResultModel;
 
 /**
  * Created by Sapta on 6/16/2017.

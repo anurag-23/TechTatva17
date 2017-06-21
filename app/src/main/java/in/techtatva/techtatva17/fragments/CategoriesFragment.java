@@ -24,16 +24,9 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.CategoriesAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
-import in.techtatva.techtatva17.models.categories.CategoriesListModel;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
-import in.techtatva.techtatva17.models.events.ScheduleListModel;
-import in.techtatva.techtatva17.models.events.ScheduleModel;
-import in.techtatva.techtatva17.network.APIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class CategoriesFragment extends Fragment {
@@ -52,7 +45,6 @@ public class CategoriesFragment extends Fragment {
 
     public static CategoriesFragment newInstance() {
         CategoriesFragment fragment = new CategoriesFragment();
-
         return fragment;
     }
 
@@ -89,9 +81,7 @@ public class CategoriesFragment extends Fragment {
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
             displayData();
-
         }
-
         return view;
     }
 
@@ -141,14 +131,10 @@ public class CategoriesFragment extends Fragment {
         final SearchView searchView = (SearchView)searchItem.getActionView();
 
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-
         searchView.setSubmitButtonEnabled(false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String text) {
                 displaySearchData(text);
@@ -164,9 +150,6 @@ public class CategoriesFragment extends Fragment {
             }
         });
         searchView.setQueryHint("Search Categories");
-
-
-
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override

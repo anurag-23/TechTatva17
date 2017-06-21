@@ -1,7 +1,5 @@
 package in.techtatva.techtatva17.adapters;
 
-import android.app.usage.UsageEvents;
-import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +9,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
-import in.techtatva.techtatva17.models.events.EventsListModel;
 import in.techtatva.techtatva17.models.events.ScheduleListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
@@ -37,9 +33,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     private RealmResults<FavouritesModel> favouritesRealm = realm.where(FavouritesModel.class).findAll();
     private List<FavouritesModel> favourites = realm.copyFromRealm(favouritesRealm);
 
-//    private List<FavouritesModel> favouritesModelList = new ArrayList<>();
 
-    //Interfaces to ClickListener of the item and of the Favourite Icon in the item
     public interface EventClickListener {
         void onItemClick(ScheduleModel event);
     }
@@ -128,7 +122,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 .inflate(R.layout.item_event, parent, false);
 
         return new EventViewHolder(itemView);
-
     }
 
     @Override
