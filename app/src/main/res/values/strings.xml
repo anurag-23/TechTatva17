@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_search">Search</string>
+    <string name="action_delete_all">Delete All</string>
 
     <string name="fest_name"><b>TechTatva\'17</b></string>
     <string name="fest_tag_line"><i>Replace with tag line</i></string>
@@ -44,4 +45,8 @@
     <string name="day_3">Day 3</string>
     <string name="day_4">Day 4</string>
     <string name="no_events">No events</string>
+
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+
 </resources>
