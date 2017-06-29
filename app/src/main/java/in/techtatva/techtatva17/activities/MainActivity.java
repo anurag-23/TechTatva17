@@ -1,20 +1,24 @@
 package in.techtatva.techtatva17.activities;
 
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -38,6 +42,9 @@ public class MainActivity extends AppCompatActivity  {
     private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
+
+    //TODO:Replace this with Event Website
+    String CCT_LAUNCH_URL = "https://www.google.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,10 +136,10 @@ public class MainActivity extends AppCompatActivity  {
                 selectedFragment = FavouritesFragment.newInstance();
 
             } else if (id == R.id.drawer_online_events) {
-                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(GONE);
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(VISIBLE);
+//                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+//                appBarLayout.setVisibility(GONE);
+//                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+//                navigation.setVisibility(VISIBLE);
 
                 selectedFragment = OnlineEventsFragment.newInstance();
 
@@ -161,10 +168,15 @@ public class MainActivity extends AppCompatActivity  {
                 selectedFragment = AboutUsFragment.newInstance();
 
             }
+            if(selectedFragment.getClass()==OnlineEventsFragment.class){
+                //Launching Chrome Custom Tab for Online Events
+                launchCCT();
+            }else{
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_frame_layout, selectedFragment);
+                transaction.commit();
+            }
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_frame_layout, selectedFragment);
-            transaction.commit();
 
 
             drawer.closeDrawer(GravityCompat.START);
@@ -217,12 +229,22 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-
     @Override
     public void onDestroy(){
         super.onDestroy();
+    }
 
-
+    private void launchCCT(){
+        Uri uri = Uri.parse(CCT_LAUNCH_URL);
+        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        intentBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
+        intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right);
+        CustomTabsIntent customTabsIntent = intentBuilder.build();
+        Log.i("MainActivity:", "Launching Chrome Custom Tab.....");
+        customTabsIntent.launchUrl(this, uri);
     }
 
 

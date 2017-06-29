@@ -30,7 +30,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:gravity="left"
+        android:gravity="start"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -58,7 +58,7 @@
             android:id="@+id/event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_weight="4"
 
             android:layout_gravity="center_vertical"
 
@@ -73,6 +73,18 @@
             app:layout_constraintRight_toLeftOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Event Name" />
+
+        <ImageView
+            android:visibility="visible"
+            android:alpha="0.54"
+            android:id="@+id/event_delete_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_delete"
+            android:clickable="true"
+            />
 
 
     </LinearLayout>

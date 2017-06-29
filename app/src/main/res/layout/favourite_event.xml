@@ -22,6 +22,7 @@
                 android:src="@drawable/ic_sample_image_24dp"/>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/fav_event_round_text_view"
                 android:layout_height="24dp"
                 android:layout_width="24dp"

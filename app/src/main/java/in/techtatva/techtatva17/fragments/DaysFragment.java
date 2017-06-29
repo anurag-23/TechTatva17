@@ -106,7 +106,6 @@ public class DaysFragment extends Fragment {
             @Override
             public void onItemClick(ScheduleModel event) {
                 //Favourite Clicked
-                //TODO : Add the favourite Event to the DB and make the Favourite Icon red
             }
         };
 
@@ -161,7 +160,7 @@ public class DaysFragment extends Fragment {
             }
         };
 
-        adapter = new EventsAdapter(currentDayEvents, eventClickListener, eventLongPressListener, favouriteClickListener);
+        adapter = new EventsAdapter(getActivity(),currentDayEvents, eventClickListener, eventLongPressListener, favouriteClickListener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         daysRecyclerView.setLayoutManager(layoutManager);
         daysRecyclerView.setItemAnimator(new DefaultItemAnimator());
