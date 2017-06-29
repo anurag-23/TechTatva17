@@ -3,7 +3,7 @@
     package="in.techtatva.techtatva17">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".application.TechTatva"
@@ -19,10 +19,6 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-
-
-
-
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
@@ -33,7 +29,6 @@
         <activity
             android:name=".activities.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBarActivityTheme" />
-
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,6 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".receivers.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>
