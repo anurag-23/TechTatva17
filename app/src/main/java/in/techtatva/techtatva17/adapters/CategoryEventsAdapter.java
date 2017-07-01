@@ -122,6 +122,9 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
             eventDescription.setText(event.getDescription());
 
+            ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
+            deleteIcon.setVisibility(View.GONE);
+
             dialog.setContentView(view);
             dialog.show();
 

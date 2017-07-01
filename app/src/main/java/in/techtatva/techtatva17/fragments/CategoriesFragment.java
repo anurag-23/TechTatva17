@@ -128,6 +128,8 @@ public class CategoriesFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_hardware, menu);
         searchItem = menu.findItem(R.id.action_search);
+        MenuItem filter = menu.findItem(R.id.menu_filter);
+        filter.setVisible(false);
         final SearchView searchView = (SearchView)searchItem.getActionView();
 
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);

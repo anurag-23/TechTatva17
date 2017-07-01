@@ -1,10 +1,14 @@
 package in.techtatva.techtatva17.models.events;
 
+import android.util.Log;
+
+import io.realm.RealmObject;
+
 /**
  * Created by sapta on 5/27/2017.
  */
 
-public class EventModel {
+public class EventModel extends RealmObject{
 
     private String eventName;
     private String eventId;

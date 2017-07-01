@@ -136,6 +136,8 @@ public class FavouritesFragment extends Fragment {
                                 if(adapterDay4!=null){
                                     adapterDay4.notifyItemRangeRemoved(0,favSize4);
                                 }
+
+                                displayEvents();
                                 updateRealm();
                             }
                         })
@@ -273,18 +275,25 @@ public class FavouritesFragment extends Fragment {
                     case 1: int pos1 = favouritesDay1.indexOf(event);
                         favouritesDay1.remove(event);
                         adapterDay1.notifyItemRemoved(pos1);
+                        displayEvents();
                         break;
                     case 2:  int pos2 = favouritesDay2.indexOf(event);
                         favouritesDay2.remove(event);
                         adapterDay2.notifyItemRemoved(pos2);
+                        displayEvents();
+
                         break;
                     case 3: int pos3 = favouritesDay3.indexOf(event);
                         favouritesDay3.remove(event);
                         adapterDay3.notifyItemRemoved(pos3);
+                        displayEvents();
+
                         break;
                     case 4:  int pos4 = favouritesDay4.indexOf(event);
                         favouritesDay4.remove(event);
                         adapterDay4.notifyItemRemoved(pos4);
+                        displayEvents();
+
 
                         break;
                 }

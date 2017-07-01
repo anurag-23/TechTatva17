@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
+import in.techtatva.techtatva17.models.events.EventModel;
 import in.techtatva.techtatva17.models.events.ScheduleListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
@@ -41,7 +42,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     private final int EVENT_MONTH = Calendar.JUNE;
     private PendingIntent pendingIntent1 = null;
     private PendingIntent pendingIntent2 = null;
-    private ScheduleListModel eventList;
+    private List<EventModel> eventList;
     private final EventClickListener eventListener;
     private final FavouriteClickListener favouriteListener;
     private final EventLongPressListener eventLongPressListener;
@@ -51,7 +52,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     private Activity activity;
 
     public interface EventClickListener {
-        void onItemClick(ScheduleModel event);
+        void onItemClick(ScheduleModel event, View view);
     }
     public interface FavouriteClickListener {
         void onItemClick(ScheduleModel event);
@@ -74,8 +75,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventTime = (TextView)view.findViewById(R.id.event_time_text_view);
             eventItem = (RelativeLayout)view.findViewById(R.id.event_item_relative_layout);
         }
-        public void onBind(final ScheduleModel event, final EventClickListener eventListener,final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
+        public void onBind(final EventModel events, final EventClickListener eventListener,final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
             //Individual OnClickListeners for the Favourite Icon and the entire Item
+            final ScheduleModel event = realm.where(ScheduleModel.class).equalTo("eventID",events.getEventId()).findFirst();
             favIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -97,7 +99,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    eventListener.onItemClick(event);
+                    eventListener.onItemClick(event,v);
 
                 }
             });
@@ -124,7 +126,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     }
 
 
-    public EventsAdapter(Activity activity, ScheduleListModel events, EventClickListener eventListener, EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
+    public EventsAdapter(Activity activity, List<EventModel> events, EventClickListener eventListener, EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
         this.eventList = events;
         this.eventListener = eventListener;
         this.favouriteListener = favouriteListener;
@@ -143,13 +145,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        ScheduleModel event = eventList.getData().get(position);
+        EventModel event = eventList.get(position);
+        if(event.getEventName().contains("V")){
+            Log.d("T",event.getEventName());
+            Log.d("T",event.getEventId());
+            Log.d("T",event.getDay());
+            Log.d("T"," ");}
+
         holder.onBind(event,eventListener, eventLongPressListener,favouriteListener );
     }
 
     @Override
     public int getItemCount() {
-        return eventList.getData().size();
+
+        return eventList.size();
     }
 
     private void addFavourite(ScheduleModel eventSchedule){
