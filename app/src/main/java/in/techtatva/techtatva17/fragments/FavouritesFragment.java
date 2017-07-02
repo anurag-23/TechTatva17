@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -259,8 +261,21 @@ public class FavouritesFragment extends Fragment {
         TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
         eventCategory.setText(event.getCatName());
 
-        TextView eventContact = (TextView)view.findViewById(R.id.event_contact);
-        eventContact.setText(schedule.getContactName() + " ( " + schedule.getContactNo() + " )");
+        TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+        eventContactName.setText(event.getContactName() + " : ");
+
+        TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
+        eventContact.setText(  event.getContactNumber());
+        eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+        eventContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
+
+                startActivity(intent);
+            }
+        });
 
         TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
         eventDescription.setText(schedule.getDescription());

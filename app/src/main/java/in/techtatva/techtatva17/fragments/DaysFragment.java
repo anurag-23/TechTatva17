@@ -1,6 +1,9 @@
 package in.techtatva.techtatva17.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
@@ -124,7 +127,7 @@ public class DaysFragment extends Fragment {
 
                 String eventID = event.getEventID();
 
-                EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID", eventID).findFirst();
+                final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID", eventID).findFirst();
 
 
                 TextView eventName = (TextView) view.findViewById(R.id.event_name);
@@ -148,8 +151,21 @@ public class DaysFragment extends Fragment {
                 TextView eventCategory = (TextView) view.findViewById(R.id.event_category);
                 eventCategory.setText(event.getCatName());
 
+                TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+                eventContactName.setText(schedule.getContactName() + " : ");
+
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-                eventContact.setText(schedule.getContactName() + " ( " + schedule.getContactNo() + " )");
+                eventContact.setText(  schedule.getContactNo());
+                eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+                eventContact.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
+
+                        getActivity().startActivity(intent);
+                    }
+                });
 
                 TextView eventDescription = (TextView) view.findViewById(R.id.event_description);
                 eventDescription.setText(schedule.getDescription());
