@@ -7,8 +7,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import in.techtatva.techtatva17.R;
@@ -32,6 +39,8 @@ public class SplashActivity extends AppCompatActivity {
     boolean isConnected;
 
     public Runnable test;
+
+    private ConstraintLayout rootLayout;
 
     private Realm mDatabase;
 
@@ -82,11 +91,34 @@ public class SplashActivity extends AppCompatActivity {
         else{
 
             if (!isConnected){
-                Toast.makeText(context, "Please check your network settings and reload app", Toast.LENGTH_SHORT).show();
+                rootLayout = (ConstraintLayout)findViewById(R.id.splash_constraint_layout);
+                final LinearLayout noConnectionLayout = (LinearLayout)findViewById(R.id.splash_no_connection_layout);
+                Button retry = (Button)noConnectionLayout.findViewById(R.id.retry);
+
+                noConnectionLayout.setVisibility(View.VISIBLE);
+
+                retry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        ConnectivityManager cmTemp = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
+                        boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+
+                        if (isConnectedTemp){
+                            noConnectionLayout.setVisibility(View.GONE);
+                            Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
+                            loadAllFromInternet();
+                        }
+                        else{
+                            Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
             else{
-                Toast.makeText(context, "Loading data for the first time. Takes a couple of seconds", Toast.LENGTH_SHORT).show();
+                Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
                 loadAllFromInternet();
             }
         }
@@ -118,10 +150,11 @@ public class SplashActivity extends AppCompatActivity {
 
                     if (counter == 10 && !dataAvailableLocally){
                         if(eventsDataAvailableLocally || schedulesDataAvailableLocally || categoriesDataAvailableLocally){
-                            Toast.makeText(context, "Possible slow internet connection", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(rootLayout, "Possible slow internet connection", Snackbar.LENGTH_SHORT).show();
+
                         }
                         else{
-                            Toast.makeText(context, "Server may be down. Please try again later", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(rootLayout, "Server may be down. Please try again later", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                     mHandler.postDelayed(test,1000);
