@@ -100,6 +100,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             view = View.inflate(context, R.layout.activity_event_dialogue, null);
 
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
+            
 
             TextView eventName = (TextView) view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());

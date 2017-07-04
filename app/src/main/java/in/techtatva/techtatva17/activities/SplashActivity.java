@@ -64,6 +64,8 @@ public class SplashActivity extends AppCompatActivity {
 
         mDatabase = Realm.getDefaultInstance();
 
+        rootLayout = (ConstraintLayout)findViewById(R.id.splash_constraint_layout);
+
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         dataAvailableLocally = sharedPref.getBoolean("dataAvailableLocally",false);
 
@@ -91,7 +93,7 @@ public class SplashActivity extends AppCompatActivity {
         else{
 
             if (!isConnected){
-                rootLayout = (ConstraintLayout)findViewById(R.id.splash_constraint_layout);
+
                 final LinearLayout noConnectionLayout = (LinearLayout)findViewById(R.id.splash_no_connection_layout);
                 Button retry = (Button)noConnectionLayout.findViewById(R.id.retry);
 
