@@ -53,13 +53,15 @@
     <LinearLayout
         android:id="@+id/bottom_nav_container"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/transparent"
-
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+
+        android:background="@color/transparent"
+        android:hapticFeedbackEnabled="false"
+        android:orientation="horizontal">
+
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
@@ -67,10 +69,10 @@
             android:layout_gravity="bottom"
             android:layout_marginTop="2dp"
             android:background="?android:attr/windowBackground"
-            app:elevation="10dp"
+            android:hapticFeedbackEnabled="false"
 
-            app:menu="@menu/menu_bottom_nav"
-             />
+            app:elevation="10dp"
+            app:menu="@menu/menu_bottom_nav" />
 
     </LinearLayout>
 
