@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -201,7 +202,7 @@ public class EventsFragment extends Fragment {
                 recyclerView.removeAllViews();
                 recyclerView.removeAllViewsInLayout();
                 FilterVenueAdapter adapter = new FilterVenueAdapter(venueList, getContext(), filterVenue);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
                 recyclerView.setAdapter(adapter);
                 recyclerDisplayed = true;
                 adapter.notifyDataSetChanged();
