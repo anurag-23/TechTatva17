@@ -1,8 +1,12 @@
 package in.techtatva.techtatva17.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -24,9 +29,13 @@ import java.util.Locale;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.EventsAdapter;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
+import in.techtatva.techtatva17.models.events.EventModel;
+import in.techtatva.techtatva17.models.events.EventsListModel;
 import in.techtatva.techtatva17.models.events.ScheduleListModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
+import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class DaysFragment extends Fragment {
@@ -38,19 +47,19 @@ public class DaysFragment extends Fragment {
     private static final String ARG_PARAM6 = "end";
     private static final String ARG_PARAM7 = "filter";
     public static EventsAdapter adapter;
-    public List<ScheduleModel> events;
-    public List<ScheduleModel> filteredEvents = new ArrayList<>();
+    public List<EventModel> events = new ArrayList<>();
+    public List<EventModel> filteredEvents = new ArrayList<>();
     Activity activity;
     RecyclerView daysRecyclerView;
     Realm realm = Realm.getDefaultInstance();
-    private int day;
+    public int day;
     private String searchTerm;
     private String categoryFilter;
     private String venueFilter;
     private String startTimeFilter;
     private String endTimeFilter;
     private boolean filter;
-    private ScheduleListModel currentDayEvents = new ScheduleListModel();
+    private List<EventModel> currentDayEvents = new ArrayList<>();
 
     public DaysFragment() {
         // Required empty public constructor
@@ -109,16 +118,16 @@ public class DaysFragment extends Fragment {
             }
         };
 
-        EventsAdapter.EventClickListener eventClickListener = new EventsAdapter.EventClickListener() {
+         EventsAdapter.EventClickListener eventClickListener = new EventsAdapter.EventClickListener() {
             @Override
-            public void onItemClick(ScheduleModel event) {
+            public void onItemClick(final ScheduleModel event, final View view1) {
 
-                View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
+                final View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
                 final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
 
                 String eventID = event.getEventID();
 
-                EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID", eventID).findFirst();
+                final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID", eventID).findFirst();
 
 
                 TextView eventName = (TextView) view.findViewById(R.id.event_name);
@@ -142,11 +151,49 @@ public class DaysFragment extends Fragment {
                 TextView eventCategory = (TextView) view.findViewById(R.id.event_category);
                 eventCategory.setText(event.getCatName());
 
+                TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+                eventContactName.setText(schedule.getContactName() + " : ");
+
                 TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-                eventContact.setText(schedule.getContactName() + " ( " + schedule.getContactNo() + " )");
+                eventContact.setText(  schedule.getContactNo());
+                eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+                eventContact.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + schedule.getContactNo()));
+
+                        getActivity().startActivity(intent);
+                    }
+                });
 
                 TextView eventDescription = (TextView) view.findViewById(R.id.event_description);
                 eventDescription.setText(schedule.getDescription());
+
+                final ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
+
+                String sDay = Integer.toString(day);
+
+                final RealmResults<FavouritesModel> results =    realm.where(FavouritesModel.class).equalTo("id", eventID).contains("day", (day + 1) + "").findAll();
+
+                if(results.size() == 0 ){deleteIcon.setVisibility(View.GONE);}
+
+                deleteIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        realm.beginTransaction();
+                        results.deleteAllFromRealm();
+                        realm.commitTransaction();
+                        ImageView fave = (ImageView) view1.findViewById(R.id.event_fav_ico);
+                        fave.setImageResource(R.drawable.ic_fav_deselected);
+                        fave.setTag("deselected");
+                        deleteIcon.setVisibility(View.GONE);
+                        }
+
+
+
+
+                });
 
                 dialog.setContentView(view);
                 dialog.show();
@@ -169,6 +216,8 @@ public class DaysFragment extends Fragment {
         daysRecyclerView.addItemDecoration(dividerItemDecoration);
         return view;
     }
+
+
 
     public void getSearchDataFromRealm(String text, String categoryFilter, String venueFilter, String startTimeFilter, String endTimeFilter, boolean filter) {
 
@@ -197,11 +246,16 @@ public class DaysFragment extends Fragment {
                 venueFilter = "";
             }
 
+            RealmResults<ScheduleModel> tempevents;
+            tempevents = realm.where(ScheduleModel.class).contains("day", (day + 1) + "").contains("eventName", text).contains("catName", categoryFilter).contains("venue", venueFilter).findAllSorted("eventName");
 
-            events = realm.where(ScheduleModel.class).contains("day", (day + 1) + "").contains("eventName", text).contains("catName", categoryFilter).contains("venue", venueFilter).findAllSorted("eventName");
+            for (ScheduleModel schedule : tempevents) {
+                EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
+                EventModel event = new EventModel(eventDetails, schedule);
+                events.add(event);
+            }
 
-
-            for (ScheduleModel schedule : events) {
+            for (EventModel schedule : events) {
                 try {
                     startDate = sdf.parse(schedule.getStartTime());
                     endDate = sdf.parse(schedule.getEndTime());
@@ -218,10 +272,38 @@ public class DaysFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            currentDayEvents.setData(filteredEvents);
+            currentDayEvents = (filteredEvents);
         } else {
-            events = realm.where(ScheduleModel.class).contains("day", (day + 1) + "").contains("eventName", text).findAllSorted("eventName");
-            currentDayEvents.setData(events);
+            RealmResults<ScheduleModel> tempevents;
+            //events = realm.where(EventModel.class).contains("day", (day + 1) + "").contains("eventName", text).findAll();
+            tempevents = realm.where(ScheduleModel.class).contains("day", (day + 1) + "").findAllSorted("eventName");
+
+
+
+
+            for (ScheduleModel schedule : tempevents) {
+
+
+                EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
+
+                if (eventDetails.getEventName().contains(text)){
+                    EventModel event = new EventModel(eventDetails, schedule);
+
+
+
+
+
+                        currentDayEvents.add(event);
+
+
+
+                }
+
+            }
+
+
+
+
         }
 
 

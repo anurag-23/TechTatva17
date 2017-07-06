@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/padding_default">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="No Connection"
+        android:textAllCaps="true"
+        android:layout_marginBottom="@dimen/padding_2x"/>
+
+    <!--
+        TODO : change connection error message
+    -->
+
+    <ImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:alpha="0.54"
+        android:src="@drawable/ic_connection_error_24px"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please connect to the internet and retry"
+        android:textSize="@dimen/typography_title"
+        android:layout_marginTop="@dimen/padding_default"
+        android:gravity="center"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp">
+
+        <Button
+            android:id="@+id/retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="Retry" />
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

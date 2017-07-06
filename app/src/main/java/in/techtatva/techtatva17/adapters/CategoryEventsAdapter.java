@@ -1,9 +1,16 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +36,9 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
     EventModel event;
 
 
-    public CategoryEventsAdapter(List<EventModel> eventsList, Activity activity,Context context){
-        this.eventsList=eventsList;
-        this.activity=activity;
+    public CategoryEventsAdapter(List<EventModel> eventsList, Activity activity, Context context) {
+        this.eventsList = eventsList;
+        this.activity = activity;
         this.context = context;
     }
 
@@ -50,13 +57,12 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         holder.eventRound.setVisibility(View.VISIBLE);
 
-        if (event.getRound() != null && !event.getRound().equals("-") && !event.getRound().equals("")){
+        if (event.getRound() != null && !event.getRound().equals("-") && !event.getRound().equals("")) {
             if (event.getRound().toLowerCase().charAt(0) == 'r')
                 holder.eventRound.setText(event.getRound().toUpperCase());
             else
-                holder.eventRound.setText("R"+event.getRound().toUpperCase().charAt(0));
-        }
-        else{
+                holder.eventRound.setText("R" + event.getRound().toUpperCase().charAt(0));
+        } else {
             holder.eventRound.setVisibility(View.GONE);
         }
     }
@@ -88,39 +94,57 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         @Override
         public void onClick(View view) {
 
-            EventModel event = eventsList.get(getLayoutPosition());
+            final EventModel event = eventsList.get(getLayoutPosition());
 
-            Context context=view.getContext();
-            view = View.inflate(context,R.layout.activity_event_dialogue,null);
+            final Context context = view.getContext();
+            view = View.inflate(context, R.layout.activity_event_dialogue, null);
 
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
+            
 
-            TextView eventName = (TextView)view.findViewById(R.id.event_name);
+            TextView eventName = (TextView) view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());
 
-            TextView eventRound = (TextView)view.findViewById(R.id.event_round);
+            TextView eventRound = (TextView) view.findViewById(R.id.event_round);
             eventRound.setText(event.getRound());
 
-            TextView eventDate = (TextView)view.findViewById(R.id.event_date);
+            TextView eventDate = (TextView) view.findViewById(R.id.event_date);
             eventDate.setText(event.getDate());
 
-            TextView eventTime = (TextView)view.findViewById(R.id.event_time);
+            TextView eventTime = (TextView) view.findViewById(R.id.event_time);
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
 
-            TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
+            TextView eventVenue = (TextView) view.findViewById(R.id.event_venue);
             eventVenue.setText(event.getVenue());
 
-            TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
+            TextView eventTeamSize = (TextView) view.findViewById(R.id.event_team_size);
             eventTeamSize.setText(event.getEventMaxTeamNumber());
 
-            TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
+            TextView eventCategory = (TextView) view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
 
-            TextView eventContact = (TextView)view.findViewById(R.id.event_contact);
-            eventContact.setText(event.getContactName() + " ( " + event.getContactNumber() + " )");
+            TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+            eventContactName.setText(event.getContactName() + " : ");
+
+            TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
+            eventContact.setText(  event.getContactNumber());
+            eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+            eventContact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
+
+
+                    activity.startActivity(intent);
+                }
+            });
 
             TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
             eventDescription.setText(event.getDescription());
+
+            ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
+            deleteIcon.setVisibility(View.GONE);
 
             dialog.setContentView(view);
             dialog.show();
@@ -128,4 +152,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         }
     }
+
+
 }

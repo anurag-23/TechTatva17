@@ -372,15 +372,27 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/colorAccent"
+
 
                 android:layout_alignBaseline="@+id/textView10"
                 android:layout_alignBottom="@+id/textView10"
 
-                android:layout_toEndOf="@id/textView10"
-                android:layout_toRightOf="@id/textView10"
+                android:layout_toEndOf="@+id/event_contact_name"
 
 
-                android:text="TextView" />
+                android:text="TextView"
+                android:layout_toRightOf="@+id/event_contact_name" />
+
+            <TextView
+                android:id="@+id/event_contact_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_alignBaseline="@+id/textView10"
+                android:layout_alignBottom="@+id/textView10"
+                android:layout_toRightOf="@+id/textView10"
+                android:layout_toEndOf="@+id/textView10" />
 
 
         </RelativeLayout>

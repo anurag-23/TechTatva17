@@ -1,7 +1,11 @@
 package in.techtatva.techtatva17.fragments;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -55,7 +59,7 @@ public class ResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_results, container, false);
+        final View view= inflater.inflate(R.layout.fragment_results, container, false);
 
         RecyclerView resultsRecyclerView = (RecyclerView)view.findViewById(R.id.results_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.results_swipe_refresh_layout);
@@ -68,7 +72,14 @@ public class ResultsFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateData();
+                ConnectivityManager cmTemp = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
+                boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+                if(isConnectedTemp){updateData();}
+                else{
+                    Snackbar.make(view, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);}
+
             }
         });
         return view;
@@ -78,7 +89,7 @@ public class ResultsFragment extends Fragment {
     private void displayData(){
         if (mDatabase == null) return;
 
-        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position", Sort.ASCENDING);
+        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
 
         if (!results.isEmpty()){
             resultsList.clear();

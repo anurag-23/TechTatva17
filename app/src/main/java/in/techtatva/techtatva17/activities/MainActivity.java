@@ -67,12 +67,12 @@ public class MainActivity extends AppCompatActivity  {
         toggle.syncState();
 
 
-         drawerView = (NavigationView) findViewById(R.id.nav_view);
+        drawerView = (NavigationView) findViewById(R.id.nav_view);
         drawerView.setNavigationItemSelectedListener(mOnDrawerItemSelectedListener);
         drawerView.setCheckedItem(R.id.drawer_home);
         drawerView.setSelected(true);
 
-         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
         navigation.setOnNavigationItemSelectedListener(mOnBottomNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.bottom_nav_home);
         navigation.setSelected(true);
@@ -96,11 +96,12 @@ public class MainActivity extends AppCompatActivity  {
                 case R.id.bottom_nav_categories:
                     selectedFragment = CategoriesFragment.newInstance();
                     break;
-
             }
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_frame_layout, selectedFragment);
+            transaction.setCustomAnimations(R.anim.slide_in_from_top,R.anim.blank).replace(R.id.main_frame_layout, selectedFragment);
             transaction.commit();
+
             return true;
         }
 
@@ -173,11 +174,9 @@ public class MainActivity extends AppCompatActivity  {
                 launchCCT();
             }else{
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_frame_layout, selectedFragment);
+                transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, selectedFragment);
                 transaction.commit();
             }
-
-
 
             drawer.closeDrawer(GravityCompat.START);
             return true;
@@ -201,14 +200,12 @@ public class MainActivity extends AppCompatActivity  {
                 if(TechTatva.searchOpen ==1 && drawerView.getMenu().getItem(0).isChecked()){
 
                     fm.beginTransaction().replace(R.id.main_frame_layout, new CategoriesFragment()).commit();
-
                     TechTatva.searchOpen =0;
                 }
 
                 if(TechTatva.searchOpen ==2 && drawerView.getMenu().getItem(0).isChecked()){
 
                     fm.beginTransaction().replace(R.id.main_frame_layout, new EventsFragment()).commit();
-
                     TechTatva.searchOpen =0;
                 }
 
@@ -216,7 +213,6 @@ public class MainActivity extends AppCompatActivity  {
                     fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
                     drawerView.setCheckedItem(R.id.drawer_home);
                     navigation.setSelectedItemId(R.id.bottom_nav_home);
-
                 }
 
 

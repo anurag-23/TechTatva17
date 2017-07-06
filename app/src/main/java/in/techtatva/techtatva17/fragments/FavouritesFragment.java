@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -136,6 +138,8 @@ public class FavouritesFragment extends Fragment {
                                 if(adapterDay4!=null){
                                     adapterDay4.notifyItemRangeRemoved(0,favSize4);
                                 }
+
+                                displayEvents();
                                 updateRealm();
                             }
                         })
@@ -257,8 +261,21 @@ public class FavouritesFragment extends Fragment {
         TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
         eventCategory.setText(event.getCatName());
 
-        TextView eventContact = (TextView)view.findViewById(R.id.event_contact);
-        eventContact.setText(schedule.getContactName() + " ( " + schedule.getContactNo() + " )");
+        TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+        eventContactName.setText(event.getContactName() + " : ");
+
+        TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
+        eventContact.setText(  event.getContactNumber());
+        eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
+        eventContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
+
+                startActivity(intent);
+            }
+        });
 
         TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
         eventDescription.setText(schedule.getDescription());
@@ -273,18 +290,25 @@ public class FavouritesFragment extends Fragment {
                     case 1: int pos1 = favouritesDay1.indexOf(event);
                         favouritesDay1.remove(event);
                         adapterDay1.notifyItemRemoved(pos1);
+                        displayEvents();
                         break;
                     case 2:  int pos2 = favouritesDay2.indexOf(event);
                         favouritesDay2.remove(event);
                         adapterDay2.notifyItemRemoved(pos2);
+                        displayEvents();
+
                         break;
                     case 3: int pos3 = favouritesDay3.indexOf(event);
                         favouritesDay3.remove(event);
                         adapterDay3.notifyItemRemoved(pos3);
+                        displayEvents();
+
                         break;
                     case 4:  int pos4 = favouritesDay4.indexOf(event);
                         favouritesDay4.remove(event);
                         adapterDay4.notifyItemRemoved(pos4);
+                        displayEvents();
+
 
                         break;
                 }
