@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity  {
     private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
-    private int previousFragment;
 
     //TODO:Replace this with Event Website
     String CCT_LAUNCH_URL = "https://www.google.com";
@@ -68,15 +67,14 @@ public class MainActivity extends AppCompatActivity  {
         toggle.syncState();
 
 
-         drawerView = (NavigationView) findViewById(R.id.nav_view);
+        drawerView = (NavigationView) findViewById(R.id.nav_view);
         drawerView.setNavigationItemSelectedListener(mOnDrawerItemSelectedListener);
         drawerView.setCheckedItem(R.id.drawer_home);
         drawerView.setSelected(true);
 
-         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
         navigation.setOnNavigationItemSelectedListener(mOnBottomNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.bottom_nav_home);
-        previousFragment=1;
         navigation.setSelected(true);
 
         fm = getSupportFragmentManager();
@@ -88,44 +86,21 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment=null;
-            int currentFragment=0;
             switch (item.getItemId()) {
                 case R.id.bottom_nav_home:
-                    currentFragment=1;
                     selectedFragment = HomeFragment.newInstance();
                     break;
                 case R.id.bottom_nav_events:
-                    currentFragment=2;
                     selectedFragment = EventsFragment.newInstance();
                     break;
                 case R.id.bottom_nav_categories:
-                    currentFragment=3;
                     selectedFragment = CategoriesFragment.newInstance();
                     break;
-
             }
 
-            if(currentFragment>previousFragment)
-            {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, selectedFragment);
-                transaction.commit();
-                previousFragment=currentFragment;
-            }
-
-            else if (currentFragment==previousFragment){
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_frame_layout, selectedFragment);
-                transaction.commit();
-            }
-
-            else{
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right).replace(R.id.main_frame_layout, selectedFragment);
-                transaction.commit();
-                previousFragment=currentFragment;
-
-            }
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_in_from_top,R.anim.blank).replace(R.id.main_frame_layout, selectedFragment);
+            transaction.commit();
 
             return true;
         }
@@ -150,7 +125,6 @@ public class MainActivity extends AppCompatActivity  {
                  appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
                 navigation.setSelectedItemId(R.id.bottom_nav_home);
-                previousFragment=1;
                 selectedFragment = HomeFragment.newInstance();
 
             } else if (id == R.id.drawer_favourites) {
@@ -204,8 +178,6 @@ public class MainActivity extends AppCompatActivity  {
                 transaction.commit();
             }
 
-
-
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
@@ -228,14 +200,12 @@ public class MainActivity extends AppCompatActivity  {
                 if(TechTatva.searchOpen ==1 && drawerView.getMenu().getItem(0).isChecked()){
 
                     fm.beginTransaction().replace(R.id.main_frame_layout, new CategoriesFragment()).commit();
-
                     TechTatva.searchOpen =0;
                 }
 
                 if(TechTatva.searchOpen ==2 && drawerView.getMenu().getItem(0).isChecked()){
 
                     fm.beginTransaction().replace(R.id.main_frame_layout, new EventsFragment()).commit();
-
                     TechTatva.searchOpen =0;
                 }
 
@@ -243,7 +213,6 @@ public class MainActivity extends AppCompatActivity  {
                     fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
                     drawerView.setCheckedItem(R.id.drawer_home);
                     navigation.setSelectedItemId(R.id.bottom_nav_home);
-
                 }
 
 

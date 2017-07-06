@@ -9,8 +9,9 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
+     android:duration="@android:integer/config_longAnimTime"
 -->
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <translate android:fromXDelta="0" android:toXDelta="100%p"
-        android:duration="@android:integer/config_longAnimTime"/>
+        android:duration="@android:integer/config_mediumAnimTime"/>
 </set>
