@@ -137,10 +137,10 @@ public class MainActivity extends AppCompatActivity  {
                 selectedFragment = FavouritesFragment.newInstance();
 
             } else if (id == R.id.drawer_online_events) {
-//                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-//                appBarLayout.setVisibility(GONE);
-//                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-//                navigation.setVisibility(VISIBLE);
+                /* appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout.setVisibility(GONE);
+                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation.setVisibility(VISIBLE);*/
 
                 selectedFragment = OnlineEventsFragment.newInstance();
 
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity  {
 
             } else if (id == R.id.drawer_developers) {
                  appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(GONE);
+                appBarLayout.setVisibility(VISIBLE);
                  navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(GONE);
 
