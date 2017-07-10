@@ -49,4 +49,21 @@
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
 
+    <string name="TechTatva_android">TechTatva\'17 (Android)</string>
+    <string name="TechTatva_ios">TechTatva\'17 (iOS)</string>
+    <string name="TechTatva_windows">TechTatva\'17 (Windows)</string>
+    <string name="head">Head</string>
+    <string name="developer">Developer</string>
+    <string name="Anurag">Anurag Choudhary</string>
+    <string name="Abhishek">Abhishek Vora</string>
+    <string name="Gautham">Gautham Vinod</string>
+    <string name="Rahul">Rahul Sathanapalli</string>
+    <string name="Reuben">Reuben Nellissery</string>
+    <string name="Saptarshi">Saptarshi Roy Choudhuri</string>
+    <string name="Mahima">Mahima Borah</string>
+    <string name="Rhitam">Rhitam Dutta</string>
+    <string name="Anjali">Anjali Premjit</string>
+    <string name="Krishna">Krishna Birla</string>
+
+
 </resources>

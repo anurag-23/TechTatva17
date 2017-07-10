@@ -26,7 +26,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             app:cardElevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
             >
@@ -35,7 +35,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
+                android:layout_height="48dp"
 
 
                 />

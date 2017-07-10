@@ -7,5 +7,7 @@
     <color name="fav_selected">#EF5350</color>
     <color name="item_divider">#757575</color>
     <color name="transparent">#00000000</color>
+    <color name="transparent_new">#8A000000</color>
+    <color name="black">#000000</color>
 
 </resources>
