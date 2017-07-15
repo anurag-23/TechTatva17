@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     tools:context="in.techtatva.techtatva17.fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
         android:layout_height="match_parent"
-        android:text="@string/home_fragment" />
+        android:layout_width="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
