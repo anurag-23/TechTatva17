@@ -23,6 +23,10 @@
     <string name="bottom_nav_categories">Categories</string>
 
     <string name="categories">Categories</string>
+    <string name="results">Results</string>
+    <string name="favourites">Favourites</string>
+    <string name="more">MORE</string>
+    <string name="home_insta_title">#TechTatva17 on Instagram</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Blank Fragment</string>
@@ -31,9 +35,9 @@
     <string name="event_fragment">Events </string>
     <string name="about_fragment">About Us  </string>
     <string name="developers_fragment">Developers</string>
-    <string name="favourites_fragment">Favourites</string>
     <string name="online_fragment">Online Events</string>
-    <string name="results_fragment">Results</string>
+
+
 
     <string name="venue">Venue</string>
     <string name="filter_events">Filter Events</string>

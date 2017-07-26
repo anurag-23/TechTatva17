@@ -3,28 +3,77 @@ package in.techtatva.techtatva17.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.activities.MainActivity;
+import in.techtatva.techtatva17.adapters.HomeFavouritesAdapter;
 import in.techtatva.techtatva17.adapters.HomeAdapter;
+import in.techtatva.techtatva17.adapters.HomeCategoriesAdapter;
+import in.techtatva.techtatva17.adapters.HomeResultsAdapter;
+import in.techtatva.techtatva17.models.categories.CategoryModel;
+import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.models.instagram.InstagramFeed;
+import in.techtatva.techtatva17.models.result.EventResultModel;
+import in.techtatva.techtatva17.models.result.ResultModel;
+import in.techtatva.techtatva17.models.result.ResultsListModel;
+import in.techtatva.techtatva17.network.APIClient;
 import in.techtatva.techtatva17.network.InstaFeedAPIClient;
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 
 public class HomeFragment extends Fragment {
     private InstagramFeed feed;
-    private HomeAdapter adapter;
+//    private ProgressDialog progressDialog;
+    private HomeAdapter instaAdapter;
+    private HomeResultsAdapter resultsAdapter;
+    private HomeCategoriesAdapter categoriesAdapter;
+    private HomeFavouritesAdapter favouritesAdapter;
     private RecyclerView homeRV;
+    private RecyclerView resultsRV;
+    private RecyclerView  categoriesRV;
+    private RecyclerView favouritesRV;
+    private TextView resultsMore;
+    private TextView categoriesMore;
+    private TextView favouritesMore;
+    private TextView resultsNone;
+    private AVLoadingIndicatorView progressDialogAnimation;
+    private ProgressDialog progressDialog;
+    private BottomNavigationView navigation;
+    private AppBarLayout appBarLayout;
+    private boolean ANIMATED_PROGRESS_DIALOG = false;
+    private int processes = 0;
     String TAG = "HomeFragment";
+    Realm mDatabase = Realm.getDefaultInstance();
+    private List<EventResultModel> resultsList = new ArrayList<>();
+    private List<CategoryModel> categoriesList = new ArrayList<>();
+    private List<FavouritesModel> favouritesList = new ArrayList<>();
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -40,39 +89,210 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.app_name);
-        loadFeed();
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        homeRV = (RecyclerView) view.findViewById(R.id.home_recycler_view);
+        // Inflate the layout for this fragment and initialize Views
+        View view = initViews(inflater, container);
+
+        //Progress Dialog
+        if(ANIMATED_PROGRESS_DIALOG){
+            progressDialogAnimation.setVisibility(View.VISIBLE);
+            ((View)progressDialogAnimation.getParent()).setVisibility(View.VISIBLE);
+            progressDialogAnimation.smoothToShow();
+        }else{
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("Loading....");
+            progressDialog.show();
+        }
+
+
+
+        //Fetch and Display InstaFeed
+        displayInstaFeed();
+
+        //Fetch and display Results
+        fetchResults();
+        resultsAdapter = new HomeResultsAdapter(resultsList);
+        resultsRV.setAdapter(resultsAdapter);
+        resultsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        resultsMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //MORE Clicked - Take user to Results Fragment
+                Log.i(TAG, "onClick: Results more");
+                ((MainActivity)getActivity()).changeFragment(ResultsFragment.newInstance());
+            }
+        });
+
+        //Display Categories
+        RealmResults<CategoryModel> categoriesRealmList = mDatabase.where(CategoryModel.class).findAll();
+        categoriesList = mDatabase.copyFromRealm(categoriesRealmList);
+        if(categoriesList.size()>10){
+            categoriesList.subList(10,categoriesList.size()).clear();
+        }
+        categoriesAdapter = new HomeCategoriesAdapter(categoriesList);
+        categoriesRV.setAdapter(categoriesAdapter);
+        categoriesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        categoriesAdapter.notifyDataSetChanged();
+        categoriesMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //MORE Clicked - Take user to Categories Fragment
+                Log.i(TAG, "onClick: Categories More");
+                ((MainActivity)getActivity()).changeFragment(CategoriesFragment.newInstance());
+
+            }
+        });
+        if(categoriesList.size()==0){
+            view.findViewById(R.id.home_categories_none_text_view).setVisibility(View.VISIBLE);
+        }
+
+        //Display favourites
+        RealmResults<FavouritesModel> favouritesRealmResults = mDatabase.where(FavouritesModel.class).findAll();
+        favouritesList = mDatabase.copyFromRealm(favouritesRealmResults);
+        if(favouritesList.size()>10){
+            favouritesList.subList(10, favouritesList.size()).clear();
+        }
+        favouritesAdapter = new HomeFavouritesAdapter(favouritesList, null);
+        Log.i(TAG, "onCreateView: FavouritesList size"+favouritesList.size());
+        favouritesRV.setAdapter(favouritesAdapter);
+        favouritesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        favouritesAdapter.notifyDataSetChanged();
+        favouritesMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //MORE Clicked - Take user to Favourites Fragment
+                Log.i(TAG, "onClick: Favourites More");
+                ((MainActivity)getActivity()).changeFragment(FavouritesFragment.newInstance());
+            }
+        });
+        if(favouritesList.size()==0){
+            view.findViewById(R.id.home_favourites_none_text_view).setVisibility(View.VISIBLE);
+        }
         return view;
     }
-    public void loadFeed(){
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
+
+
+
+    public void displayInstaFeed(){
         Call<InstagramFeed> call = InstaFeedAPIClient.getInterface().getInstagramFeed();
+        processes ++;
         call.enqueue(new Callback<InstagramFeed>() {
             @Override
             public void onResponse(Call<InstagramFeed> call, Response<InstagramFeed> response) {
                 if(response.isSuccess()){
                     feed = response.body();
-                    progressDialog.dismiss();
-                    adapter =  new HomeAdapter(feed);
-                    homeRV.setAdapter(adapter);
+                    instaAdapter =  new HomeAdapter(feed);
+                    homeRV.setAdapter(instaAdapter);
                     homeRV.setLayoutManager(new LinearLayoutManager(getContext()));
+                    ViewCompat.setNestedScrollingEnabled(homeRV, false);
+                    dismissDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<InstagramFeed> call, Throwable t) {
-                    progressDialog.dismiss();
+                dismissDialog();
                 Log.i(TAG, "onFailure: Error Fetching insta feed ");
             }
         });
+    }
+
+    public void updateResultsList(){
+
+        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
+        if (!results.isEmpty()){
+            resultsList.clear();
+            List<String> eventNamesList = new ArrayList<>();
+            for (ResultModel result : results){
+                String eventName = result.getEventName()+" "+result.getRound();
+                if (eventNamesList.contains(eventName)){
+                    resultsList.get(eventNamesList.indexOf(eventName)).eventResultsList.add(result);
+                }
+                else{
+                    EventResultModel eventResult = new EventResultModel();
+                    eventResult.eventName = result.getEventName();
+                    eventResult.eventRound = result.getRound();
+                    eventResult.eventCategory = result.getCatName();
+                    eventResult.eventResultsList.add(result);
+                    resultsList.add(eventResult);
+                    eventNamesList.add(eventName);
+                }
+            }
+        }
+        Log.i(TAG, "displayResults: resultsList size:"+resultsList.size());
+        if(resultsList.size()>10){
+            resultsList.subList(10,resultsList.size()).clear();
+        }
+        resultsAdapter.notifyDataSetChanged();
+        if(resultsList.size()==0){
+            resultsNone.setVisibility(View.VISIBLE);
+        }
+
+    }
+    public void fetchResults(){
+        processes++;
+        Call<ResultsListModel> callResultsList = APIClient.getAPIInterface().getResultsList();
+        callResultsList.enqueue(new Callback<ResultsListModel>() {
+            List<ResultModel> results = new ArrayList<ResultModel>();
+            @Override
+            public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
+                if (response.isSuccess() && response.body() != null){
+                    results = response.body().getData();
+                    mDatabase.beginTransaction();
+                    mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
+                    mDatabase.copyToRealm(results);
+                    mDatabase.commitTransaction();
+                    updateResultsList();
+                    dismissDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultsListModel> call, Throwable t) {
+                Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
+                processes--;
+                dismissDialog();
+            }
+        });
+    }
+
+
+    //Functions common to all sections
+    public void dismissDialog(){
+        processes--;
+        Log.i(TAG, "dismissDialog: Processes"+processes);
+
+        if(processes == 0){
+            if(ANIMATED_PROGRESS_DIALOG){
+                progressDialogAnimation.smoothToHide();
+            }else{
+                progressDialog.dismiss();
+            }
+        }
+    }
+    public View initViews(LayoutInflater inflater, ViewGroup container){
+        appBarLayout = (AppBarLayout) container.findViewById(R.id.app_bar);
+        navigation = (BottomNavigationView) container.findViewById(R.id.bottom_nav);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        homeRV = (RecyclerView) view.findViewById(R.id.home_recycler_view);
+        resultsRV = (RecyclerView) view.findViewById(R.id.home_results_recycler_view);
+        categoriesRV = (RecyclerView) view.findViewById(R.id.home_categories_recycler_view);
+        favouritesRV = (RecyclerView) view.findViewById(R.id.home_favourites_recycler_view);
+        resultsMore = (TextView) view.findViewById(R.id.home_results_more_text_view);
+        categoriesMore = (TextView) view.findViewById(R.id.home_categories_more_text_view);
+        favouritesMore = (TextView) view.findViewById(R.id.home_favourites_more_text_view);
+        resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
+        progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
+        return view;
     }
 }

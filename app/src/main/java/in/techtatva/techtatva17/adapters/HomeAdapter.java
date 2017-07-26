@@ -31,11 +31,7 @@ import in.techtatva.techtatva17.models.instagram.InstagramFeed;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolder> {
     String TAG = "HomeAdapter";
     private InstagramFeed feed;
-    private final EventClickListener eventListener = null;
     private Context context;
-    public interface EventClickListener {
-        void onItemClick(FavouritesModel event);
-    }
 
     public HomeAdapter(InstagramFeed feed) {
         this.feed = feed;
@@ -68,30 +64,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
         public TextView instaDescription;
         public TextView instaLikes;
         public TextView instaComments;
-
         public LinearLayout instaItem;
 
         public  HomeViewHolder(View view) {
-
             super(view);
-            instaImage = (ImageView) view.findViewById(R.id.insta_feed_img_image_view);
-            instaDP = (ImageView) view.findViewById(R.id.insta_feed_dp_image_view);
-            instaName = (TextView) view.findViewById(R.id.insta_feed_name_text_view);
-            instaComments = (TextView) view.findViewById(R.id.insta_feed_comments_text_view);
-            instaDescription = (TextView) view.findViewById(R.id.insta_feed_description_text_view);
-            instaLikes = (TextView)view.findViewById(R.id.insta_feed_likes_text_view);
-            instaItem = (LinearLayout)view.findViewById(R.id.insta_feed_item_linear_layout);
-
+            initializeViews(view);
         }
         public void onBind(final InstaFeedModel instaItem) {
-
             instaName.setText(instaItem.getUser().getUsername());
             instaDescription.setText(instaItem.getCaption().getText());
             Picasso.with(context).load(instaItem.getImages().getStandard_resolution().getUrl()).into(instaImage);
             Picasso.with(context).load(instaItem.getUser().getProfile_picture()).into(instaDP);
             instaLikes.setText(Integer.toString(instaItem.getLikes().getCount()) + " likes");
             instaComments.setText(Integer.toString(instaItem.getComments().getCount()) + " comments");
-            Log.i(TAG, "onBind:InstaURL "+instaItem.getLink() );
 
             //Open Instagram App when user clicks on Image
             instaImage.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +93,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
                 }
             });
         }
+        public void initializeViews(View view){
+            instaImage = (ImageView) view.findViewById(R.id.insta_feed_img_image_view);
+            instaDP = (ImageView) view.findViewById(R.id.insta_feed_dp_image_view);
+            instaName = (TextView) view.findViewById(R.id.insta_feed_name_text_view);
+            instaComments = (TextView) view.findViewById(R.id.insta_feed_comments_text_view);
+            instaDescription = (TextView) view.findViewById(R.id.insta_feed_description_text_view);
+            instaLikes = (TextView)view.findViewById(R.id.insta_feed_likes_text_view);
+            instaItem = (LinearLayout)view.findViewById(R.id.insta_feed_item_linear_layout);
+        }
     }
 
     public void launchInstagramImage(InstaFeedModel instaItem){
@@ -117,18 +111,32 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
             intent.setPackage("com.instagram.android");
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage()+"\n Perhaps user does not have Instagram installed ");
+            //Launching in Browser
+            try {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(instaItem.getLink()));
+                context.startActivity(browserIntent);
+            }catch(ActivityNotFoundException e2){
+                Log.e(TAG, e2.getMessage()+"\n Perhaps user does not have Instagram installed ");
+            }
         }
     }
     public void launchInstagramUser(InstaFeedModel instaItem){
+        String userURL = "https://instagram.com/_u/"+instaItem.getUser().getUsername().toString();
         try {
-            String userURL = "https://instagram.com/_u/"+instaItem.getUser().getUsername().toString();
             Uri uri = Uri.parse(userURL);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.setPackage("com.instagram.android");
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Log.e(TAG, e.getMessage() + "/n Perhaps user does not have Instagram installed ");
+            Log.e(TAG, e.getMessage() + "\n Perhaps user does not have Instagram installed ");
+            //Launching in Browser
+            try {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(userURL));
+                context.startActivity(browserIntent);
+            }catch(ActivityNotFoundException e2){
+                Log.e(TAG, e2.getMessage()+"\n Perhaps user does not have Instagram installed ");
+            }
         }
     }
 }

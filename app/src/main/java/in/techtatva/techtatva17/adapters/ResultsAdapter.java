@@ -14,6 +14,8 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.fragments.ResultsFragment;
+import in.techtatva.techtatva17.models.result.EventResultModel;
+import in.techtatva.techtatva17.models.result.ResultModel;
 
 /**
  * Created by Sapta on 6/16/2017.
@@ -21,10 +23,10 @@ import in.techtatva.techtatva17.fragments.ResultsFragment;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsViewHolder>{
 
-    private List<ResultsFragment.EventResultModel> resultsList;
+    private List<EventResultModel> resultsList;
     private Context context;
 
-    public ResultsAdapter(List<ResultsFragment.EventResultModel> resultsList, Context context){
+    public ResultsAdapter(List<EventResultModel> resultsList, Context context){
         this.resultsList=resultsList;
         this.context=context;
     }
@@ -36,7 +38,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
 
     @Override
     public void onBindViewHolder(ResultsViewHolder holder, int position) {
-        ResultsFragment.EventResultModel result = resultsList.get(position);
+        EventResultModel result = resultsList.get(position);
         holder.eventName.setText(result.eventName);
         holder.eventRound.setText(result.eventRound);
     }
@@ -60,7 +62,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
         }
         @Override
         public void onClick(View view) {
-
+            displayBottomSheet(resultsList.get(getAdapterPosition()));
+        }
+        public void displayBottomSheet(EventResultModel result){
             View bottomSheetView = View.inflate(context, R.layout.dialog_results, null);
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
 
@@ -70,17 +74,16 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             TextView eventName = (TextView)bottomSheetView.findViewById(R.id.result_dialog_event_name_text_view);
-            eventName.setText(resultsList.get(getAdapterPosition()).eventName);
+            eventName.setText(result.eventName);
 
             TextView eventRound = (TextView)bottomSheetView.findViewById(R.id.result_dialog_round_text_view);
-            eventRound.setText(resultsList.get(getAdapterPosition()).eventRound);
+            eventRound.setText(result.eventRound);
 
             RecyclerView teamsRecyclerView = (RecyclerView)bottomSheetView.findViewById(R.id.result_dialog_teams_recycler_view);
-            teamsRecyclerView.setAdapter(new QualifiedTeamsAdapter(resultsList.get(getAdapterPosition()).eventResultsList, context));
+            teamsRecyclerView.setAdapter(new QualifiedTeamsAdapter(result.eventResultsList, context));
             teamsRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
 
             dialog.show();
-
         }
     }
 }

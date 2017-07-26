@@ -73,9 +73,12 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    eventListener.onItemClick(event);
+                    if(eventListener!=null){
+                        eventListener.onItemClick(event);
+                    }
                 }
             });
+
 
         }
     }
