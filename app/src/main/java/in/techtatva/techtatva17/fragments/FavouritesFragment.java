@@ -37,7 +37,6 @@ import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.receivers.NotificationReceiver;
 import io.realm.Realm;
-import retrofit2.Retrofit;
 
 
 public class FavouritesFragment extends Fragment {
@@ -76,7 +75,7 @@ public class FavouritesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.favourites_fragment);
+        getActivity().setTitle(R.string.favourites);
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation(0);

@@ -21,6 +21,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.adapters.ResultsAdapter;
+import in.techtatva.techtatva17.models.result.EventResultModel;
 import in.techtatva.techtatva17.models.result.ResultModel;
 import in.techtatva.techtatva17.models.result.ResultsListModel;
 import in.techtatva.techtatva17.network.APIClient;
@@ -51,7 +52,7 @@ public class ResultsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.results_fragment);
+        getActivity().setTitle(R.string.results);
         mDatabase = Realm.getDefaultInstance();
     }
 
@@ -140,12 +141,7 @@ public class ResultsFragment extends Fragment {
         });
     }
 
-    public class EventResultModel {
-        public String eventName;
-        public String eventRound;
-        public String eventCategory;
-        public List<ResultModel> eventResultsList = new ArrayList<>();
-    }
+
 
     @Override
     public void onDestroy() {

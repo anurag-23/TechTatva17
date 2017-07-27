@@ -1,0 +1,119 @@
+package in.techtatva.techtatva17.adapters;
+
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.models.favourites.FavouritesModel;
+import in.techtatva.techtatva17.models.instagram.InstaFeedModel;
+import in.techtatva.techtatva17.models.instagram.InstagramFeed;
+import in.techtatva.techtatva17.models.result.EventResultModel;
+import in.techtatva.techtatva17.models.result.ResultModel;
+
+/**
+ * Created by skvrahul on 15/7/17.
+ */
+public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter. HomeViewHolder> {
+    String TAG = "HomeResultsAdapter";
+    private List<EventResultModel> resultsList;
+    private Context context;
+
+    public HomeResultsAdapter(List<EventResultModel> resultsList) {
+        this.resultsList=resultsList;
+    }
+
+    @Override
+    public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_home_results, parent, false);
+        context = parent.getContext();
+        return new  HomeViewHolder(itemView);
+    }
+
+
+    @Override
+    public void onBindViewHolder( HomeViewHolder holder, int position) {
+        EventResultModel result = resultsList.get(position);
+        holder.onBind(result);
+    }
+
+    @Override
+    public int getItemCount() {
+        return resultsList.size();
+    }
+
+
+
+    public class  HomeViewHolder extends RecyclerView.ViewHolder{
+        public ImageView resultsLogo;
+        public TextView resultsName;
+        public TextView resultsRound;
+        public RelativeLayout resultsItem;
+        public  HomeViewHolder(View view) {
+            super(view);
+            initializeViews(view);
+        }
+
+        public void onBind(final EventResultModel result) {
+            //TODO:Change Results Logo accordingly here
+            resultsName.setText(result.eventName);
+            resultsRound.setText("Round: "+result.eventRound);
+            resultsItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG, "onClick: Item Clicked!");
+                    displayBottomSheet(resultsList.get(getAdapterPosition()));
+                }
+            });
+
+        }
+        public void initializeViews(View view){
+            resultsLogo = (ImageView) view.findViewById(R.id.home_results_logo_image_view);
+            resultsName = (TextView) view.findViewById(R.id.home_results_name_text_view);
+            resultsRound = (TextView) view.findViewById(R.id.home_results_round_text_view);
+            resultsItem = (RelativeLayout)view.findViewById(R.id.home_results_item);
+        }
+
+        public void displayBottomSheet(EventResultModel result){
+            View bottomSheetView = View.inflate(context, R.layout.dialog_results, null);
+            final BottomSheetDialog dialog = new BottomSheetDialog(context);
+
+            dialog.setContentView(bottomSheetView);
+
+            BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+            TextView eventName = (TextView)bottomSheetView.findViewById(R.id.result_dialog_event_name_text_view);
+            eventName.setText(result.eventName);
+
+            TextView eventRound = (TextView)bottomSheetView.findViewById(R.id.result_dialog_round_text_view);
+            eventRound.setText(result.eventRound);
+
+            RecyclerView teamsRecyclerView = (RecyclerView)bottomSheetView.findViewById(R.id.result_dialog_teams_recycler_view);
+            teamsRecyclerView.setAdapter(new QualifiedTeamsAdapter(result.eventResultsList, context));
+            teamsRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+
+            dialog.show();
+        }
+
+    }
+
+}

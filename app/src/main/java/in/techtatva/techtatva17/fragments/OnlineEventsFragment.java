@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import in.techtatva.techtatva17.R;
 
 
-public class OnlineEventsFragment extends Fragment {
+public class  OnlineEventsFragment extends Fragment {
 
     public OnlineEventsFragment() {
         // Required empty public constructor

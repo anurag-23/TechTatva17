@@ -32,6 +32,7 @@ import in.techtatva.techtatva17.fragments.FavouritesFragment;
 import in.techtatva.techtatva17.fragments.HomeFragment;
 import in.techtatva.techtatva17.fragments.OnlineEventsFragment;
 import in.techtatva.techtatva17.fragments.ResultsFragment;
+import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
     private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
-
+    String TAG = "MainActivity";
     //TODO:Replace this with Event Website
     String CCT_LAUNCH_URL = "https://www.google.com";
 
@@ -243,6 +244,29 @@ public class MainActivity extends AppCompatActivity  {
         customTabsIntent.launchUrl(this, uri);
     }
 
+    public void changeFragment(Fragment fragment){
+        if(fragment.getClass() == FavouritesFragment.class){
+            drawerView.setCheckedItem(R.id.drawer_favourites);
+            appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+            navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+            appBarLayout.setVisibility(VISIBLE);
+            navigation.setVisibility(GONE);
+        }else if(fragment.getClass() == ResultsFragment.class){
+            drawerView.setCheckedItem(R.id.drawer_results);
+            appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+            appBarLayout.setVisibility(VISIBLE);
+            navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+            navigation.setVisibility(GONE);
+        }else if(fragment.getClass() ==  CategoriesFragment.class){
+            navigation.setSelectedItemId(R.id.bottom_nav_categories);
+        }else{
+            Log.i(TAG, "changeFragment: Unexpected fragment passed!!");
+        }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, fragment);
+        transaction.commit();
+    }
 
 
 
