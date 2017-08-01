@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/padding_default"
     android:paddingRight="@dimen/padding_default"
-    android:background="#f3f3f3"
+    android:background="@color/colorPrimaryDark"
     android:paddingTop="20dp"
     android:paddingBottom="20dp">
 
@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Round : "
             android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/typography_title"/>
 
         <TextView

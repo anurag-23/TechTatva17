@@ -19,27 +19,28 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         app:elevation="0dp"
-
+        android:background="@color/themeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
+         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+             android:layout_marginBottom="8dp"
             app:cardElevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
             >
-            <!-- Card Elevation Error-->
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-
+                android:background="@color/themeBackground"
 
                 />
-        </android.support.v7.widget.CardView>
+         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
 
@@ -68,9 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginTop="2dp"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/themeBackground"
             android:hapticFeedbackEnabled="false"
-
             app:elevation="10dp"
             app:menu="@menu/menu_bottom_nav" />
 
