@@ -234,8 +234,8 @@ public class MainActivity extends AppCompatActivity  {
     private void launchCCT(){
         Uri uri = Uri.parse(CCT_LAUNCH_URL);
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.themeBackground));
+        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.themeBackground));
         intentBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
         intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right);

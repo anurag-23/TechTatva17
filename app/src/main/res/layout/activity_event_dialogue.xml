@@ -20,7 +20,7 @@
     android:id="@+id/event_dialogue_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#f3f3f3"
+    android:background="@color/colorPrimaryDark"
     >
 
     <LinearLayout
@@ -132,7 +132,7 @@
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_round"
                 android:text="   Round: "
-                android:textColor="#000000"
+                android:textColor="@color/white"
 
 
                 android:textStyle="bold" />
@@ -165,7 +165,7 @@
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_categories"
                 android:text="   Category: "
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
 
@@ -221,7 +221,7 @@
                 android:gravity="center"
                 android:text="   Date: "
 
-                android:textColor="#000000"
+                android:textColor="@color/white"
 
 
                 android:textStyle="bold" />
@@ -242,7 +242,7 @@
 
                 android:gravity="center"
                 android:text="   Time: "
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -300,7 +300,7 @@
                 android:layout_marginTop="8dp"
 
                 android:text="   Venue: "
-                android:textColor="#000000"
+                android:textColor="@color/white"
 
                 android:textStyle="bold" />
 
@@ -320,7 +320,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="12dp"
                 android:text="   Team Size: "
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -360,7 +360,7 @@
                 android:drawableLeft="@drawable/ic_contact"
                 android:gravity="center"
                 android:text="   Contact: "
-                android:textColor="#000000"
+                android:textColor="@color/white"
 
                 android:textStyle="bold" />
 
@@ -446,7 +446,7 @@
                 android:layout_toRightOf="@+id/imageView2"
 
                 android:text="Event Description"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
 
@@ -461,9 +461,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView18"
             android:layout_marginTop="8dp"
-
-
-
             android:text="TextView"
             android:layout_toRightOf="@+id/imageView2"
             android:layout_toEndOf="@+id/imageView2" />

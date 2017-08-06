@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#18BADE</color>
+    <color name="colorPrimaryDark">#303030</color>
+    <color name="colorAccent">#1F8FA3</color>
     <color name="fav_deselected">#E0E0E0</color>
     <color name="fav_selected">#EF5350</color>
     <color name="item_divider">#757575</color>
+    <color name="themeBackground">#1d1d1d</color>
     <color name="transparent">#00000000</color>
     <color name="transluecent_grey">#61757575</color>
+    <color name="thematic_grey">#C1C1C1</color>
     <color name="transparent_new">#8A000000</color>
     <color name="insta_text_grey">#616161</color>
     <color name="black">#000000</color>

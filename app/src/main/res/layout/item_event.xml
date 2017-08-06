@@ -53,7 +53,7 @@
             android:maxLines="2"
             android:paddingTop="4dp"
             android:text="sdasd"
-            android:textColor="#FF000000"
+            android:textColor="@color/white"
             android:textSize="@dimen/typography_subheading" />
 
         <TextView
