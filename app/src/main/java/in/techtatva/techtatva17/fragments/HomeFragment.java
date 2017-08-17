@@ -2,12 +2,14 @@ package in.techtatva.techtatva17.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,9 +27,9 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.activities.MainActivity;
-import in.techtatva.techtatva17.adapters.HomeFavouritesAdapter;
 import in.techtatva.techtatva17.adapters.HomeAdapter;
 import in.techtatva.techtatva17.adapters.HomeCategoriesAdapter;
+import in.techtatva.techtatva17.adapters.HomeFavouritesAdapter;
 import in.techtatva.techtatva17.adapters.HomeResultsAdapter;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
@@ -43,9 +45,6 @@ import io.realm.Sort;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 
 public class HomeFragment extends Fragment {
@@ -67,6 +66,7 @@ public class HomeFragment extends Fragment {
     private ProgressDialog progressDialog;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
+    private TextView instaTextView;
     private boolean ANIMATED_PROGRESS_DIALOG = false;
     private int processes = 0;
     String TAG = "HomeFragment";
@@ -121,6 +121,19 @@ public class HomeFragment extends Fragment {
 
         //Fetch and display Results
         fetchResults();
+
+        //updateResultsList();
+
+
+
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (!isConnected){
+            dismissDialog();
+        }
+
         resultsAdapter = new HomeResultsAdapter(resultsList);
         resultsRV.setAdapter(resultsAdapter);
         resultsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
@@ -293,6 +306,7 @@ public class HomeFragment extends Fragment {
         favouritesMore = (TextView) view.findViewById(R.id.home_favourites_more_text_view);
         resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
         progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
+        instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         return view;
     }
 }

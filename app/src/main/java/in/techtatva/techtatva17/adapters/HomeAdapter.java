@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,15 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.models.instagram.InstaFeedModel;
 import in.techtatva.techtatva17.models.instagram.InstagramFeed;
 

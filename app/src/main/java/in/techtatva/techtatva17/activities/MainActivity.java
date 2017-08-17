@@ -32,7 +32,6 @@ import in.techtatva.techtatva17.fragments.FavouritesFragment;
 import in.techtatva.techtatva17.fragments.HomeFragment;
 import in.techtatva.techtatva17.fragments.OnlineEventsFragment;
 import in.techtatva.techtatva17.fragments.ResultsFragment;
-import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity  {
 
             } else if (id == R.id.drawer_about_us) {
                  appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(GONE);
+                appBarLayout.setVisibility(VISIBLE);
                  navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(GONE);
 
@@ -234,8 +233,8 @@ public class MainActivity extends AppCompatActivity  {
     private void launchCCT(){
         Uri uri = Uri.parse(CCT_LAUNCH_URL);
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.themeBackground));
-        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.themeBackground));
+        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         intentBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
         intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right);

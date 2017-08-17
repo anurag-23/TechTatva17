@@ -1,8 +1,9 @@
 package in.techtatva.techtatva17.models.instagram;
 
-import in.techtatva.techtatva17.models.instagram.Image.Image;
 import java.util.List;
+
 import in.techtatva.techtatva17.models.instagram.Caption.Caption;
+import in.techtatva.techtatva17.models.instagram.Image.Image;
 
 /**
  * Created by anurag on 8/6/16.

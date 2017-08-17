@@ -1,7 +1,5 @@
 package in.techtatva.techtatva17.models.events;
 
-import android.util.Log;
-
 import io.realm.RealmObject;
 
 /**

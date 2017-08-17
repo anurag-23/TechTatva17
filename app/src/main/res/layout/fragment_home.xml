@@ -180,12 +180,14 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@android:drawable/divider_horizontal_bright"/>
+
             <TextView
+                android:id="@+id/instagram_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/home_insta_title"
                 android:padding="10dp"
-                android:textSize="@dimen/typography_title"/>
+                android:text="@string/home_insta_title"
+                android:textSize="@dimen/typography_title" />
             <!--InstaFeed Recycler View-->
             <android.support.v7.widget.RecyclerView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
