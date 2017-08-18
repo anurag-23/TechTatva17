@@ -13,9 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.fragments.ResultsFragment;
 import in.techtatva.techtatva17.models.result.EventResultModel;
-import in.techtatva.techtatva17.models.result.ResultModel;
 
 /**
  * Created by Sapta on 6/16/2017.

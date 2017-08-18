@@ -8,14 +8,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import in.techtatva.techtatva17.R;
@@ -194,7 +192,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
-
+                Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -220,6 +218,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ScheduleListModel> call, Throwable t) {
+                Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
 
             }
         });
@@ -247,6 +246,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CategoriesListModel> call, Throwable t) {
+                Snackbar.make(rootLayout, "Unable to update Categories!", Snackbar.LENGTH_SHORT).show();
 
             }
         });
@@ -272,6 +272,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
+                Snackbar.make(rootLayout, "Unable to update Results!", Snackbar.LENGTH_SHORT).show();
 
             }
         });

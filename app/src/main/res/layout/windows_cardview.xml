@@ -33,25 +33,26 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/head"
-                        android:textSize="15sp"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/textViewPositionWindows"
-                        android:layout_below="@+id/textViewWindows"
-                        android:textColor="@color/colorAccent"/>
 
                     <TextView
+                        android:id="@+id/textViewPositionWindows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewWindows"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/head"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/textViewWindows"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/Gautham"
                         android:textColor="#000000"
-                        android:id="@+id/textViewWindows"
-                        android:textSize="16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true" />
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 

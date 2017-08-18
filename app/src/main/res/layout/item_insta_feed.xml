@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_centerHorizontal="true"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
-    app:cardElevation="3dp"
-    app:cardBackgroundColor="@color/white"
-    >
+    app:cardElevation="3dp">
 
     <LinearLayout
         android:id="@+id/insta_feed_item_linear_layout"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:paddingBottom="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:elevation="3dp">
+            android:paddingTop="8dp">
 
             <ImageView
                 android:id="@+id/insta_feed_dp_image_view"
@@ -39,15 +36,14 @@
                 android:id="@+id/insta_feed_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="username"
                 android:layout_gravity="center_vertical"
-                android:textSize="16sp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
+                android:textSize="16sp"
 
 
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="username" />
 
         </LinearLayout>
 
@@ -56,23 +52,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:padding="8dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_margin="@dimen/activity_vertical_margin"
-            android:background="@color/white">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/insta_feed_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="username Description"
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                tools:text="username Description"
 
                 />
 
@@ -80,29 +75,29 @@
                 android:id="@+id/insta_feed_likes_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                tools:text="0 likes"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/ic_insta_likes"
-                android:drawableStart="@drawable/ic_insta_likes"
+                android:drawableLeft="@drawable/ic_favorite"
                 android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_favorite"
+                android:drawableTint="#F44336"
 
 
-                android:textColor="@color/insta_text_grey"/>
+                android:textSize="14sp"
+                tools:text="0 likes" />
 
             <TextView
                 android:id="@+id/insta_feed_comments_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="0 comments"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/ic_insta_comments"
-                android:drawableStart="@drawable/ic_insta_comments"
+                android:drawableLeft="@drawable/ic_comment"
                 android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_comment"
+                android:drawableTint="#03A9F4"
+
+
                 android:textSize="14sp"
-
-
-                android:textColor="@color/insta_text_grey"/>
+                tools:text="0 comments" />
 
 
         </LinearLayout>

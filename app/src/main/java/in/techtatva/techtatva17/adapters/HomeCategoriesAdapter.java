@@ -15,7 +15,6 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.activities.CategoryActivity;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
-import in.techtatva.techtatva17.models.result.EventResultModel;
 
 /**
  * Created by skvrahul on 15/7/17.

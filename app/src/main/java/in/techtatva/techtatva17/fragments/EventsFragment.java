@@ -3,6 +3,7 @@ package in.techtatva.techtatva17.fragments;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -115,6 +115,12 @@ public class EventsFragment extends Fragment {
         searchItem = menu.findItem(R.id.action_search);
         filterItem = menu.findItem(R.id.menu_filter);
 
+
+
+
+
+        filterItem = menu.findItem(R.id.menu_filter);
+
         filterItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -171,9 +177,11 @@ public class EventsFragment extends Fragment {
                             applyFilter.setText("Clear Filter");
                             categoryFilterTerm = filterCategories.getText().toString();
                             venueFilterTerm = filterVenue.getText().toString();
+                            int item = viewPager.getCurrentItem();
                             viewPager.getAdapter().notifyDataSetChanged();
                             viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", categoryFilterTerm, venueFilterTerm, startTimeFilterTerm + " pm", endTimeFilterTerm + " pm", true));
                             viewPager.getAdapter().notifyDataSetChanged();
+                            viewPager.setCurrentItem(item,false);
                             bottomSheetDialog.dismiss();
                         } else {
                             searchItem.setVisible(true);
@@ -184,9 +192,11 @@ public class EventsFragment extends Fragment {
                             filterVenue.setText("All");
                             rangeBar.setRangePinsByIndices(0, 9);
                             bottomSheetDialog.dismiss();
+                            int item = viewPager.getCurrentItem();
                             viewPager.getAdapter().notifyDataSetChanged();
                             viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
                             viewPager.getAdapter().notifyDataSetChanged();
+                            viewPager.setCurrentItem(item,false);
                         }
                     }
                 });
@@ -313,13 +323,17 @@ public class EventsFragment extends Fragment {
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setSubmitButtonEnabled(false);
+        View v = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+        v.setBackgroundColor(Color.parseColor("#00000000"));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
                 viewPager.getAdapter().notifyDataSetChanged();
+                int item = viewPager.getCurrentItem();
                 viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), text, "All", "All", "12:00 pm", "9:00 pm", false));
                 viewPager.getAdapter().notifyDataSetChanged();
+                viewPager.setCurrentItem(item,false);
                 TechTatva.searchOpen = 2;
                 return false;
             }
@@ -327,8 +341,10 @@ public class EventsFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String text) {
                 viewPager.getAdapter().notifyDataSetChanged();
+                int item = viewPager.getCurrentItem();
                 viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), text, "All", "All", "12:00 pm", "9:00 pm", false));
                 viewPager.getAdapter().notifyDataSetChanged();
+                viewPager.setCurrentItem(item,false);
                 TechTatva.searchOpen = 2;
                 return false;
             }
@@ -339,8 +355,10 @@ public class EventsFragment extends Fragment {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+                int item = viewPager.getCurrentItem();
                 viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00", "9:00", false));
                 searchView.clearFocus();
+                viewPager.setCurrentItem(item,false);
 
                 TechTatva.searchOpen = 2;
                 return false;

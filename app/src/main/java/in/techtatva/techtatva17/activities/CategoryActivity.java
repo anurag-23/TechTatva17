@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +54,11 @@ public class CategoryActivity extends AppCompatActivity {
         if (catName == null) catName = "";
         if (catID == null) catID = "";
         if (catDesc == null) catDesc = "";
+
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);

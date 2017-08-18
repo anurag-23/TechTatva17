@@ -9,17 +9,18 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/themeBackground"
         android:gravity="center"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:background="@color/themeBackground">
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/category_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/themeBackground"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:background="@color/themeBackground"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
