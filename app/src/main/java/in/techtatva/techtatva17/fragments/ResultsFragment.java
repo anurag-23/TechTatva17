@@ -64,7 +64,7 @@ public class ResultsFragment extends Fragment {
 
         RecyclerView resultsRecyclerView = (RecyclerView)view.findViewById(R.id.results_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.results_swipe_refresh_layout);
-        adapter = new ResultsAdapter(resultsList, getActivity());
+        adapter = new ResultsAdapter(resultsList,getContext(), getActivity());
         resultsRecyclerView.setAdapter(adapter);
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(resultsRecyclerView.getContext(),DividerItemDecoration.VERTICAL);

@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
             dismissDialog();
         }
 
-        resultsAdapter = new HomeResultsAdapter(resultsList);
+        resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
         resultsRV.setAdapter(resultsAdapter);
         resultsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
         resultsMore.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
         if(categoriesList.size()>10){
             categoriesList.subList(10,categoriesList.size()).clear();
         }
-        categoriesAdapter = new HomeCategoriesAdapter(categoriesList);
+        categoriesAdapter = new HomeCategoriesAdapter(categoriesList,getActivity());
         categoriesRV.setAdapter(categoriesAdapter);
         categoriesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
         categoriesAdapter.notifyDataSetChanged();
@@ -175,7 +175,7 @@ public class HomeFragment extends Fragment {
         if(favouritesList.size()>10){
             favouritesList.subList(10, favouritesList.size()).clear();
         }
-        favouritesAdapter = new HomeFavouritesAdapter(favouritesList, null);
+        favouritesAdapter = new HomeFavouritesAdapter(favouritesList, null,getActivity());
         Log.i(TAG, "onCreateView: FavouritesList size"+favouritesList.size());
         favouritesRV.setAdapter(favouritesAdapter);
         favouritesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));

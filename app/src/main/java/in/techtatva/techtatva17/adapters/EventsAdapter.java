@@ -28,6 +28,7 @@ import in.techtatva.techtatva17.models.events.EventModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.receivers.NotificationReceiver;
+import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -110,7 +111,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             });
             eventName.setText(event.getEventName());
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
-            eventIcon.setImageResource(R.drawable.ic_sample_image_24dp);
+            //eventIcon.setImageResource(R.drawable.ic_sample_image_24dp);
             eventVenue.setText(event.getVenue());
             if(favouritesContainsEvent(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
@@ -149,6 +150,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             Log.d("T",event.getEventId());
             Log.d("T",event.getDay());
             Log.d("T"," ");}
+
+        IconCollection icons = new IconCollection();
+        holder.eventIcon.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
         holder.onBind(event,eventListener, eventLongPressListener,favouriteListener );
     }

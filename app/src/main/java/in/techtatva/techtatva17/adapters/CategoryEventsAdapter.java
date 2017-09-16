@@ -18,6 +18,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 /**
  * Created by sapta on 6/6/2017.
@@ -49,6 +50,9 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         holder.eventName.setText(event.getEventName());
         holder.eventTime.setText(event.getStartTime());
+
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
 
         holder.eventRound.setVisibility(View.VISIBLE);
@@ -96,6 +100,11 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             view = View.inflate(context, R.layout.activity_event_dialogue, null);
 
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
+
+            ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+
+            IconCollection icons = new IconCollection();
+            eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
             
 
             TextView eventName = (TextView) view.findViewById(R.id.event_name);

@@ -18,19 +18,18 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
-        app:elevation="0dp"
-        android:background="@color/themeBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/themeBackground"
+        app:elevation="0dp">
 
-         <FrameLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-             android:layout_marginBottom="8dp"
             app:cardElevation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            >
+            app:layout_scrollFlags="scroll|enterAlways">
 
 
             <android.support.v7.widget.Toolbar
@@ -40,7 +39,7 @@
                 android:background="@color/themeBackground"
 
                 />
-         </FrameLayout>
+        </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
 

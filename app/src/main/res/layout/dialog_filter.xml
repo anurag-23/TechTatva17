@@ -34,17 +34,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:background="@color/colorPrimary"
-            android:textColor="#ffffff"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
 
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:padding="8dp"
 
-            android:text="Apply Filter"
+            android:background="@color/colorPrimary"
+            android:text="Apply"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/clear_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_toLeftOf="@+id/apply_filter"
+            android:layout_toStartOf="@+id/apply_filter"
+            android:background="@color/colorPrimary"
+            android:text="CLEAR"
+            android:textColor="#ffffff" />
 
 
     </RelativeLayout>
@@ -139,19 +150,19 @@
                 </LinearLayout>
 
 
-
-
-
                 <com.appyvet.rangebar.RangeBar
                     android:id="@+id/filter_range_bar"
                     android:layout_width="match_parent"
                     android:layout_height="81dp"
-                    app:tickStart="0"
-                    app:tickInterval="1"
-                    app:tickEnd="9"
-                    app:temporaryPins="false"
+                    app:connectingLineColor="@color/colorPrimary"
+                    app:pinColor="@color/colorPrimary"
                     app:pinMaxFont="10sp"
-                    app:pinRadius="16dp">
+                    app:pinRadius="16dp"
+                    app:selectorColor="@color/colorPrimary"
+                    app:temporaryPins="false"
+                    app:tickEnd="9"
+                    app:tickInterval="1"
+                    app:tickStart="0">
 
 
                 </com.appyvet.rangebar.RangeBar>
@@ -199,13 +210,17 @@
                 </LinearLayout>
 
 
-
-
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/filter_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="false"
+                    android:isScrollContainer="false"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/colorPrimaryDark"
+                    android:scrollbarSize="3dp">
 
 
                 </android.support.v7.widget.RecyclerView>

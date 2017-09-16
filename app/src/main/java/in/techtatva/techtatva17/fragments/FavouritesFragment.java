@@ -36,6 +36,7 @@ import in.techtatva.techtatva17.adapters.FavouritesEventsAdapter;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.receivers.NotificationReceiver;
+import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
 
 
@@ -185,7 +186,7 @@ public class FavouritesFragment extends Fragment {
             ((View)noEventsDay1.getParent()).setVisibility(View.VISIBLE);
 
         }else{
-            adapterDay1 = new FavouritesEventsAdapter(favouritesDay1, eventListener);
+            adapterDay1 = new FavouritesEventsAdapter(favouritesDay1, eventListener,getActivity());
             recyclerViewDay1.setAdapter(adapterDay1);
             recyclerViewDay1.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay1.setNestedScrollingEnabled(false);
@@ -197,7 +198,7 @@ public class FavouritesFragment extends Fragment {
             noEventsDay2.setVisibility(View.VISIBLE);
             ((View)noEventsDay2.getParent()).setVisibility(View.VISIBLE);
         }else{
-            adapterDay2 = new FavouritesEventsAdapter(favouritesDay2, eventListener);
+            adapterDay2 = new FavouritesEventsAdapter(favouritesDay2, eventListener,getActivity());
             recyclerViewDay2.setAdapter(adapterDay2);
             recyclerViewDay2.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay2.setNestedScrollingEnabled(false);
@@ -210,7 +211,7 @@ public class FavouritesFragment extends Fragment {
             ((View)noEventsDay3.getParent()).setVisibility(View.VISIBLE);
 
         }else{
-            adapterDay3 = new FavouritesEventsAdapter(favouritesDay3, eventListener);
+            adapterDay3 = new FavouritesEventsAdapter(favouritesDay3, eventListener,getActivity());
             recyclerViewDay3.setAdapter(adapterDay3);
             recyclerViewDay3.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay3.setNestedScrollingEnabled(false);
@@ -223,7 +224,7 @@ public class FavouritesFragment extends Fragment {
             ((View)noEventsDay4.getParent()).setVisibility(View.VISIBLE);
 
         }else{
-            adapterDay4 = new FavouritesEventsAdapter(favouritesDay4, eventListener);
+            adapterDay4 = new FavouritesEventsAdapter(favouritesDay4, eventListener,getActivity());
             recyclerViewDay4.setAdapter(adapterDay4);
             recyclerViewDay1.setItemAnimator(new DefaultItemAnimator());
             recyclerViewDay4.setNestedScrollingEnabled(false);
@@ -238,6 +239,11 @@ public class FavouritesFragment extends Fragment {
 
         EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
 
+
+        ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+
+        IconCollection icons = new IconCollection();
+        eventLogo1.setImageResource(icons.getIconResource(getActivity(), event.getCatName()));
 
         final TextView eventName = (TextView)view.findViewById(R.id.event_name);
         eventName.setText(event.getEventName());

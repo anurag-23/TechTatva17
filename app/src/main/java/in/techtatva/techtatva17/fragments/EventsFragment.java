@@ -127,6 +127,7 @@ public class EventsFragment extends Fragment {
                 final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
                 final View view = View.inflate(getActivity(), R.layout.dialog_filter, null);
                 final Button applyFilter = (Button) view.findViewById(R.id.apply_filter);
+                final Button clearFilter = (Button) view.findViewById(R.id.clear_filter);
                 final TextView filterCategories = (TextView) view.findViewById(R.id.filter_categories);
                 final TextView filterTimeRange = (TextView) view.findViewById(R.id.filter_time_range);
                 final RangeBar rangeBar = (RangeBar) view.findViewById(R.id.filter_range_bar);
@@ -151,53 +152,60 @@ public class EventsFragment extends Fragment {
 
 
                 if (!filterMode) {
-                    searchItem.setVisible(true);
+                    //searchItem.setVisible(true);
                     filterCategories.setText("All");
                     filterTimeRange.setText("12:00PM to 9:00PM");
                     filterVenue.setText("All");
                     rangeBar.setRangePinsByIndices(0, 9);
-                    applyFilter.setText("Apply Filter");
                 } else {
-                    searchItem.setVisible(false);
+                    //searchItem.setVisible(false);
                     filterCategories.setText(categoryFilterTerm);
                     filterTimeRange.setText(startTimeFilterTerm + "PM to " + endTimeFilterTerm + "PM");
                     filterVenue.setText(venueFilterTerm);
                     rangeBar.setRangePinsByIndices(startTimeFilterPin, endTimeFilterPin);
-                    applyFilter.setText("Clear Filter");
                 }
 
                 bottomSheetDialog.setContentView(view);
 
+                clearFilter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        filterCategories.setText("All");
+                        filterTimeRange.setText("12:00PM to 9:00PM");
+                        filterVenue.setText("All");
+                        rangeBar.setRangePinsByIndices(0, 9);
+                        bottomSheetDialog.dismiss();
+                        int item = viewPager.getCurrentItem();
+                        viewPager.getAdapter().notifyDataSetChanged();
+                        viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
+                        viewPager.getAdapter().notifyDataSetChanged();
+                        viewPager.setCurrentItem(item,false);
+
+                    }
+                });
+
                 applyFilter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!filterMode) {
-                            searchItem.setVisible(false);
-                            filterMode = true;
-                            applyFilter.setText("Clear Filter");
-                            categoryFilterTerm = filterCategories.getText().toString();
-                            venueFilterTerm = filterVenue.getText().toString();
-                            int item = viewPager.getCurrentItem();
-                            viewPager.getAdapter().notifyDataSetChanged();
-                            viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", categoryFilterTerm, venueFilterTerm, startTimeFilterTerm + " pm", endTimeFilterTerm + " pm", true));
-                            viewPager.getAdapter().notifyDataSetChanged();
-                            viewPager.setCurrentItem(item,false);
-                            bottomSheetDialog.dismiss();
-                        } else {
-                            searchItem.setVisible(true);
-                            filterMode = false;
-                            applyFilter.setText("Apply Filter");
-                            filterCategories.setText("All");
-                            filterTimeRange.setText("12:00PM to 9:00PM");
-                            filterVenue.setText("All");
-                            rangeBar.setRangePinsByIndices(0, 9);
-                            bottomSheetDialog.dismiss();
-                            int item = viewPager.getCurrentItem();
-                            viewPager.getAdapter().notifyDataSetChanged();
-                            viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
-                            viewPager.getAdapter().notifyDataSetChanged();
-                            viewPager.setCurrentItem(item,false);
-                        }
+
+                        categoryFilterTerm = filterCategories.getText().toString();
+                        venueFilterTerm = filterVenue.getText().toString();
+                        int item = viewPager.getCurrentItem();
+                        viewPager.getAdapter().notifyDataSetChanged();
+                        viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", categoryFilterTerm, venueFilterTerm, startTimeFilterTerm + " pm", endTimeFilterTerm + " pm", true));
+                        viewPager.getAdapter().notifyDataSetChanged();
+                        viewPager.setCurrentItem(item,false);
+                        bottomSheetDialog.dismiss();
+
+//                        if (!filterMode) {
+//                            //searchItem.setVisible(false);
+//                            filterMode = true;
+//
+//                        } else {
+//                            //searchItem.setVisible(true);
+//                            filterMode = false;
+//
+//                        }
                     }
                 });
 

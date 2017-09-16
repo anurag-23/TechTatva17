@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -8,12 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.models.instagram.Image.Image;
 import in.techtatva.techtatva17.models.result.EventResultModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 /**
  * Created by Sapta on 6/16/2017.
@@ -23,10 +27,12 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
 
     private List<EventResultModel> resultsList;
     private Context context;
+    Activity activity;
 
-    public ResultsAdapter(List<EventResultModel> resultsList, Context context){
+    public ResultsAdapter(List<EventResultModel> resultsList, Context context, Activity activity){
         this.resultsList=resultsList;
         this.context=context;
+        this.activity=activity;
     }
 
     @Override
@@ -39,6 +45,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
         EventResultModel result = resultsList.get(position);
         holder.eventName.setText(result.eventName);
         holder.eventRound.setText(result.eventRound);
+
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));
     }
 
     @Override
@@ -48,6 +57,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
 
     class ResultsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        ImageView eventLogo;
         TextView eventName;
         TextView eventRound;
         public ResultsViewHolder(View itemView) {
@@ -55,6 +65,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
 
             eventName = (TextView) itemView.findViewById(R.id.res_event_name_text_view);
             eventRound= (TextView) itemView.findViewById(R.id.res_round_text_view);
+            eventLogo = (ImageView) itemView.findViewById(R.id.result_cat_logo_image_view);
 
             itemView.setOnClickListener(this);
         }

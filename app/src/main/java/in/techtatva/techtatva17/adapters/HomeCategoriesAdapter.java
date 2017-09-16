@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.activities.CategoryActivity;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 /**
  * Created by skvrahul on 15/7/17.
@@ -23,9 +25,13 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     String TAG = "HomeCategoriesAdapter";
     private List<CategoryModel> categoriesList;
     private Context context;
+    Activity activity;
 
-    public HomeCategoriesAdapter(List<CategoryModel> categoriesList) {
+
+
+    public HomeCategoriesAdapter(List<CategoryModel> categoriesList, Activity activity) {
         this.categoriesList = categoriesList;
+        this.activity = activity;
     }
 
     @Override
@@ -41,6 +47,8 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         CategoryModel category = categoriesList.get(position);
         holder.onBind(category);
+        IconCollection icons = new IconCollection();
+        holder.categoryLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
     }
 
     @Override
@@ -59,7 +67,7 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
 
         }
         public void onBind(final CategoryModel category) {
-            //TODO:Change Category Logo accordingly here
+
             categoryName.setText(category.getCategoryName());
             categoryItem.setOnClickListener(new View.OnClickListener() {
                 @Override

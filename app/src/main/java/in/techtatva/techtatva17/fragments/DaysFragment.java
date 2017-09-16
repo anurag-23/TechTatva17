@@ -31,6 +31,7 @@ import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -126,6 +127,10 @@ public class DaysFragment extends Fragment {
 
                 final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID", eventID).findFirst();
 
+                ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+
+                IconCollection icons = new IconCollection();
+                eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
                 TextView eventName = (TextView) view.findViewById(R.id.event_name);
                 eventName.setText(event.getEventName());
