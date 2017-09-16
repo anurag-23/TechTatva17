@@ -14,6 +14,7 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.activities.CategoryActivity;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 /**
  * Created by sapta on 5/28/2017.
@@ -38,6 +39,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         CategoryModel category = categoriesList.get(position);
         holder.catName.setText(category.getCategoryName());
+
+        IconCollection icons = new IconCollection();
+        holder.catLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
 
     }
 

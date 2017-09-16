@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.result.EventResultModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 /**
  * Created by skvrahul on 15/7/17.
@@ -25,9 +27,12 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
     String TAG = "HomeResultsAdapter";
     private List<EventResultModel> resultsList;
     private Context context;
+    Activity activity;
 
-    public HomeResultsAdapter(List<EventResultModel> resultsList) {
+
+    public HomeResultsAdapter(List<EventResultModel> resultsList, Activity activity) {
         this.resultsList=resultsList;
+        this.activity = activity;
     }
 
     @Override
@@ -43,6 +48,9 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         EventResultModel result = resultsList.get(position);
         holder.onBind(result);
+
+        IconCollection icons = new IconCollection();
+        holder.resultsLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 /**
  * Created by skvrahul on 14/6/17.
@@ -21,14 +23,17 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
 
     private List<FavouritesModel> favourites;
     private final EventClickListener eventListener;
+    Activity activity;
 
     public interface EventClickListener {
         void onItemClick(FavouritesModel event);
     }
 
-    public FavouritesEventsAdapter(List<FavouritesModel> favourites, EventClickListener eventListener) {
+    public FavouritesEventsAdapter(List<FavouritesModel> favourites, EventClickListener eventListener, Activity activity) {
         this.favourites = favourites;
         this.eventListener = eventListener;
+        this.activity = activity;
+
     }
 
     @Override
@@ -42,6 +47,9 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
     public void onBindViewHolder(EventViewHolder holder, int position) {
         FavouritesModel event = favourites.get(position);
         holder.onBind(event);
+
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -19,6 +20,7 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
+import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
 
 /**
@@ -30,14 +32,17 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
     private List<FavouritesModel> favourites;
     private final EventClickListener eventListener;
     private Context context;
+    Activity activity;
+
     private Realm mDatabase = Realm.getDefaultInstance();
 
     public interface EventClickListener {
         void onItemClick(FavouritesModel event);
     }
 
-    public HomeFavouritesAdapter(List<FavouritesModel> favourites, EventClickListener eventListener) {
+    public HomeFavouritesAdapter(List<FavouritesModel> favourites, EventClickListener eventListener, Activity activity) {
         this.favourites = favourites;
+        this.activity = activity;
         this.eventListener = eventListener;
     }
 
@@ -53,6 +58,9 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
     public void onBindViewHolder(EventViewHolder holder, int position) {
         FavouritesModel event = favourites.get(position);
         holder.onBind(event);
+
+        IconCollection icons = new IconCollection();
+        holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
     }
 
     @Override
@@ -100,6 +108,10 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
 
             EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
 
+            ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
+
+            IconCollection icons = new IconCollection();
+            eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
             final TextView eventName = (TextView)view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());

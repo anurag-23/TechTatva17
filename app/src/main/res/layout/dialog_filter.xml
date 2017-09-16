@@ -217,7 +217,10 @@
                     android:fadeScrollbars="false"
                     android:isScrollContainer="false"
                     android:scrollbarAlwaysDrawHorizontalTrack="true"
-                    android:scrollbarAlwaysDrawVerticalTrack="true">
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/colorPrimaryDark"
+                    android:scrollbarSize="3dp">
 
 
                 </android.support.v7.widget.RecyclerView>
