@@ -76,7 +76,7 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
 
 
                     }
-                    cardView1.setCardBackgroundColor(Color.parseColor("#3f51b5"));
+                    cardView1.setCardBackgroundColor(Color.parseColor("#18BADE"));
                     TextView tempView = (TextView) cardView1.getChildAt(0);
                     tempView.setTextColor(Color.WHITE);
                     currentlySelectedCard=cardView1.getId();
