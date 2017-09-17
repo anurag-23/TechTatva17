@@ -1,8 +1,10 @@
 <android.support.v7.widget.CardView android:layout_width="match_parent"
     android:layout_height="270dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
+    app:cardBackgroundColor="@color/cardview_dark_background"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
@@ -26,8 +28,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="#FFFFFF"
                 android:id="@+id/frameLayout">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -40,13 +42,13 @@
                         android:layout_centerHorizontal="true"
                         android:id="@+id/textViewPositionApple"
                         android:layout_below="@+id/textViewApple"
-                        android:textColor="@color/colorAccent"/>
+                        android:textColor="@color/colorPrimary"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Abhishek"
-                        android:textColor="#000000"
+                        android:textColor="@color/white_developers"
                         android:id="@+id/textViewApple"
                         android:textSize="16sp"
                         android:layout_centerVertical="true"
@@ -72,7 +74,7 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:baselineAligned="false"
-            android:background="@color/white">
+            android:background="@color/cardview_dark_background">
 
             <LinearLayout
                 android:layout_weight="1"
@@ -92,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Mahima"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white_developers"
                     android:gravity="center_horizontal"
                     android:textSize="15sp"/>
 
@@ -101,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"/>
 
             </LinearLayout>
@@ -124,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Rhitam"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white_developers"
                     android:gravity="center_horizontal"
                     android:textSize="15sp"/>
 
@@ -133,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"/>
 
             </LinearLayout>

@@ -255,8 +255,10 @@ public class FavouritesFragment extends Fragment {
         eventDate.setText(event.getDate());
 
         TextView eventTime = (TextView)view.findViewById(R.id.event_time);
-        eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
-
+        if(!event.getEndTime().equals(""))
+            eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
+        else
+            eventTime.setText(event.getStartTime());
         TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
         eventVenue.setText(event.getVenue());
 

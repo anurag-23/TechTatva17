@@ -288,7 +288,7 @@ public class DaysFragment extends Fragment {
 
                 EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
 
-                if (eventDetails.getEventName().contains(text)){
+                if (eventDetails!=null &&eventDetails.getEventName().contains(text)){
                     EventModel event = new EventModel(eventDetails, schedule);
 
 

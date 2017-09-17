@@ -27,7 +27,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="#FFFFFF"
+                android:background="@color/cardview_dark_background"
                 android:id="@+id/frameLayout">
 
                 <RelativeLayout
@@ -41,7 +41,7 @@
                         android:layout_below="@+id/textViewWindows"
                         android:layout_centerHorizontal="true"
                         android:text="@string/head"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
 
                     <TextView
@@ -51,7 +51,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="@string/Gautham"
-                        android:textColor="#000000"
+                        android:textColor="@color/white_developers"
                         android:textSize="16sp" />
 
                 </RelativeLayout>
@@ -74,7 +74,7 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:baselineAligned="false"
-            android:background="@color/white">
+            android:background="@color/cardview_dark_background">
 
             <LinearLayout
                 android:layout_weight="1"
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Anjali"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white_developers"
                     android:gravity="center_horizontal"
                     android:textSize="15sp"/>
 
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"/>
 
             </LinearLayout>
@@ -126,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Krishna"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white_developers"
                     android:gravity="center_horizontal"
                     android:textSize="15sp"/>
 
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"/>
 
             </LinearLayout>

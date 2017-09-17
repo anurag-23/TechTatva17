@@ -41,8 +41,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:textSize="16sp"
-
-
+                android:textColor="@color/insta_text_grey"
                 android:textStyle="bold"
                 tools:text="username" />
 
@@ -67,10 +66,10 @@
                 android:id="@+id/insta_feed_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/insta_text_grey"
                 android:textSize="14sp"
-                tools:text="username Description"
 
-                />
+                tools:text="username Description" />
 
             <TextView
                 android:id="@+id/insta_feed_likes_text_view"
@@ -81,6 +80,7 @@
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_favorite"
                 android:drawableTint="#F44336"
+                android:textColor="@color/insta_text_grey"
 
 
                 android:textSize="14sp"
@@ -95,6 +95,7 @@
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_comment"
                 android:drawableTint="#03A9F4"
+                android:textColor="@color/insta_text_grey"
 
 
                 android:textSize="14sp"

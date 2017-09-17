@@ -19,6 +19,7 @@ import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
@@ -29,7 +30,7 @@ import io.realm.Realm;
 
 public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAdapter.EventViewHolder> {
 
-    private List<FavouritesModel> favourites;
+    private List<ScheduleModel> events;
     private final EventClickListener eventListener;
     private Context context;
     Activity activity;
@@ -37,11 +38,11 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
     private Realm mDatabase = Realm.getDefaultInstance();
 
     public interface EventClickListener {
-        void onItemClick(FavouritesModel event);
+        void onItemClick(ScheduleModel event);
     }
 
-    public HomeFavouritesAdapter(List<FavouritesModel> favourites, EventClickListener eventListener, Activity activity) {
-        this.favourites = favourites;
+    public HomeFavouritesAdapter(List<ScheduleModel> events, EventClickListener eventListener, Activity activity) {
+        this.events = events;
         this.activity = activity;
         this.eventListener = eventListener;
     }
@@ -56,7 +57,7 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        FavouritesModel event = favourites.get(position);
+        ScheduleModel event = events.get(position);
         holder.onBind(event);
 
         IconCollection icons = new IconCollection();
@@ -65,7 +66,7 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
 
     @Override
     public int getItemCount() {
-        return favourites.size();
+        return events.size();
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
@@ -84,7 +85,7 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
             eventItem = (RelativeLayout)view.findViewById(R.id.fav_event_item);
 
         }
-        public void onBind(final FavouritesModel event) {
+        public void onBind(final ScheduleModel event) {
             eventName.setText(event.getEventName());
             eventRound.setText(event.getRound());
             eventTime.setText(event.getStartTime()+" - "+ event.getEndTime());
@@ -100,11 +101,11 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
             });
 
         }
-        private void displayBottomSheet(final FavouritesModel event){
+        private void displayBottomSheet(final ScheduleModel event){
             final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
             Log.i("TT17", "displayBottomSheet: NEW!");
-            final String eventID = event.getId();
+            final String eventID = event.getEventID();
 
             EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
 
@@ -134,20 +135,21 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
 
-            TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-            eventContactName.setText(event.getContactName() + " : ");
 
-            TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-            eventContact.setText(  event.getContactNumber());
-            eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+//            TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+//            eventContactName.setText(event.getContactName() + " : ");
 
-            eventContact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
-                    context.startActivity(intent);
-                }
-            });
+//            TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
+//            eventContact.setText(  event.getContactNumber());
+//            eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+//
+//            eventContact.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
+//                    context.startActivity(intent);
+//                }
+//            });
 
             TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
             eventDescription.setText(schedule.getDescription());
