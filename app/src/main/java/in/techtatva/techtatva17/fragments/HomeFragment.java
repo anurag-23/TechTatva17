@@ -32,6 +32,8 @@ import in.techtatva.techtatva17.adapters.HomeCategoriesAdapter;
 import in.techtatva.techtatva17.adapters.HomeFavouritesAdapter;
 import in.techtatva.techtatva17.adapters.HomeResultsAdapter;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
+import in.techtatva.techtatva17.models.events.EventDetailsModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.models.instagram.InstagramFeed;
 import in.techtatva.techtatva17.models.result.EventResultModel;
@@ -73,7 +75,7 @@ public class HomeFragment extends Fragment {
     Realm mDatabase = Realm.getDefaultInstance();
     private List<EventResultModel> resultsList = new ArrayList<>();
     private List<CategoryModel> categoriesList = new ArrayList<>();
-    private List<FavouritesModel> favouritesList = new ArrayList<>();
+    private List<ScheduleModel> eventsList = new ArrayList<>();
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -131,7 +133,7 @@ public class HomeFragment extends Fragment {
 
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         if (!isConnected){
-            dismissDialog();
+            //dismissDialog();
         }
 
         resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
@@ -170,13 +172,21 @@ public class HomeFragment extends Fragment {
         }
 
         //Display favourites
-        RealmResults<FavouritesModel> favouritesRealmResults = mDatabase.where(FavouritesModel.class).findAll();
-        favouritesList = mDatabase.copyFromRealm(favouritesRealmResults);
-        if(favouritesList.size()>10){
-            favouritesList.subList(10, favouritesList.size()).clear();
+        RealmResults<ScheduleModel> eventsRealmResults = mDatabase.where(ScheduleModel.class).findAll();
+        eventsList = mDatabase.copyFromRealm(eventsRealmResults);
+        for(int i=0;i<eventsList.size();i++){
+            ScheduleModel event = eventsList.get(i);
+            if(isFavourite(event)){
+                //Move to top
+                eventsList.remove(event);
+                eventsList.add(0, event);
+            }
         }
-        favouritesAdapter = new HomeFavouritesAdapter(favouritesList, null,getActivity());
-        Log.i(TAG, "onCreateView: FavouritesList size"+favouritesList.size());
+        if(eventsList.size()>10){
+            eventsList.subList(10, eventsList.size()).clear();
+        }
+        favouritesAdapter = new HomeFavouritesAdapter(eventsList, null,getActivity());
+        Log.i(TAG, "onCreateView: FavouritesList size"+eventsList.size());
         favouritesRV.setAdapter(favouritesAdapter);
         favouritesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
         favouritesAdapter.notifyDataSetChanged();
@@ -188,7 +198,7 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).changeFragment(FavouritesFragment.newInstance());
             }
         });
-        if(favouritesList.size()==0){
+        if(eventsList.size()==0){
             view.findViewById(R.id.home_favourites_none_text_view).setVisibility(View.VISIBLE);
         }
         return view;
@@ -278,6 +288,10 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    public boolean isFavourite(ScheduleModel event){
+        RealmResults<FavouritesModel> favouritesRealmList = mDatabase.where(FavouritesModel.class).equalTo("id",event.getEventID()).contains("day", event.getDay()).findAll();
+        return (favouritesRealmList.size()!=0);
+    }
 
 
     //Functions common to all sections
@@ -286,11 +300,12 @@ public class HomeFragment extends Fragment {
         Log.i(TAG, "dismissDialog: Processes"+processes);
 
         if(processes == 0){
-            if(ANIMATED_PROGRESS_DIALOG){
-                progressDialogAnimation.smoothToHide();
-            }else{
-                progressDialog.dismiss();
-            }
+//            if(ANIMATED_PROGRESS_DIALOG){
+//                progressDialogAnimation.smoothToHide();
+//            }else{
+//                progressDialog.dismiss();
+//            }
+//            }
         }
     }
     public View initViews(LayoutInflater inflater, ViewGroup container){

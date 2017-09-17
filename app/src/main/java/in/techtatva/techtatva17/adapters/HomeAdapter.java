@@ -130,7 +130,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(userURL));
                 context.startActivity(browserIntent);
             }catch(ActivityNotFoundException e2){
-                Log.e(TAG, e2.getMessage()+"\n Perhaps user does not have Instagram installed ");
+                Log.e(TAG, e2.getMessage()+"\n Perhaps user does not have a Browser installed ");
             }
         }
     }
