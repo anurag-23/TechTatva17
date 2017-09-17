@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment {
         View view = initViews(inflater, container);
 
         //Progress Dialog
-        if(ANIMATED_PROGRESS_DIALOG){
+        /*if(ANIMATED_PROGRESS_DIALOG){
             progressDialogAnimation.setVisibility(View.VISIBLE);
             ((View)progressDialogAnimation.getParent()).setVisibility(View.VISIBLE);
             progressDialogAnimation.smoothToShow();
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Loading....");
             progressDialog.show();
-        }
+        }*/
 
 
 

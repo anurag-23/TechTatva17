@@ -41,7 +41,8 @@
                             android:layout_weight="1"
                             android:text="@string/favourites"
                             android:textSize="@dimen/typography_title"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-medium"/>
 
                         <TextView
                             android:id="@+id/home_favourites_more_text_view"
@@ -50,6 +51,7 @@
                             android:layout_weight="0"
                             android:clickable="true"
                             android:text="@string/more"
+                            android:fontFamily="sans-serif-medium"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/typography_small"
                             android:background="?android:attr/selectableItemBackground"/>
@@ -60,8 +62,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="No Favourites available!"
+                        android:fontFamily="sans-serif-medium"
                         android:visibility="gone"
-                        android:layout_margin="6dp"/>
+                        android:layout_margin="10dp"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/home_favourites_recycler_view"
@@ -95,6 +98,7 @@
                             android:layout_weight="1"
                             android:text="@string/categories"
                             android:textSize="@dimen/typography_title"
+                            android:fontFamily="sans-serif-medium"
                             android:textColor="@color/white"/>
 
                         <TextView
@@ -104,6 +108,7 @@
                             android:layout_weight="0"
                             android:clickable="true"
                             android:text="@string/more"
+                            android:fontFamily="sans-serif-medium"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/typography_small"
                             android:background="?android:attr/selectableItemBackground"/>
@@ -113,8 +118,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="No categories available!"
+                        android:fontFamily="sans-serif-medium"
                         android:visibility="gone"
-                        android:layout_margin="6dp"/>
+                        android:layout_margin="10dp"/>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/home_categories_recycler_view"
                         android:layout_width="match_parent"
@@ -146,6 +152,7 @@
                             android:layout_weight="1"
                             android:text="@string/results"
                             android:textSize="@dimen/typography_title"
+                            android:fontFamily="sans-serif-medium"
                             android:textColor="@color/white"/>
 
                         <TextView
@@ -155,6 +162,7 @@
                             android:layout_weight="0"
                             android:clickable="true"
                             android:text="@string/more"
+                            android:fontFamily="sans-serif-medium"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/typography_small"
                             android:background="?android:attr/selectableItemBackground"/>
@@ -164,8 +172,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="No Results available!"
+                        android:fontFamily="sans-serif-medium"
                         android:visibility="gone"
-                        android:layout_margin="6dp"/>
+                        android:layout_margin="10dp"/>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/home_results_recycler_view"
                         android:layout_width="match_parent"
@@ -187,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/home_insta_title"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/typography_title" />
             <!--InstaFeed Recycler View-->
             <android.support.v7.widget.RecyclerView

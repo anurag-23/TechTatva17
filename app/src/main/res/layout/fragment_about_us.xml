@@ -8,61 +8,50 @@
     android:orientation="vertical">
 
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/about_text_card_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        app:cardElevation="5dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/tt16_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:adjustViewBounds="true"
+            android:elevation="8dp"
+            android:outlineProvider="bounds"
+            android:scaleType="centerCrop"
+            android:src="@drawable/techtatva_header" />
 
-            <ImageView
-                android:id="@+id/tt16_image"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:elevation="8dp"
-                android:outlineProvider="bounds"
-                android:scaleType="centerCrop"
-                android:src="@drawable/techtatva_header" />
+                android:background="@color/cardview_dark_background"
+                android:orientation="vertical">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/aboutTT"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/cardview_dark_background"
-                    android:orientation="vertical">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:text="@string/about_us"
+                    android:textSize="@dimen/typography_title" />
 
-                    <TextView
-                        android:id="@+id/aboutTT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:gravity="center"
-                        android:text="@string/about_us"
-                        android:textSize="@dimen/typography_title" />
+            </LinearLayout>
+        </ScrollView>
 
-                </LinearLayout>
-            </ScrollView>
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -86,25 +75,29 @@
                 android:id="@+id/fb_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:src="@drawable/ic_fb"
                 android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/twitter_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:src="@drawable/ic_twitter"
                 android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/insta_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:src="@drawable/ic_instagram"
                 android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/snapchat_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/ic_snapchat"/>
 
 
         </LinearLayout>

@@ -12,7 +12,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -70,6 +72,13 @@ public class SplashActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
+        final ImageView iconLeft = (ImageView)findViewById(R.id.splash_left_tt_icon);
+        final ImageView iconRight = (ImageView)findViewById(R.id.splash_right_tt_icon);
+        final ImageView text = (ImageView)findViewById(R.id.splash_tt_text);
+        iconLeft.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_in_from_top));
+        iconRight.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_in_from_bottom));
+        text.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.fade_in_text));
+
         isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         if (isConnected){
             isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
@@ -83,7 +92,12 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             else{
-                moveForward();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        moveForward();
+                    }
+                }, 2000);
             }
 
         }
@@ -157,13 +171,13 @@ public class SplashActivity extends AppCompatActivity {
                             Snackbar.make(rootLayout, "Server may be down. Please try again later", Snackbar.LENGTH_SHORT).show();
                         }
                     }
-                    mHandler.postDelayed(test,1000);
+                    mHandler.postDelayed(test,2000);
 
                 }
             }
         };
 
-        mHandler.postDelayed(test,1000);
+        mHandler.postDelayed(test,2000);
     }
 
     private void moveForward(){

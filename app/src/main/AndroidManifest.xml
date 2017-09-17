@@ -30,7 +30,9 @@
         <activity
             android:name=".activities.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBarActivityTheme" />
-        <activity android:name=".activities.SplashActivity">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBarActivityTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
