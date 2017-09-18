@@ -218,13 +218,13 @@ public class HomeFragment extends Fragment {
                     homeRV.setAdapter(instaAdapter);
                     homeRV.setLayoutManager(new LinearLayoutManager(getContext()));
                     ViewCompat.setNestedScrollingEnabled(homeRV, false);
-                    dismissDialog();
+                    //dismissDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<InstagramFeed> call, Throwable t) {
-                dismissDialog();
+                //dismissDialog();
                 Log.i(TAG, "onFailure: Error Fetching insta feed ");
             }
         });
@@ -276,7 +276,7 @@ public class HomeFragment extends Fragment {
                     mDatabase.copyToRealm(results);
                     mDatabase.commitTransaction();
                     updateResultsList();
-                    dismissDialog();
+                    //dismissDialog();
                 }
             }
 
@@ -284,7 +284,7 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
                 Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
                 processes--;
-                dismissDialog();
+                //dismissDialog();
             }
         });
     }
@@ -320,7 +320,7 @@ public class HomeFragment extends Fragment {
         categoriesMore = (TextView) view.findViewById(R.id.home_categories_more_text_view);
         favouritesMore = (TextView) view.findViewById(R.id.home_favourites_more_text_view);
         resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
-        progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
+        //progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         return view;
     }
