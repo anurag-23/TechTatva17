@@ -64,7 +64,9 @@ public class SplashActivity extends AppCompatActivity {
 
         mDatabase = Realm.getDefaultInstance();
 
-        rootLayout = (ConstraintLayout)findViewById(R.id.splash_constraint_layout);
+        rootLayout = (ConstraintLayout) findViewById(R.id.splash_constraint_layout);
+
+
 
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         dataAvailableLocally = sharedPref.getBoolean("dataAvailableLocally",false);
@@ -72,12 +74,6 @@ public class SplashActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        final ImageView iconLeft = (ImageView)findViewById(R.id.splash_left_tt_icon);
-        final ImageView iconRight = (ImageView)findViewById(R.id.splash_right_tt_icon);
-        final ImageView text = (ImageView)findViewById(R.id.splash_tt_text);
-        iconLeft.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_in_from_top));
-        iconRight.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_in_from_bottom));
-        text.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.fade_in_text));
 
         isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         if (isConnected){
@@ -85,19 +81,31 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         if (dataAvailableLocally){
+            loadAnimation();
             if(isConnected){
-                Toast.makeText(context, "Updating data", Toast.LENGTH_SHORT).show();
+                //loadAnimation();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, "Updating data", Toast.LENGTH_SHORT).show();
+                        loadAllFromInternet();
+                        moveForward();
+                       // moveForward();
+                    }
+                }, 1000);
+                /*Toast.makeText(context, "Updating data", Toast.LENGTH_SHORT).show();
                 loadAllFromInternet();
-                moveForward();
+                moveForward();*/
             }
 
             else{
+                //loadAnimation();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         moveForward();
                     }
-                }, 2000);
+                }, 1000);
             }
 
         }
@@ -171,13 +179,13 @@ public class SplashActivity extends AppCompatActivity {
                             Snackbar.make(rootLayout, "Server may be down. Please try again later", Snackbar.LENGTH_SHORT).show();
                         }
                     }
-                    mHandler.postDelayed(test,2000);
+                    mHandler.postDelayed(test,1000);
 
                 }
             }
         };
 
-        mHandler.postDelayed(test,2000);
+        mHandler.postDelayed(test,1000);
     }
 
     private void moveForward(){
@@ -291,7 +299,14 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void loadAnimation() {
+        final ImageView iconLeft = (ImageView) findViewById(R.id.splash_left_tt_icon);
+        final ImageView iconRight = (ImageView) findViewById(R.id.splash_right_tt_icon);
+        final ImageView text = (ImageView) findViewById(R.id.splash_tt_text);
+        iconLeft.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slide_in_from_top));
+        iconRight.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slide_in_from_bottom));
+        text.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_text));
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
