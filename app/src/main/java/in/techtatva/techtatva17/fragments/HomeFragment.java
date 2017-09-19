@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -276,13 +277,18 @@ public class HomeFragment extends Fragment {
                     mDatabase.copyToRealm(results);
                     mDatabase.commitTransaction();
                     updateResultsList();
+                    resultsNone.setVisibility(View.GONE);
+                    resultsNone.setText("");
                     //dismissDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
+                //Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
+                resultsNone.setVisibility(View.VISIBLE);
+                resultsNone.setText("Error fetching results");
+                //Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
                 processes--;
                 //dismissDialog();
             }
