@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.categories.CategoriesListModel;
@@ -79,6 +78,7 @@ public class SplashActivity extends AppCompatActivity {
         if (isConnected){
             isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
         }
+        moveForward();
 
         if (dataAvailableLocally){
             loadAnimation();
@@ -87,13 +87,14 @@ public class SplashActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Updating data", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(rootLayout, "Updating data", Snackbar.LENGTH_SHORT).show();
+
                         loadAllFromInternet();
                         moveForward();
                        // moveForward();
                     }
                 }, 1000);
-                /*Toast.makeText(context, "Updating data", Toast.LENGTH_SHORT).show();
+                /*
                 loadAllFromInternet();
                 moveForward();*/
             }
