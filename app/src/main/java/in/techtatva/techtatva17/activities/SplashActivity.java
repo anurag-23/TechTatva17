@@ -46,7 +46,10 @@ public class SplashActivity extends AppCompatActivity {
 
     boolean dataAvailableLocally;
 
+    int i = 0;
+
     private int counter = 0;
+    private int apiCallsRecieved = 0;
 
     private Context context = this;
 
@@ -206,8 +209,19 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
 
+
+
                 if (!(eventsDataAvailableLocally && schedulesDataAvailableLocally && categoriesDataAvailableLocally)){
                     counter++;
+
+                    if(apiCallsRecieved == 3){
+                        if(i==0){
+                        i = counter;}
+                        Snackbar.make(rootLayout, "Error in retriving data. Some data may be outdated", Snackbar.LENGTH_SHORT).show();
+                        if(counter-i == 1){
+                            moveForward();
+                        }
+                    }
 
                     if (counter == 10 && !dataAvailableLocally){
                         if(eventsDataAvailableLocally || schedulesDataAvailableLocally || categoriesDataAvailableLocally){
@@ -241,6 +255,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    apiCallsRecieved++;
 
                     mDatabase.beginTransaction();
                     mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
@@ -253,6 +268,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
+                apiCallsRecieved++;
                 Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
             }
         });
@@ -267,6 +283,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    apiCallsRecieved++;
 
                     mDatabase.beginTransaction();
                     mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
@@ -279,6 +296,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ScheduleListModel> call, Throwable t) {
+                apiCallsRecieved++;
                 Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
 
             }
@@ -294,6 +312,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
+                    apiCallsRecieved++;
 
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
@@ -307,6 +326,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CategoriesListModel> call, Throwable t) {
+                apiCallsRecieved++;
                 Snackbar.make(rootLayout, "Unable to update Categories!", Snackbar.LENGTH_SHORT).show();
 
             }
