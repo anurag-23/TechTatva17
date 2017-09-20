@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/splash_constraint_layout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,13 +11,20 @@
 
 
     <include
-        android:visibility="gone"
         android:id="@+id/splash_no_connection_layout"
         layout="@layout/layout_no_connection"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RelativeLayout
         android:layout_width="368dp"
         android:layout_height="624dp"
@@ -28,8 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="200dp"
             android:layout_marginRight="15dp">
 
@@ -37,51 +45,51 @@
                 android:id="@+id/splash_tt_text"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:src="@drawable/tt_text"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/tt_text" />
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="27dp"
             android:layout_marginStart="27dp">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
 
+                <ImageView
+                    android:id="@+id/splash_left_tt_icon"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_marginBottom="61dp"
+                    android:layout_marginEnd="67dp"
 
 
-            <ImageView
-                android:id="@+id/splash_left_tt_icon"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:src="@drawable/left_icon"
-                android:scaleType="centerCrop"
+                    android:layout_marginRight="67dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/left_icon" />
 
+                <ImageView
+                    android:id="@+id/splash_right_tt_icon"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="83dp"
+                    android:layout_marginStart="83dp"
+                    android:layout_marginTop="12dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/right_icon" />
 
-                android:layout_marginRight="67dp"
-                android:layout_marginEnd="67dp"
-                android:layout_marginBottom="61dp" />
-
-            <ImageView
-                android:id="@+id/splash_right_tt_icon"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:src="@drawable/right_icon"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="83dp"
-                android:layout_marginStart="83dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="12dp" />
-
-        </RelativeLayout>
+            </RelativeLayout>
         </FrameLayout>
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
