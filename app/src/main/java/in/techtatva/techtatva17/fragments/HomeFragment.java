@@ -92,6 +92,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.app_name);
+        fetchResults();
 
     }
 
@@ -123,7 +124,7 @@ public class HomeFragment extends Fragment {
         displayInstaFeed();
 
         //Fetch and display Results
-        fetchResults();
+
 
         //updateResultsList();
 
