@@ -23,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.application.TechTatva;
@@ -45,8 +46,7 @@ public class MainActivity extends AppCompatActivity  {
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
     String TAG = "MainActivity";
-    //TODO:Replace this with Event Website
-    String CCT_LAUNCH_URL = "https://www.google.com";
+    String CCT_LAUNCH_URL = "https://www.techtatva.in";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity  {
                 selectedFragment = FavouritesFragment.newInstance();
 
             } else if (id == R.id.drawer_online_events) {
+                launchCCT();
                 /* appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(GONE);
                  navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
@@ -173,9 +174,11 @@ public class MainActivity extends AppCompatActivity  {
                 selectedFragment = AboutUsFragment.newInstance();
 
             }
+
             if(selectedFragment.getClass()==OnlineEventsFragment.class){
-                //Launching Chrome Custom Tab for Online Events
+
                 launchCCT();
+
             }else{
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, selectedFragment);
@@ -246,7 +249,6 @@ public class MainActivity extends AppCompatActivity  {
         Log.i("MainActivity:", "Launching Chrome Custom Tab.....");
         customTabsIntent.launchUrl(this, uri);
     }
-
     public void changeFragment(Fragment fragment){
         if(fragment.getClass() == FavouritesFragment.class){
             drawerView.setCheckedItem(R.id.drawer_favourites);

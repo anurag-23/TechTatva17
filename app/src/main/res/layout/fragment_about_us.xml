@@ -2,105 +2,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:layout_gravity="center"
-    android:gravity="center"
     android:orientation="vertical">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="#1A1A1A"
+            android:gravity="center"
+            android:elevation="8dp">
         <ImageView
             android:id="@+id/tt16_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:paddingLeft="60dp"
+            android:layout_width="280dp"
+            android:layout_height="250dp"
             android:adjustViewBounds="true"
-            android:elevation="8dp"
-            android:outlineProvider="bounds"
-            android:scaleType="centerCrop"
-            android:src="@drawable/techtatva_header" />
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/cardview_dark_background"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="16dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/cardview_dark_background"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/fb_image"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_fb" />
-
-                        <ImageView
-                            android:id="@+id/twitter_image"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_twitter" />
-
-                        <ImageView
-                            android:id="@+id/insta_image"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_instagram" />
-
-                        <ImageView
-                            android:id="@+id/snapchat_image"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_snapchat" />
-
-
-                    </LinearLayout>
-
-
-                </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/aboutTT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center"
-                    android:text="@string/about_us"
-                    android:textSize="@dimen/typography_title" />
-
+            android:src="@drawable/techtatvabanner" />
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/fb_image"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_fb" />
+
+                    <ImageView
+                        android:id="@+id/twitter_image"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_twitter" />
+
+                    <ImageView
+                        android:id="@+id/insta_image"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_instagram" />
+
+                    <ImageView
+                        android:id="@+id/snapchat_image"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_snapchat" />
+
+
+                </LinearLayout>
+
+
+
+
+            <TextView
+                android:id="@+id/aboutTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="@string/about_us"
+                android:textSize="@dimen/typography_title" />
+
+
+
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
-
-
-</LinearLayout>
-
