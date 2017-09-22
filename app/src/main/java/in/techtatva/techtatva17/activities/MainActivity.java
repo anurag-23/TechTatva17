@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.AppBarLayout;
@@ -22,8 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.application.TechTatva;
@@ -42,6 +39,7 @@ import static android.view.View.VISIBLE;
 
 public class MainActivity extends AppCompatActivity  {
     private FragmentManager fm;
+    Fragment selectedFragment;
     private NavigationView drawerView;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
@@ -52,8 +50,14 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        drawerView.setCheckedItem(R.id.drawer_home);
-        navigation.setSelectedItemId(R.id.bottom_nav_home);
+        if(selectedFragment.getClass()==OnlineEventsFragment.class) {
+            drawerView.setCheckedItem(R.id.drawer_home);
+            navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+            navigation.setVisibility(VISIBLE);
+            appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+            appBarLayout.setVisibility(VISIBLE);
+            navigation.setSelectedItemId(R.id.bottom_nav_home);
+        }
     }
 
     @Override
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment=null;
+            selectedFragment=null;
             switch (item.getItemId()) {
                 case R.id.bottom_nav_home:
                     selectedFragment = HomeFragment.newInstance();
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment=null;
+            selectedFragment=null;
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawerView = (NavigationView) findViewById(R.id.nav_view);
             int id = item.getItemId();

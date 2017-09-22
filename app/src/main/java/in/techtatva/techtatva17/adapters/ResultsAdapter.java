@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.models.instagram.Image.Image;
 import in.techtatva.techtatva17.models.result.EventResultModel;
 import in.techtatva.techtatva17.resources.IconCollection;
 

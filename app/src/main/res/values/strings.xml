@@ -36,14 +36,13 @@
     <string name="about_fragment">About Us  </string>
     <string name="developers_fragment">Developers</string>
     <string name="online_fragment">Online Events</string>
-
-
-
+    <string name="no_results">Hold your horses!</string>
+    <string name="no_results_2">The results aren\'t out yet.</string>
     <string name="venue">Venue</string>
     <string name="filter_events">Filter Events</string>
     <string name="qualified_teams">Qualified Teams • Round:</string>
     <string name="team_id">Team ID:</string>
-
+    <string name="about_us_title">About Us</string>
     <string name="day_1">Day 1</string>
     <string name="day_2">Day 2</string>
     <string name="day_3">Day 3</string>

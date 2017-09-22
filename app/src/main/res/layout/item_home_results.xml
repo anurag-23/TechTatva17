@@ -19,7 +19,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/background_circle"
-            android:src="@drawable/ic_sample_image_24dp"/>
+            android:src="@mipmap/ic_launcher"/>
 
     </FrameLayout>
 
@@ -36,12 +36,11 @@
 
         <TextView
             android:id="@+id/home_results_name_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="34dp"
             tools:text="Event Name"
             android:textSize="@dimen/typography_body"
-            android:layout_marginRight="@dimen/padding_half"
-            android:layout_marginEnd="@dimen/padding_half"
+            android:gravity="center"
             android:ellipsize="end"
             android:maxLines="2"/>
 
@@ -50,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Event Round"
+            android:gravity="center"
             android:textSize="12sp"
             android:maxLines="1"
             android:textColor="@color/colorPrimary"/>

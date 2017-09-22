@@ -2,9 +2,6 @@ package in.techtatva.techtatva17.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,7 +17,6 @@ import java.util.List;
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
-import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
 
@@ -87,7 +83,7 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
         }
         public void onBind(final ScheduleModel event) {
             eventName.setText(event.getEventName());
-            eventRound.setText(event.getRound());
+            eventRound.setText("R" + event.getRound());
             eventTime.setText(event.getStartTime()+" - "+ event.getEndTime());
             eventTime.setVisibility(View.GONE);
             eventItem.setOnClickListener(new View.OnClickListener() {

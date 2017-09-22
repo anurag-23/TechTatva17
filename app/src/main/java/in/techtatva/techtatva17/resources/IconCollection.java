@@ -1,6 +1,7 @@
 package in.techtatva.techtatva17.resources;
 
 import android.content.Context;
+import android.util.Log;
 
 import in.techtatva.techtatva17.R;
 
@@ -35,6 +36,9 @@ public class IconCollection {
     private final int robowars = R.drawable.robowars;
     private final int robotrek = R.drawable.robotrek;
     private final int turing = R.drawable.turing;
+    private final int vedanth = R.drawable.vedanth;
+    String TAG = "IconCollection";
+
 
     public IconCollection() {
     }
@@ -56,7 +60,7 @@ public class IconCollection {
             case "paper presentation": return paper;
             case "fuel rc": return fuelRC;
             case "gaming": return gaming;
-            case "kraftwagen": return kraftwagen;
+            case "kraftwagen ": return kraftwagen;
 //            case "the manipal conclave": return conclave;
             case "mechanize": return mechanize;
             case "mechatron": return mechatron;
@@ -64,8 +68,12 @@ public class IconCollection {
             case "questionable intelligence": return qi;
             case "robotrek": return robotrek;
             case "robowars": return robowars;
-            case "turing": return turing;
-            default: return R.mipmap.ic_launcher;
+            case "turing": {Log.i(TAG,"Turing case called"); return turing;}
+            case "vedanth 7.0":{
+                Log.i(TAG,"Vedanth case called"); return vedanth;}
+            default: {
+                Log.i(TAG,catName);
+                return R.mipmap.ic_launcher;}
         }
 
     }

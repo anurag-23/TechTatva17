@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,9 @@ public class ResultsFragment extends Fragment {
     private List<EventResultModel> resultsList = new ArrayList<>();
     private ResultsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout rootLayout;
+    private LinearLayout noResultsLayout;
+    private CardView resultsAvailable;
     public ResultsFragment() {
         // Required empty public constructor
     }
@@ -61,7 +65,9 @@ public class ResultsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view= inflater.inflate(R.layout.fragment_results, container, false);
-
+        rootLayout=(LinearLayout) view.findViewById(R.id.results_root_layout);
+        resultsAvailable=(CardView)view.findViewById(R.id.results_available);
+        noResultsLayout = (LinearLayout) view.findViewById(R.id.no_results_layout);
         RecyclerView resultsRecyclerView = (RecyclerView)view.findViewById(R.id.results_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.results_swipe_refresh_layout);
         adapter = new ResultsAdapter(resultsList,getContext(), getActivity());
@@ -88,7 +94,11 @@ public class ResultsFragment extends Fragment {
 
 
     private void displayData(){
-        if (mDatabase == null) return;
+        if (mDatabase == null){
+            resultsAvailable.setVisibility(View.GONE);
+            noResultsLayout.setVisibility(View.VISIBLE);
+            return;
+        }
 
         RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
 
@@ -114,6 +124,10 @@ public class ResultsFragment extends Fragment {
             }
             adapter.notifyDataSetChanged();
         }
+        else{
+            resultsAvailable.setVisibility(View.GONE);
+            noResultsLayout.setVisibility(View.VISIBLE);
+        }
     }
     public void updateData(){
         Call<ResultsListModel> callResultsList = APIClient.getAPIInterface().getResultsList();
@@ -127,16 +141,21 @@ public class ResultsFragment extends Fragment {
                     mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(results);
                     mDatabase.commitTransaction();
+                    noResultsLayout.setVisibility(View.GONE);
+                    resultsAvailable.setVisibility(View.VISIBLE);
                     displayData();
-
                     swipeRefreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
+                resultsAvailable.setVisibility(View.GONE);
+                noResultsLayout.setVisibility(View.VISIBLE);
+                Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
+
+
             }
         });
     }

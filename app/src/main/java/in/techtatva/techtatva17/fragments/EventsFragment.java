@@ -115,10 +115,6 @@ public class EventsFragment extends Fragment {
         searchItem = menu.findItem(R.id.action_search);
         filterItem = menu.findItem(R.id.menu_filter);
 
-
-
-
-
         filterItem = menu.findItem(R.id.menu_filter);
 
         filterItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -180,7 +176,6 @@ public class EventsFragment extends Fragment {
                         viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
                         viewPager.getAdapter().notifyDataSetChanged();
                         viewPager.setCurrentItem(item,false);
-
                     }
                 });
 
