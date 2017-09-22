@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
 
@@ -74,10 +75,10 @@ public class FavouritesEventsAdapter extends RecyclerView.Adapter<FavouritesEven
 
         }
         public void onBind(final FavouritesModel event) {
-
             eventName.setText(event.getEventName());
             eventRound.setText(event.getRound());
-            eventTime.setText(event.getStartTime()+" - "+ event.getEndTime());
+            eventTime.setText(event.getStartTime());//+" - "+ event.getEndTime());
+
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

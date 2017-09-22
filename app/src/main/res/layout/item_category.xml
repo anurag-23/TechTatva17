@@ -17,6 +17,7 @@
             android:id="@+id/cat_logo_image_view"
             android:layout_width="48dp"
             android:layout_height="48dp"
+
             android:src="@drawable/ic_sample_image_24dp"/>
 
 

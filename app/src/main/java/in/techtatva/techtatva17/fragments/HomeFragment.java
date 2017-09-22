@@ -12,12 +12,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment {
     private TextView categoriesMore;
     private TextView favouritesMore;
     private TextView resultsNone;
+    private CardView homeResultsItem;
     private AVLoadingIndicatorView progressDialogAnimation;
     private ProgressDialog progressDialog;
     private BottomNavigationView navigation;
@@ -106,7 +109,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment and initialize Views
         View view = initViews(inflater, container);
-
         //Progress Dialog
         /*if(ANIMATED_PROGRESS_DIALOG){
             progressDialogAnimation.setVisibility(View.VISIBLE);
@@ -259,7 +261,10 @@ public class HomeFragment extends Fragment {
             resultsList.subList(10,resultsList.size()).clear();
         }
         resultsAdapter.notifyDataSetChanged();
+
         if(resultsList.size()==0){
+            /*if(homeResultsItem.getVisibility()==View.GONE)
+                homeResultsItem.setVisibility(View.VISIBLE);*/
             resultsNone.setVisibility(View.VISIBLE);
         }
 
@@ -277,6 +282,8 @@ public class HomeFragment extends Fragment {
                     mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(results);
                     mDatabase.commitTransaction();
+
+                    homeResultsItem.setVisibility(View.VISIBLE);
                     updateResultsList();
                     resultsNone.setVisibility(View.GONE);
                     resultsNone.setText("");
@@ -287,8 +294,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
                 //Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
-                resultsNone.setVisibility(View.VISIBLE);
-                resultsNone.setText("Error fetching results");
+                if(homeResultsItem.getVisibility()==View.VISIBLE)
+                homeResultsItem.setVisibility(View.GONE);
+                /*resultsNone.setVisibility(View.VISIBLE);
+                resultsNone.setText("Error fetching results");*/
                 //Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
                 processes--;
                 //dismissDialog();
@@ -327,6 +336,7 @@ public class HomeFragment extends Fragment {
         categoriesMore = (TextView) view.findViewById(R.id.home_categories_more_text_view);
         favouritesMore = (TextView) view.findViewById(R.id.home_favourites_more_text_view);
         resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
+        homeResultsItem=(CardView) view.findViewById(R.id.home_results_item);
         //progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         return view;

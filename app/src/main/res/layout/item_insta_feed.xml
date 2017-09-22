@@ -79,7 +79,6 @@
                 android:drawableLeft="@drawable/ic_favorite"
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_favorite"
-                android:drawableTint="#F44336"
                 android:textColor="@color/insta_text_grey"
 
 
@@ -94,7 +93,6 @@
                 android:drawableLeft="@drawable/ic_comment"
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_comment"
-                android:drawableTint="#03A9F4"
                 android:textColor="@color/insta_text_grey"
 
 
