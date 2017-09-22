@@ -24,6 +24,7 @@
             android:id="@+id/result_cat_logo_image_view"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@drawable/background_circle"
             android:src="@drawable/ic_sample_image_24dp"
             android:layout_marginRight="@dimen/padding_default"
             android:layout_marginEnd="@dimen/padding_default"/>

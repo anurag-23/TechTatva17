@@ -58,7 +58,7 @@
 
             </FrameLayout>
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:src="@drawable/ic_techtatva"
@@ -84,7 +84,7 @@
                 android:gravity="center_horizontal"
                 android:layout_margin="@dimen/padding_half">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:src="@drawable/ic_techtatva"
@@ -116,10 +116,10 @@
                 android:gravity="center_horizontal"
                 android:layout_margin="@dimen/padding_half">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
-                    android:src="@drawable/ic_techtatva"
+                    android:src="@drawable/dev_icon_krishnabirla"
                     android:layout_marginBottom="@dimen/padding_half"/>
 
                 <TextView
