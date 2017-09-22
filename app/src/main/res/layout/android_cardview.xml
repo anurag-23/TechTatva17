@@ -25,153 +25,154 @@
             android:layout_height="150dp">
 
             <FrameLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="@color/cardview_dark_background"
-                android:id="@+id/frameLayout">
+                android:background="@color/cardview_dark_background">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/head"
-                        android:textSize="15sp"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/textViewPositionAndroid"
-                        android:layout_below="@+id/textViewAndroid"
-                        android:textColor="@color/colorPrimary"/>
 
                     <TextView
+                        android:id="@+id/textViewPositionAndroid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewAndroid"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/head"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/textViewAndroid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/Anurag"
                         android:textColor="@color/white_developers"
-                        android:id="@+id/textViewAndroid"
-                        android:textSize="16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true" />
+                        android:textSize="16sp" />
 
                 </RelativeLayout>
 
             </FrameLayout>
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewAndroid"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@drawable/ic_techtatva"
-                android:id="@+id/imageViewAndroid"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:src="@drawable/dev_icon_android_anurag_choudhary" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:background="@color/cardview_dark_background"
             android:baselineAligned="false"
-            android:background="@color/cardview_dark_background">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_margin="@dimen/padding_half"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:layout_margin="@dimen/padding_half">
+                android:orientation="vertical">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
-                    android:src="@drawable/ic_techtatva"
-                    android:layout_marginBottom="@dimen/padding_half"/>
+                    android:layout_marginBottom="@dimen/padding_half"
+                    android:src="@drawable/dev_icon_rahulsathanapalli" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="@string/Rahul"
                     android:textColor="@color/white_developers"
-                    android:gravity="center_horizontal"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
+                    android:text="@string/developer"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_margin="@dimen/padding_half"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:layout_margin="@dimen/padding_half">
+                android:orientation="vertical">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
-                    android:src="@drawable/ic_techtatva"
-                    android:layout_marginBottom="@dimen/padding_half"/>
+                    android:layout_marginBottom="@dimen/padding_half"
+                    android:src="@drawable/dev_icon_reubennellissery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="@string/Reuben"
                     android:textColor="@color/white_developers"
-                    android:gravity="center_horizontal"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
+                    android:text="@string/developer"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
                 android:layout_margin="@dimen/padding_half"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:paddingRight="4dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
-                    android:src="@drawable/ic_techtatva"
-                    android:layout_marginBottom="@dimen/padding_half"/>
+                    android:layout_marginBottom="@dimen/padding_half"
+                    android:src="@drawable/dev_icon_saptarshi" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:text="@string/Saptarshi"
                     android:textColor="@color/white_developers"
-                    android:gravity="center_horizontal"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/developer"
                     android:fontFamily="sans-serif-light"
+                    android:text="@string/developer"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

@@ -47,6 +47,14 @@ public class MainActivity extends AppCompatActivity  {
     private AppBarLayout appBarLayout;
     String TAG = "MainActivity";
     String CCT_LAUNCH_URL = "https://www.techtatva.in";
+    boolean CCT_flag = false;
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        drawerView.setCheckedItem(R.id.drawer_home);
+        navigation.setSelectedItemId(R.id.bottom_nav_home);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +149,6 @@ public class MainActivity extends AppCompatActivity  {
                 selectedFragment = FavouritesFragment.newInstance();
 
             } else if (id == R.id.drawer_online_events) {
-                launchCCT();
                 /* appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(GONE);
                  navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
@@ -176,7 +183,6 @@ public class MainActivity extends AppCompatActivity  {
             }
 
             if(selectedFragment.getClass()==OnlineEventsFragment.class){
-
                 launchCCT();
 
             }else{
@@ -194,6 +200,7 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
+        Log.i(TAG, "onBackPressed");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -221,7 +228,6 @@ public class MainActivity extends AppCompatActivity  {
                     drawerView.setCheckedItem(R.id.drawer_home);
                     navigation.setSelectedItemId(R.id.bottom_nav_home);
                 }
-
 
                 if(navigation.getVisibility()==GONE)
                 { navigation.setVisibility(VISIBLE);}

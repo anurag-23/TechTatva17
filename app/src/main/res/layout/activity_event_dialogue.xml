@@ -43,7 +43,7 @@
             android:layout_height="48dp"
 
             android:layout_marginBottom="8dp"
-
+            android:background="@drawable/background_circle"
             android:layout_marginTop="8dp"
             android:contentDescription="Event Logo"
             android:src="@drawable/ic_sample_image_24dp"
