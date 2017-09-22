@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
-import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
 

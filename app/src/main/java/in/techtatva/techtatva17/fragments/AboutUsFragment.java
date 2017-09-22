@@ -36,6 +36,7 @@ public class AboutUsFragment extends Fragment {
         @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            getActivity().setTitle(R.string.about_us_title);
 
     }
 

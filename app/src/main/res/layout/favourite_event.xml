@@ -23,7 +23,7 @@
                 android:src="@drawable/ic_sample_image_24dp"/>
 
             <TextView
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/fav_event_round_text_view"
                 android:layout_height="24dp"
                 android:layout_width="24dp"
@@ -45,18 +45,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:layout_below="@+id/fav_event_logo_frame"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/fav_event_name_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="34dp"
             tools:text="Event Name"
+            android:gravity="center"
             android:textSize="@dimen/typography_body"
-            android:layout_marginRight="@dimen/padding_half"
-            android:layout_marginEnd="@dimen/padding_half"
             android:ellipsize="end"
             android:maxLines="2"/>
 
@@ -65,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Event Time"
+            android:gravity="center"
             android:textSize="12sp"
             android:maxLines="1"
             android:textColor="@color/colorPrimary"/>

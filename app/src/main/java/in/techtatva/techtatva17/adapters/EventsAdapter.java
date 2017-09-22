@@ -231,7 +231,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         int RC2 = Integer.parseInt(event.getCatID()+event.getEventID()+"1");
         pendingIntent1 = PendingIntent.getBroadcast(activity, RC1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
         Date d = null;
 
         try {

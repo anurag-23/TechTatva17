@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="@dimen/padding_default">
@@ -22,7 +24,7 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:alpha="0.54"
-        android:src="@drawable/ic_connection_error_24px"/>
+        app:srcCompat="@drawable/ic_connection_error_24px"/>
 
 
 

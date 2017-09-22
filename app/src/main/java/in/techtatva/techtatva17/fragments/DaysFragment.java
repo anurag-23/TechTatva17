@@ -21,6 +21,9 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +37,7 @@ import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 
 public class DaysFragment extends Fragment {
@@ -223,7 +227,6 @@ public class DaysFragment extends Fragment {
 
     public void getSearchDataFromRealm(String text, String categoryFilter, String venueFilter, String startTimeFilter, String endTimeFilter, boolean filter) {
 
-
         if (filter) {
 
             Log.d("categoryFilter", categoryFilter);
@@ -249,7 +252,7 @@ public class DaysFragment extends Fragment {
             }
 
             RealmResults<ScheduleModel> tempevents;
-            tempevents = realm.where(ScheduleModel.class).contains("day", (day + 1) + "").contains("eventName", text).contains("catName", categoryFilter).contains("venue", venueFilter).findAllSorted("eventName");
+            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").equalTo("eventName", text).equalTo("catName", categoryFilter).contains("venue", venueFilter).findAllSorted("startTime", Sort.ASCENDING, "endTime", Sort.ASCENDING);
 
             for (ScheduleModel schedule : tempevents) {
                 EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
@@ -278,39 +281,20 @@ public class DaysFragment extends Fragment {
         } else {
             RealmResults<ScheduleModel> tempevents;
             //events = realm.where(EventModel.class).contains("day", (day + 1) + "").contains("eventName", text).findAll();
-            tempevents = realm.where(ScheduleModel.class).contains("day", (day + 1) + "").findAllSorted("eventName");
-
-
-
+            Log.d("Day", (day+1)+"");
+            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").findAllSorted("startTime", Sort.ASCENDING, "endTime", Sort.ASCENDING);
 
             for (ScheduleModel schedule : tempevents) {
-
-
                 EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
 
-                if (eventDetails!=null &&eventDetails.getEventName().contains(text)){
+                if (eventDetails!=null && eventDetails.getEventName().contains(text)){
                     EventModel event = new EventModel(eventDetails, schedule);
-
-
-
-
-
-                        currentDayEvents.add(event);
-
-
-
+                    currentDayEvents.add(event);
                 }
-
             }
-
-
-
-
         }
 
-
     }
-
 
 }
 

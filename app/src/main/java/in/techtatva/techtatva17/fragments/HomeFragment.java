@@ -3,6 +3,7 @@ package in.techtatva.techtatva17.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -35,7 +35,6 @@ import in.techtatva.techtatva17.adapters.HomeCategoriesAdapter;
 import in.techtatva.techtatva17.adapters.HomeFavouritesAdapter;
 import in.techtatva.techtatva17.adapters.HomeResultsAdapter;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
-import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.models.instagram.InstagramFeed;
@@ -55,6 +54,7 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     private InstagramFeed feed;
 //    private ProgressDialog progressDialog;
+    SwipeRefreshLayout swipeRefreshLayout;
     private HomeAdapter instaAdapter;
     private HomeResultsAdapter resultsAdapter;
     private HomeCategoriesAdapter categoriesAdapter;
@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment and initialize Views
-        View view = initViews(inflater, container);
+        final View view = initViews(inflater, container);
         //Progress Dialog
         /*if(ANIMATED_PROGRESS_DIALOG){
             progressDialogAnimation.setVisibility(View.VISIBLE);
@@ -129,7 +129,6 @@ public class HomeFragment extends Fragment {
 
 
         //updateResultsList();
-
 
 
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -153,7 +152,7 @@ public class HomeFragment extends Fragment {
         });
 
         //Display Categories
-        RealmResults<CategoryModel> categoriesRealmList = mDatabase.where(CategoryModel.class).findAll();
+        RealmResults<CategoryModel> categoriesRealmList = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
         categoriesList = mDatabase.copyFromRealm(categoriesRealmList);
         if(categoriesList.size()>10){
             categoriesList.subList(10,categoriesList.size()).clear();
@@ -176,7 +175,7 @@ public class HomeFragment extends Fragment {
         }
 
         //Display favourites
-        RealmResults<ScheduleModel> eventsRealmResults = mDatabase.where(ScheduleModel.class).findAll();
+        RealmResults<ScheduleModel> eventsRealmResults = mDatabase.where(ScheduleModel.class).findAllSorted("day", Sort.ASCENDING, "startTime", Sort.ASCENDING);
         eventsList = mDatabase.copyFromRealm(eventsRealmResults);
         for(int i=0;i<eventsList.size();i++){
             ScheduleModel event = eventsList.get(i);
@@ -205,6 +204,30 @@ public class HomeFragment extends Fragment {
         if(eventsList.size()==0){
             view.findViewById(R.id.home_favourites_none_text_view).setVisibility(View.VISIBLE);
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ConnectivityManager cmTemp = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
+                boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
+                if(isConnectedTemp){
+                    displayInstaFeed();
+                    fetchResults();
+                    new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                        }, 5000);
+                }
+                else{
+                    Snackbar.make(view, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);}
+
+            }
+        });
+
         return view;
     }
 
@@ -222,6 +245,7 @@ public class HomeFragment extends Fragment {
                     homeRV.setAdapter(instaAdapter);
                     homeRV.setLayoutManager(new LinearLayoutManager(getContext()));
                     ViewCompat.setNestedScrollingEnabled(homeRV, false);
+
                     //dismissDialog();
                 }
             }
@@ -339,6 +363,7 @@ public class HomeFragment extends Fragment {
         homeResultsItem=(CardView) view.findViewById(R.id.home_results_item);
         //progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_swipe_refresh_layout);
         return view;
     }
 }

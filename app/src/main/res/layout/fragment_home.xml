@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="in.techtatva.techtatva17.fragments.HomeFragment">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/home_swipe_refresh_layout">
 
     <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -61,7 +65,7 @@
                         android:id="@+id/home_favourites_none_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="No Favourites available!"
+                        android:text="No Events available!"
                         android:fontFamily="sans-serif-medium"
                         android:visibility="gone"
                         android:layout_margin="10dp"/>
@@ -229,5 +233,5 @@
             app:indicatorName="BallPulseIndicator" />
     </LinearLayout>
 
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

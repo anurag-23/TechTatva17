@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.models.categories.CategoriesListModel;
@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public Runnable test;
 
-    private ConstraintLayout rootLayout;
+    private RelativeLayout rootLayout;
 
     private Realm mDatabase;
 
@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
 
         mDatabase = Realm.getDefaultInstance();
 
-        rootLayout = (ConstraintLayout) findViewById(R.id.splash_constraint_layout);
+        rootLayout = (RelativeLayout) findViewById(R.id.splash_root_layout);
 
 
 
@@ -170,7 +170,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     else{Log.d("Splash"," connected");
-                        Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
                         loadAllFromInternet();
                     }
                 }
