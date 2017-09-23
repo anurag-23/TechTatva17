@@ -37,8 +37,8 @@ import io.realm.RealmResults;
  */
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
     String TAG = "EventsAdapter";
-    private final int EVENT_DAY_ZERO = 27;
-    private final int EVENT_MONTH = Calendar.JUNE;
+    private final int EVENT_DAY_ZERO = 03;
+    private final int EVENT_MONTH = Calendar.OCTOBER;
     private PendingIntent pendingIntent1 = null;
     private PendingIntent pendingIntent2 = null;
     private List<EventModel> eventList;
@@ -224,6 +224,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         intent.putExtra("startTime", event.getStartTime());
         intent.putExtra("eventVenue", event.getVenue());
         intent.putExtra("eventID", event.getEventID());
+        intent.putExtra("catName", event.getCatName());
         Log.i(TAG, "addNotification: "+event.getStartTime());
         AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
         //Request Codes
@@ -241,7 +242,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             return;
         }
 
-        int eventDate = EVENT_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 8th March
+        int eventDate = EVENT_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 04th October
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTime(d);
@@ -264,10 +265,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.set(Calendar.SECOND, 0);
-        calendar3.set(Calendar.MINUTE, 0);
-        calendar3.set(Calendar.HOUR, 0);
+        calendar3.set(Calendar.MINUTE, 30);
+        calendar3.set(Calendar.HOUR, 8);
         calendar3.set(Calendar.AM_PM, Calendar.AM);
-        calendar3.set(Calendar.MONTH, Calendar.MARCH);
+        calendar3.set(Calendar.MONTH, Calendar.SEPTEMBER);
         calendar3.set(Calendar.YEAR, 2017);
         calendar3.set(Calendar.DATE, eventDate);
 
@@ -275,7 +276,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         if (calendar2.getTimeInMillis() < calendar3.getTimeInMillis()){
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
-            Log.d("Alarm", "set");
+
+            Log.d("Alarm", "set for "+calendar3.toString());
         }
 
 
