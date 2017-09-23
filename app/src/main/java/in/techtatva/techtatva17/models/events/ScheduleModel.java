@@ -84,11 +84,11 @@ public class ScheduleModel extends RealmObject{
     }
 
     public String getVenue() {
-        return venue;
+        return venue.toUpperCase();
     }
 
     public void setVenue(String venue) {
-        this.venue = venue;
+        this.venue = venue.toUpperCase();
     }
 
     public String getStartTime() {

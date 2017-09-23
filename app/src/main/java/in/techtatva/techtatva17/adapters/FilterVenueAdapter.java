@@ -51,7 +51,7 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
 
     @Override
     public int getItemCount() {
-        return (int)(mVenueNames.size()/2 +1 );
+        return (mVenueNames.size());
     }
 
     public class FilterVenueViewHolder extends RecyclerView.ViewHolder {

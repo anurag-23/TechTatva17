@@ -35,6 +35,7 @@ import in.techtatva.techtatva17.models.events.EventModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
 import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -251,8 +252,10 @@ public class DaysFragment extends Fragment {
                 venueFilter = "";
             }
 
+
             RealmResults<ScheduleModel> tempevents;
-            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").equalTo("eventName", text).equalTo("catName", categoryFilter).contains("venue", venueFilter).findAllSorted("startTime", Sort.ASCENDING, "endTime", Sort.ASCENDING);
+//            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").equalTo("eventName", text).equalTo("catName", categoryFilter).contains("venue", venueFilter).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").contains("eventName", text.trim(),Case.INSENSITIVE).contains("catName", categoryFilter.trim(),Case.INSENSITIVE).contains("venue", venueFilter.trim(), Case.INSENSITIVE).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
 
             for (ScheduleModel schedule : tempevents) {
                 EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
@@ -282,7 +285,7 @@ public class DaysFragment extends Fragment {
             RealmResults<ScheduleModel> tempevents;
             //events = realm.where(EventModel.class).contains("day", (day + 1) + "").contains("eventName", text).findAll();
             Log.d("Day", (day+1)+"");
-            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").findAllSorted("startTime", Sort.ASCENDING, "endTime", Sort.ASCENDING);
+            tempevents = realm.where(ScheduleModel.class).equalTo("day", (day + 1) + "").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
 
             for (ScheduleModel schedule : tempevents) {
                 EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();

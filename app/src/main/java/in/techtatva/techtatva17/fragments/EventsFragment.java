@@ -131,7 +131,7 @@ public class EventsFragment extends Fragment {
 
                 for (ScheduleModel schedule : scheduleResult) {
                     String venue = "";
-                    String temp = schedule.getVenue().toUpperCase();
+                    String temp = schedule.getVenue();
                     for (int i = 0; i < temp.length(); i++) {
                         if (temp.charAt(i) == '-') continue;
 
