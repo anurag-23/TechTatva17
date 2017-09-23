@@ -76,7 +76,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         }
         public void onBind(final EventModel events, final EventClickListener eventListener,final EventLongPressListener eventLongPressListener, final FavouriteClickListener favouriteListener){
             //Individual OnClickListeners for the Favourite Icon and the entire Item
-            final ScheduleModel event = realm.where(ScheduleModel.class).equalTo("eventID",events.getEventId()).findFirst();
+            final ScheduleModel event = realm.where(ScheduleModel.class).equalTo("eventID",events.getEventId()).equalTo("startTime",events.getStartTime()).equalTo("day",events.getDay()).findFirst();
             favIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
