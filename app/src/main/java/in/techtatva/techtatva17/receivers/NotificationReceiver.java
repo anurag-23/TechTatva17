@@ -11,6 +11,7 @@ import android.support.v7.app.NotificationCompat;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.activities.MainActivity;
+import in.techtatva.techtatva17.resources.IconCollection;
 
 public class NotificationReceiver extends BroadcastReceiver {
     private final String NOTIFICATION_TITLE="Upcoming Event";
@@ -24,14 +25,16 @@ public class NotificationReceiver extends BroadcastReceiver {
 
             Intent appIntent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0);
-
-            notificationText = intent.getStringExtra("eventName")+" at "+intent.getStringExtra("startTime")+", "+intent.getStringExtra("eventVenue");
-
+            String eventName = intent.getStringExtra("eventName");
+            notificationText = eventName+" at "+intent.getStringExtra("startTime")+", "+intent.getStringExtra("eventVenue");
+            String catName = intent.getStringExtra("catName");
+            IconCollection i = new IconCollection();
+            int catIcon  = i.getIconResource(context, catName);
             Notification notify = new NotificationCompat.Builder(context)
                     .setContentTitle(NOTIFICATION_TITLE)
                     .setContentText(notificationText)
                     //TODO: Change Icon
-                    .setSmallIcon(R.drawable.ic_contact)
+                    .setSmallIcon(catIcon)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setAutoCancel(true)

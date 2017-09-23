@@ -198,7 +198,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 //MORE Clicked - Take user to Favourites Fragment
                 Log.i(TAG, "onClick: Favourites More");
-                ((MainActivity)getActivity()).changeFragment(FavouritesFragment.newInstance());
+                ((MainActivity)getActivity()).changeFragment(EventsFragment.newInstance());
             }
         });
         if(eventsList.size()==0){

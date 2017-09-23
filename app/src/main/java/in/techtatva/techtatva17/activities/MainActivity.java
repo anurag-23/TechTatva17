@@ -274,6 +274,8 @@ public class MainActivity extends AppCompatActivity  {
             navigation.setVisibility(GONE);
         }else if(fragment.getClass() ==  CategoriesFragment.class){
             navigation.setSelectedItemId(R.id.bottom_nav_categories);
+        }else if(fragment.getClass() == EventsFragment.class){
+            navigation.setSelectedItemId(R.id.bottom_nav_events);
         }else{
             Log.i(TAG, "changeFragment: Unexpected fragment passed!!");
         }
