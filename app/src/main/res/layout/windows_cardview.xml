@@ -61,7 +61,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@drawable/ic_techtatva"
+                android:src="@drawable/dev_icon_gautham"
                 android:id="@+id/imageViewApple"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
@@ -87,7 +87,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
-                    android:src="@drawable/ic_techtatva"
+                    android:src="@drawable/dev_icon_anjali"
                     android:layout_marginBottom="@dimen/padding_half"/>
 
                 <TextView

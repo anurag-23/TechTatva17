@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -89,6 +90,7 @@ public class SplashActivity extends AppCompatActivity {
         final ImageView iconLeft = (ImageView) findViewById(R.id.splash_left_tt_icon);
         final ImageView iconRight = (ImageView) findViewById(R.id.splash_right_tt_icon);
         final ImageView text = (ImageView) findViewById(R.id.splash_tt_text);
+        final FrameLayout container = (FrameLayout)findViewById(R.id.frameLayout4);
         iconLeft.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slide_in_from_top));
         iconRight.startAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slide_in_from_bottom));
         Animation animation = AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fade_in_text);
@@ -145,6 +147,7 @@ public class SplashActivity extends AppCompatActivity {
                         iconLeft.setVisibility(View.GONE);
                         iconRight.setVisibility(View.GONE);
                         text.setVisibility(View.GONE);
+                        container.setVisibility(View.GONE);
 
                         retry.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -159,7 +162,8 @@ public class SplashActivity extends AppCompatActivity {
                                     iconLeft.setVisibility(View.VISIBLE);
                                     iconRight.setVisibility(View.VISIBLE);
                                     text.setVisibility(View.VISIBLE);
-                                    Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
+                                    container.setVisibility(View.VISIBLE);
+                                    Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
                                     loadAllFromInternet();
                                 }
                                 else{
@@ -269,7 +273,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
                 apiCallsRecieved++;
-                Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -297,7 +301,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ScheduleListModel> call, Throwable t) {
                 apiCallsRecieved++;
-                Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
 
             }
         });
@@ -327,7 +331,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CategoriesListModel> call, Throwable t) {
                 apiCallsRecieved++;
-                Snackbar.make(rootLayout, "Unable to update Categories!", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(rootLayout, "Unable to update Categories!", Snackbar.LENGTH_SHORT).show();
 
             }
         });
@@ -353,7 +357,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                Snackbar.make(rootLayout, "Unable to update Results!", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(rootLayout, "Unable to update Results!", Snackbar.LENGTH_SHORT).show();
 
             }
         });

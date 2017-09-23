@@ -60,7 +60,7 @@ public class IconCollection {
             case "paper presentation": return paper;
             case "fuel rc": return fuelRC;
             case "gaming": return gaming;
-            case "kraftwagen ": return kraftwagen;
+            case "kraftwagen": return kraftwagen;
 //            case "the manipal conclave": return conclave;
             case "mechanize": return mechanize;
             case "mechatron": return mechatron;

@@ -214,24 +214,5 @@
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/home_loading_dialog"
-            android:layout_gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:background="@color/transluecent_grey"
-            android:padding="90dp"
-            android:visibility="gone"
-            app:indicatorColor="@color/colorPrimary"
-            app:indicatorName="BallPulseIndicator" />
-    </LinearLayout>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

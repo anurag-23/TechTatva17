@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(Color.parseColor("#0d0d0d"));
             getWindow().setNavigationBarColor(Color.parseColor("#0d0d0d"));

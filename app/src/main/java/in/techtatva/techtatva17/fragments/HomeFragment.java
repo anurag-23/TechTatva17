@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.wang.avi.AVLoadingIndicatorView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +66,6 @@ public class HomeFragment extends Fragment {
     private TextView favouritesMore;
     private TextView resultsNone;
     private CardView homeResultsItem;
-    private AVLoadingIndicatorView progressDialogAnimation;
     private ProgressDialog progressDialog;
     private BottomNavigationView navigation;
     private AppBarLayout appBarLayout;
@@ -361,7 +358,6 @@ public class HomeFragment extends Fragment {
         favouritesMore = (TextView) view.findViewById(R.id.home_favourites_more_text_view);
         resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
         homeResultsItem=(CardView) view.findViewById(R.id.home_results_item);
-        //progressDialogAnimation = (AVLoadingIndicatorView) view.findViewById(R.id.home_loading_dialog);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_swipe_refresh_layout);
         return view;

@@ -8,7 +8,6 @@
     android:background="@color/splash_bg"
     tools:context="in.techtatva.techtatva17.activities.SplashActivity">
 
-
     <include
         android:id="@+id/splash_no_connection_layout"
         layout="@layout/layout_no_connection"
@@ -21,81 +20,33 @@
         android:visibility="gone"
         android:layout_centerInParent="true"/>
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/frameLayout4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_centerInParent="true"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp">
 
-        <FrameLayout
+            <ImageView
+                android:id="@+id/splash_left_tt_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/left_icon" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintLeft_toLeftOf="@+id/frameLayout4"
-            app:layout_constraintTop_toTopOf="@+id/frameLayout4"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1">
+            <ImageView
+                android:layout_toRightOf="@id/splash_left_tt_icon"
+                android:id="@+id/splash_right_tt_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/right_icon" />
+
 
             <ImageView
                 android:id="@+id/splash_tt_text"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/tt_text" />
-        </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/frameLayout4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1"
-            app:layout_constraintHorizontal_bias="0.38">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-
-                <ImageView
-                    android:id="@+id/splash_left_tt_icon"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_marginBottom="61dp"
-                    android:layout_marginEnd="67dp"
-
-
-                    android:layout_marginRight="67dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/left_icon" />
-
-                <ImageView
-                    android:id="@+id/splash_right_tt_icon"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="83dp"
-                    android:layout_marginStart="83dp"
-                    android:layout_marginTop="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/right_icon" />
-
-            </RelativeLayout>
-        </FrameLayout>
-    </android.support.constraint.ConstraintLayout>
-
+    </FrameLayout>
 </RelativeLayout>
