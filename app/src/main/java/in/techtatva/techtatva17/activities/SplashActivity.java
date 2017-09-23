@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public Runnable test;
 
-    private LinearLayout rootLayout;
+    private RelativeLayout rootLayout;
 
     private Realm mDatabase;
 
@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
 
         mDatabase = Realm.getDefaultInstance();
 
-        rootLayout = (LinearLayout) findViewById(R.id.splash_root_layout);
+        rootLayout = (RelativeLayout) findViewById(R.id.splash_root_layout);
 
 
 
