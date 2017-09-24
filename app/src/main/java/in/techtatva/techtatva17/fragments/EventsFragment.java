@@ -31,6 +31,7 @@ import com.appyvet.rangebar.IRangeBarFormatter;
 import com.appyvet.rangebar.RangeBar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
@@ -102,9 +103,16 @@ public class EventsFragment extends Fragment {
         // Inflate the layout for this fragment
         result = inflater.inflate(R.layout.fragment_events, container, false);
         viewPager = (ViewPager) result.findViewById(R.id.events_view_pager);
+
         TabLayout tabLayout = (TabLayout) result.findViewById(R.id.events_tab_layout);
         viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
         tabLayout.setupWithViewPager(viewPager);
+
+
+        //Set the Tab to the current day-
+        Calendar cal = Calendar.getInstance();
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        viewPager.setCurrentItem((dayOfMonth-04)%4);
         return result;
     }
 
