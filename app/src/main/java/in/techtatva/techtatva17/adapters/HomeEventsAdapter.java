@@ -24,7 +24,7 @@ import io.realm.Realm;
  * Created by skvrahul on 14/6/17.
  */
 
-public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAdapter.EventViewHolder> {
+public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.EventViewHolder> {
 
     private List<ScheduleModel> events;
     private final EventClickListener eventListener;
@@ -37,7 +37,7 @@ public class HomeFavouritesAdapter extends RecyclerView.Adapter<HomeFavouritesAd
         void onItemClick(ScheduleModel event);
     }
 
-    public HomeFavouritesAdapter(List<ScheduleModel> events, EventClickListener eventListener, Activity activity) {
+    public HomeEventsAdapter(List<ScheduleModel> events, EventClickListener eventListener, Activity activity) {
         this.events = events;
         this.activity = activity;
         this.eventListener = eventListener;

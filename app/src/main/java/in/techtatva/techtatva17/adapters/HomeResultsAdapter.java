@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,7 +66,7 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
         public ImageView resultsLogo;
         public TextView resultsName;
         public TextView resultsRound;
-        public RelativeLayout resultsItem;
+        public FrameLayout resultsItem;
         public  HomeViewHolder(View view) {
             super(view);
             initializeViews(view);
@@ -72,22 +74,24 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
 
         public void onBind(final EventResultModel result) {
             //TODO:Change Results Logo accordingly here
-            resultsName.setText(result.eventName);
-            resultsRound.setText("Round: "+result.eventRound);
-            resultsItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i(TAG, "onClick: Item Clicked!");
-                    displayBottomSheet(resultsList.get(getAdapterPosition()));
-                }
-            });
-
+            if(resultsItem!=null) {
+                resultsName.setText(result.eventName);
+                resultsRound.setText("Round: "+result.eventRound);
+                resultsItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "onClick: Item Clicked!");
+                        displayBottomSheet(resultsList.get(getAdapterPosition()));
+                    }
+                });
+            }
         }
         public void initializeViews(View view){
             resultsLogo = (ImageView) view.findViewById(R.id.home_results_logo_image_view);
             resultsName = (TextView) view.findViewById(R.id.home_results_name_text_view);
             resultsRound = (TextView) view.findViewById(R.id.home_results_round_text_view);
-            resultsItem = (RelativeLayout)view.findViewById(R.id.home_results_item);
+            resultsItem = (FrameLayout) view.findViewById(R.id.home_results_frame);
+            Log.i(TAG, "initializeViews:"+resultsItem);
         }
 
         public void displayBottomSheet(EventResultModel result){

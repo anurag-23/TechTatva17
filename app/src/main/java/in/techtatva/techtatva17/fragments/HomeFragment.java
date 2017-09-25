@@ -24,13 +24,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
 import in.techtatva.techtatva17.activities.MainActivity;
 import in.techtatva.techtatva17.adapters.HomeAdapter;
 import in.techtatva.techtatva17.adapters.HomeCategoriesAdapter;
-import in.techtatva.techtatva17.adapters.HomeFavouritesAdapter;
+import in.techtatva.techtatva17.adapters.HomeEventsAdapter;
 import in.techtatva.techtatva17.adapters.HomeResultsAdapter;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
@@ -56,14 +57,14 @@ public class HomeFragment extends Fragment {
     private HomeAdapter instaAdapter;
     private HomeResultsAdapter resultsAdapter;
     private HomeCategoriesAdapter categoriesAdapter;
-    private HomeFavouritesAdapter favouritesAdapter;
+    private HomeEventsAdapter eventsAdapter;
     private RecyclerView homeRV;
     private RecyclerView resultsRV;
     private RecyclerView  categoriesRV;
-    private RecyclerView favouritesRV;
+    private RecyclerView eventsRV;
     private TextView resultsMore;
     private TextView categoriesMore;
-    private TextView favouritesMore;
+    private TextView eventsMore;
     private TextView resultsNone;
     private CardView homeResultsItem;
     private ProgressDialog progressDialog;
@@ -131,11 +132,6 @@ public class HomeFragment extends Fragment {
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        if (!isConnected){
-            //dismissDialog();
-        }
-
         resultsAdapter = new HomeResultsAdapter(resultsList,getActivity());
         resultsRV.setAdapter(resultsAdapter);
         resultsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
@@ -171,13 +167,17 @@ public class HomeFragment extends Fragment {
             view.findViewById(R.id.home_categories_none_text_view).setVisibility(View.VISIBLE);
         }
 
-        //Display favourites
-        RealmResults<ScheduleModel> eventsRealmResults = mDatabase.where(ScheduleModel.class).findAllSorted("day", Sort.ASCENDING, "startTime", Sort.ASCENDING);
+        //Display Events of current day
+        Calendar cal = Calendar.getInstance();
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        int dayOfEvent = ((dayOfMonth-04)%4)+1;
+        RealmResults<ScheduleModel> eventsRealmResults = mDatabase.where(ScheduleModel.class).equalTo("day", dayOfEvent+"").findAllSorted("day", Sort.ASCENDING, "startTime", Sort.ASCENDING);
+
         eventsList = mDatabase.copyFromRealm(eventsRealmResults);
         for(int i=0;i<eventsList.size();i++){
             ScheduleModel event = eventsList.get(i);
             if(isFavourite(event)){
-                //Move to top
+                //Move to top if the event is a Favourite
                 eventsList.remove(event);
                 eventsList.add(0, event);
             }
@@ -185,21 +185,21 @@ public class HomeFragment extends Fragment {
         if(eventsList.size()>10){
             eventsList.subList(10, eventsList.size()).clear();
         }
-        favouritesAdapter = new HomeFavouritesAdapter(eventsList, null,getActivity());
-        Log.i(TAG, "onCreateView: FavouritesList size"+eventsList.size());
-        favouritesRV.setAdapter(favouritesAdapter);
-        favouritesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
-        favouritesAdapter.notifyDataSetChanged();
-        favouritesMore.setOnClickListener(new View.OnClickListener() {
+        eventsAdapter = new HomeEventsAdapter(eventsList, null,getActivity());
+        Log.i(TAG, "onCreateView: eventsList size"+eventsList.size());
+        eventsRV.setAdapter(eventsAdapter);
+        eventsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        eventsAdapter.notifyDataSetChanged();
+        eventsMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MORE Clicked - Take user to Favourites Fragment
-                Log.i(TAG, "onClick: Favourites More");
+                //MORE Clicked - Take user to Events Fragment
+                Log.i(TAG, "onClick: Events More");
                 ((MainActivity)getActivity()).changeFragment(EventsFragment.newInstance());
             }
         });
         if(eventsList.size()==0){
-            view.findViewById(R.id.home_favourites_none_text_view).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.home_events_none_text_view).setVisibility(View.VISIBLE);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -294,7 +294,7 @@ public class HomeFragment extends Fragment {
         processes++;
         Call<ResultsListModel> callResultsList = APIClient.getAPIInterface().getResultsList();
         callResultsList.enqueue(new Callback<ResultsListModel>() {
-            List<ResultModel> results = new ArrayList<ResultModel>();
+            List<ResultModel> results = new ArrayList<>();
             @Override
             public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
                 if (response.isSuccess() && response.body() != null){
@@ -330,21 +330,6 @@ public class HomeFragment extends Fragment {
         return (favouritesRealmList.size()!=0);
     }
 
-
-    //Functions common to all sections
-    public void dismissDialog(){
-        processes--;
-        Log.i(TAG, "dismissDialog: Processes"+processes);
-
-        if(processes == 0){
-//            if(ANIMATED_PROGRESS_DIALOG){
-//                progressDialogAnimation.smoothToHide();
-//            }else{
-//                progressDialog.dismiss();
-//            }
-//            }
-        }
-    }
     public View initViews(LayoutInflater inflater, ViewGroup container){
         appBarLayout = (AppBarLayout) container.findViewById(R.id.app_bar);
         navigation = (BottomNavigationView) container.findViewById(R.id.bottom_nav);
@@ -352,10 +337,10 @@ public class HomeFragment extends Fragment {
         homeRV = (RecyclerView) view.findViewById(R.id.home_recycler_view);
         resultsRV = (RecyclerView) view.findViewById(R.id.home_results_recycler_view);
         categoriesRV = (RecyclerView) view.findViewById(R.id.home_categories_recycler_view);
-        favouritesRV = (RecyclerView) view.findViewById(R.id.home_favourites_recycler_view);
+        eventsRV = (RecyclerView) view.findViewById(R.id.home_events_recycler_view);
         resultsMore = (TextView) view.findViewById(R.id.home_results_more_text_view);
         categoriesMore = (TextView) view.findViewById(R.id.home_categories_more_text_view);
-        favouritesMore = (TextView) view.findViewById(R.id.home_favourites_more_text_view);
+        eventsMore = (TextView) view.findViewById(R.id.home_events_more_text_view);
         resultsNone = (TextView) view.findViewById(R.id.home_results_none_text_view);
         homeResultsItem=(CardView) view.findViewById(R.id.home_results_item);
         instaTextView = (TextView) view.findViewById(R.id.instagram_textview);
