@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,12 +90,13 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
         private void displayBottomSheet(final ScheduleModel event){
             final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
-            Log.i("TT17", "displayBottomSheet: NEW!");
             final String eventID = event.getEventID();
+
             EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
             IconCollection icons = new IconCollection();
             eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
+            ImageView favIcon = (ImageView) view.findViewById(R.id.event_fav_icon);
 
             final TextView eventName = (TextView)view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());
