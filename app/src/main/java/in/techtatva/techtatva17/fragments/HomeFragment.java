@@ -241,6 +241,14 @@ public class HomeFragment extends Fragment {
             }
         }
         Log.i(TAG, "displayResults: resultsList size:"+resultsList.size());
+        //Moving favourite results to top
+        for(EventResultModel result: resultsList){
+            if(isFavourite(result)){
+                resultsList.remove(result);
+                resultsList.add(0, result);
+            }
+        }
+        //Picking first 10 results to display
         if(resultsList.size()>10){
             resultsList.subList(10,resultsList.size()).clear();
         }
@@ -280,6 +288,10 @@ public class HomeFragment extends Fragment {
     }
     public boolean isFavourite(ScheduleModel event){
         RealmResults<FavouritesModel> favouritesRealmList = mDatabase.where(FavouritesModel.class).equalTo("id",event.getEventID()).contains("day", event.getDay()).findAll();
+        return (favouritesRealmList.size()!=0);
+    }
+    public boolean isFavourite(EventResultModel result){
+        RealmResults<FavouritesModel> favouritesRealmList = mDatabase.where(FavouritesModel.class).equalTo("eventName",result.eventName).findAll();
         return (favouritesRealmList.size()!=0);
     }
 

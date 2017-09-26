@@ -40,6 +40,7 @@ import in.techtatva.techtatva17.adapters.FilterVenueAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
 import in.techtatva.techtatva17.models.events.ScheduleModel;
+import in.techtatva.techtatva17.models.instagram.Image.Image;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
