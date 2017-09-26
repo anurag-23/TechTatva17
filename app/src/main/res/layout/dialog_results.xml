@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -9,7 +10,8 @@
     android:paddingRight="@dimen/padding_default"
     android:background="@color/colorPrimaryDark"
     android:paddingTop="20dp"
-    android:paddingBottom="20dp">
+    android:paddingBottom="20dp"
+    android:scrollbars="vertical">
 
     <LinearLayout
         android:id="@+id/event_constraint"

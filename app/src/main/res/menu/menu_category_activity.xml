@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/about_category"
-        android:title="About Categories"
+        android:title="@string/about_categories"
         android:icon="@drawable/ic_info_outline_white_24dp"
         app:showAsAction="always"/>
 

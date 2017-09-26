@@ -58,7 +58,6 @@
                         android:textSize="16sp" />
 
                 </RelativeLayout>
-
             </FrameLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -175,9 +174,6 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </android.support.v7.widget.CardView>

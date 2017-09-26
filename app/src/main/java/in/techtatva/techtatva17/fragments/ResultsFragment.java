@@ -35,23 +35,20 @@ import retrofit2.Response;
 
 
 public class ResultsFragment extends Fragment {
-
     Realm mDatabase;
     private List<EventResultModel> resultsList = new ArrayList<>();
     private ResultsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout rootLayout;
     private LinearLayout noResultsLayout;
+
     private CardView resultsAvailable;
     public ResultsFragment() {
-        // Required empty public constructor
     }
-
     public static ResultsFragment newInstance() {
         ResultsFragment fragment = new ResultsFragment();
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +56,9 @@ public class ResultsFragment extends Fragment {
         getActivity().setTitle(R.string.results);
         mDatabase = Realm.getDefaultInstance();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View view= inflater.inflate(R.layout.fragment_results, container, false);
         rootLayout=(LinearLayout) view.findViewById(R.id.results_root_layout);
         resultsAvailable=(CardView)view.findViewById(R.id.results_available);
@@ -91,8 +86,6 @@ public class ResultsFragment extends Fragment {
         });
         return view;
     }
-
-
     private void displayData(){
         if (mDatabase == null){
             resultsAvailable.setVisibility(View.GONE);
@@ -101,10 +94,8 @@ public class ResultsFragment extends Fragment {
         }
 
         RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
-
         if (!results.isEmpty()){
             resultsList.clear();
-
             List<String> eventNamesList = new ArrayList<>();
 
             for (ResultModel result : results){
@@ -147,21 +138,15 @@ public class ResultsFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             }
-
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
                 resultsAvailable.setVisibility(View.GONE);
                 noResultsLayout.setVisibility(View.VISIBLE);
                 Snackbar.make(rootLayout, "Error fetching results", Snackbar.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
-
-
             }
         });
     }
-
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();

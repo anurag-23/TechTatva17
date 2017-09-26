@@ -17,7 +17,6 @@ import in.techtatva.techtatva17.models.result.ResultModel;
  */
 
 public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAdapter.QualifiedTeamViewHolder> {
-
     private List<ResultModel> resultsList;
     private Context context;
 
@@ -25,18 +24,15 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
         this.resultsList = resultsList;
         this.context = context;
     }
-
     @Override
     public QualifiedTeamViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new QualifiedTeamViewHolder(LayoutInflater.from(context).inflate(R.layout.item_qualified_teams, parent, false));
     }
-
     @Override
     public void onBindViewHolder(QualifiedTeamViewHolder holder, int position) {
         ResultModel result = resultsList.get(position);
         holder.teamID.setText(result.getTeamID());
     }
-
     @Override
     public int getItemCount() {
         return resultsList.size();
@@ -44,7 +40,6 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
 
     class QualifiedTeamViewHolder extends RecyclerView.ViewHolder {
         TextView teamID;
-
         public QualifiedTeamViewHolder(View itemView) {
             super(itemView);
             teamID = (TextView)itemView.findViewById(R.id.qualified_teams_id);

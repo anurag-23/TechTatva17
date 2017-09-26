@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.models.events.EventDetailsModel;
 import in.techtatva.techtatva17.models.events.EventModel;
+import in.techtatva.techtatva17.models.events.ScheduleModel;
+import in.techtatva.techtatva17.models.favourites.FavouritesModel;
 import in.techtatva.techtatva17.resources.IconCollection;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by sapta on 6/6/2017.
@@ -31,6 +37,9 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
     private Activity activity;
     private Context context;
     EventModel event;
+    private Realm realm = Realm.getDefaultInstance();
+    private RealmResults<FavouritesModel> favouritesRealm = realm.where(FavouritesModel.class).findAll();
+    private List<FavouritesModel> favourites = realm.copyFromRealm(favouritesRealm);
 
 
     public CategoryEventsAdapter(List<EventModel> eventsList, Activity activity, Context context) {
@@ -50,11 +59,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         holder.eventName.setText(event.getEventName());
         holder.eventTime.setText(event.getStartTime());
-
         IconCollection icons = new IconCollection();
         holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
-
-
         holder.eventRound.setVisibility(View.VISIBLE);
 
         if (event.getRound() != null && !event.getRound().equals("-") && !event.getRound().equals("")) {
@@ -66,7 +72,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             holder.eventRound.setVisibility(View.GONE);
         }
     }
-
     @Override
     public int getItemCount() {
         return eventsList.size();
@@ -105,7 +110,6 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
             IconCollection icons = new IconCollection();
             eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
-            
 
             TextView eventName = (TextView) view.findViewById(R.id.event_name);
             eventName.setText(event.getEventName());
@@ -132,31 +136,21 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             eventContactName.setText(event.getContactName() + " : ");
 
             TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-            eventContact.setText(  event.getContactNumber());
+            eventContact.setText(event.getContactNumber());
             eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
             eventContact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
-
-
                     activity.startActivity(intent);
                 }
             });
-
-            TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
+            TextView eventDescription = (TextView) view.findViewById(R.id.event_description);
             eventDescription.setText(event.getDescription());
 
-            ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
+            ImageView deleteIcon = (ImageView) view.findViewById(R.id.event_delete_icon);
             deleteIcon.setVisibility(View.GONE);
-
-            dialog.setContentView(view);
-            dialog.show();
-
-
         }
     }
-
-
 }

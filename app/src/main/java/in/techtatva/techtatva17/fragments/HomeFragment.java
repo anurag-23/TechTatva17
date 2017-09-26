@@ -52,7 +52,6 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private InstagramFeed feed;
-//    private ProgressDialog progressDialog;
     SwipeRefreshLayout swipeRefreshLayout;
     private HomeAdapter instaAdapter;
     private HomeResultsAdapter resultsAdapter;
@@ -79,16 +78,12 @@ public class HomeFragment extends Fragment {
     private List<CategoryModel> categoriesList = new ArrayList<>();
     private List<ScheduleModel> eventsList = new ArrayList<>();
     public HomeFragment() {
-        // Required empty public constructor
     }
-
-
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +91,6 @@ public class HomeFragment extends Fragment {
         fetchResults();
 
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -105,29 +99,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment and initialize Views
         final View view = initViews(inflater, container);
-        //Progress Dialog
-        /*if(ANIMATED_PROGRESS_DIALOG){
-            progressDialogAnimation.setVisibility(View.VISIBLE);
-            ((View)progressDialogAnimation.getParent()).setVisibility(View.VISIBLE);
-            progressDialogAnimation.smoothToShow();
-        }else{
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Loading....");
-            progressDialog.show();
-        }*/
 
-
-
-        //Fetch and Display InstaFeed
         displayInstaFeed();
-
-        //Fetch and display Results
-
-
-        //updateResultsList();
-
 
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -143,7 +117,6 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).changeFragment(ResultsFragment.newInstance());
             }
         });
-
         //Display Categories
         RealmResults<CategoryModel> categoriesRealmList = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
         categoriesList = mDatabase.copyFromRealm(categoriesRealmList);
@@ -201,7 +174,6 @@ public class HomeFragment extends Fragment {
         if(eventsList.size()==0){
             view.findViewById(R.id.home_events_none_text_view).setVisibility(View.VISIBLE);
         }
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -224,12 +196,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
         return view;
     }
-
-
-
     public void displayInstaFeed(){
         Call<InstagramFeed> call = InstaFeedAPIClient.getInterface().getInstagramFeed();
         processes ++;
@@ -242,21 +210,16 @@ public class HomeFragment extends Fragment {
                     homeRV.setAdapter(instaAdapter);
                     homeRV.setLayoutManager(new LinearLayoutManager(getContext()));
                     ViewCompat.setNestedScrollingEnabled(homeRV, false);
-
-                    //dismissDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<InstagramFeed> call, Throwable t) {
-                //dismissDialog();
                 Log.i(TAG, "onFailure: Error Fetching insta feed ");
             }
         });
     }
-
     public void updateResultsList(){
-
         RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
         if (!results.isEmpty()){
             resultsList.clear();
@@ -284,12 +247,10 @@ public class HomeFragment extends Fragment {
         resultsAdapter.notifyDataSetChanged();
 
         if(resultsList.size()==0){
-            /*if(homeResultsItem.getVisibility()==View.GONE)
-                homeResultsItem.setVisibility(View.VISIBLE);*/
             resultsNone.setVisibility(View.VISIBLE);
         }
-
     }
+
     public void fetchResults(){
         processes++;
         Call<ResultsListModel> callResultsList = APIClient.getAPIInterface().getResultsList();
@@ -303,25 +264,17 @@ public class HomeFragment extends Fragment {
                     mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(results);
                     mDatabase.commitTransaction();
-
                     homeResultsItem.setVisibility(View.VISIBLE);
                     updateResultsList();
                     resultsNone.setVisibility(View.GONE);
                     resultsNone.setText("");
-                    //dismissDialog();
                 }
             }
-
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                //Snackbar.make(rootLayout, "Loading data. Takes a couple of seconds", Snackbar.LENGTH_SHORT).show();
                 if(homeResultsItem.getVisibility()==View.VISIBLE)
                 homeResultsItem.setVisibility(View.GONE);
-                /*resultsNone.setVisibility(View.VISIBLE);
-                resultsNone.setText("Error fetching results");*/
-                //Toast.makeText(getContext(), "Error fetching results", Toast.LENGTH_SHORT).show();
                 processes--;
-                //dismissDialog();
             }
         });
     }

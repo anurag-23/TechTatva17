@@ -8,12 +8,9 @@
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-
-
-
-
     android:scrollbarAlwaysDrawHorizontalTrack="false"
-    android:id="@+id/nestedScrollView">
+    android:id="@+id/nestedScrollView"
+    android:scrollbars="vertical">
 
 
 <RelativeLayout
@@ -83,15 +80,19 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_delete"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/event_fav_selection"
+            android:visibility="visible"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_fav_deselected"
             android:clickable="true"
             />
-
-
     </LinearLayout>
-
-
-
-
 
     <View
         android:id="@+id/event_divider"
@@ -103,14 +104,12 @@
         android:layout_marginBottom="8dp"
         android:background="@android:drawable/divider_horizontal_bright" />
 
-
     <android.support.v7.widget.CardView
         android:id="@+id/event_card_zero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:contentPadding="8dp"
-
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
@@ -118,46 +117,32 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:gravity="center"
-
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_round"
                 android:text="   Round: "
                 android:textColor="@color/white"
-
-
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/event_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:layout_alignBaseline="@+id/textView4"
-
                 android:layout_alignBottom="@+id/textView4"
                 android:layout_toEndOf="@+id/textView4"
                 android:layout_toRightOf="@+id/textView4"
                 android:text="TextView" />
-
-
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-
-
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView4"
@@ -167,8 +152,6 @@
                 android:text="   Category: "
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
-
             <TextView
                 android:id="@+id/event_category"
                 android:layout_width="wrap_content"
@@ -178,13 +161,8 @@
                 android:layout_toEndOf="@+id/textView9"
                 android:layout_toRightOf="@+id/textView9"
                 android:text="TextView" />
-
-
         </RelativeLayout>
-
-
     </android.support.v7.widget.CardView>
-
 
     <android.support.v7.widget.CardView
         android:id="@+id/event_card_one"
@@ -192,41 +170,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-
         android:layout_below="@+id/event_card_zero"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         app:contentPadding="8dp">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_date"
                 android:gravity="center"
                 android:text="   Date: "
-
                 android:textColor="@color/white"
-
-
                 android:textStyle="bold" />
-
-
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
@@ -234,17 +201,13 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView5"
-
-
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_time"
-
                 android:gravity="center"
                 android:text="   Time: "
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/event_date"
                 android:layout_width="wrap_content"
@@ -254,7 +217,6 @@
                 android:layout_toEndOf="@+id/textView5"
                 android:layout_toRightOf="@+id/textView5"
                 android:text="TextView" />
-
             <TextView
                 android:id="@+id/event_time"
                 android:layout_width="wrap_content"
@@ -264,9 +226,7 @@
                 android:layout_toEndOf="@+id/textView6"
                 android:layout_toRightOf="@+id/textView6"
                 android:text="TextView" />
-
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
@@ -278,51 +238,36 @@
         app:contentPadding="8dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-
                 android:layout_marginBottom="8dp"
                 android:drawableLeft="@drawable/ic_venue"
                 android:gravity="center"
-
-
                 android:layout_marginTop="8dp"
-
                 android:text="   Venue: "
                 android:textColor="@color/white"
-
                 android:textStyle="bold" />
-
-
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-
                 android:layout_alignParentLeft="true"
                 android:drawableLeft="@drawable/ic_team"
-
                 android:layout_alignParentStart="true"
-
                 android:layout_below="@+id/textView7"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="12dp"
                 android:text="   Team Size: "
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/event_venue"
                 android:layout_width="wrap_content"
@@ -332,7 +277,6 @@
                 android:layout_alignBottom="@+id/textView7"
                 android:layout_toRightOf="@+id/textView7"
                 android:layout_toEndOf="@+id/textView7" />
-
             <TextView
                 android:id="@+id/event_team_size"
                 android:layout_width="wrap_content"
@@ -342,29 +286,21 @@
                 android:layout_alignBottom="@+id/textView8"
                 android:layout_toRightOf="@+id/textView8"
                 android:layout_toEndOf="@+id/textView8" />
-
-
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView8"
-
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-
-
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_contact"
                 android:gravity="center"
                 android:text="   Contact: "
                 android:textColor="@color/white"
-
                 android:textStyle="bold" />
-
-
             <TextView
                 android:id="@+id/event_contact"
                 android:layout_width="wrap_content"
@@ -373,17 +309,11 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/colorAccent"
-
-
                 android:layout_alignBaseline="@+id/textView10"
                 android:layout_alignBottom="@+id/textView10"
-
                 android:layout_toEndOf="@+id/event_contact_name"
-
-
                 android:text="TextView"
                 android:layout_toRightOf="@+id/event_contact_name" />
-
             <TextView
                 android:id="@+id/event_contact_name"
                 android:layout_width="wrap_content"
@@ -393,11 +323,7 @@
                 android:layout_alignBottom="@+id/textView10"
                 android:layout_toRightOf="@+id/textView10"
                 android:layout_toEndOf="@+id/textView10" />
-
-
         </RelativeLayout>
-
-
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
@@ -408,47 +334,30 @@
         android:layout_below="@id/event_card_two"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-
         android:layout_marginBottom="8dp"
-
         android:layout_marginRight="8dp">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/imageView2"
-
-
                 android:layout_toRightOf="@+id/imageView2"
-
                 android:text="Event Description"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
-
-
-
-
-
-
-        <TextView
-            android:id="@+id/event_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView18"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:layout_toRightOf="@+id/imageView2"
-            android:layout_toEndOf="@+id/imageView2" />
-
+            <TextView
+                android:id="@+id/event_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView18"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:layout_toRightOf="@+id/imageView2"
+                android:layout_toEndOf="@+id/imageView2" />
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
@@ -458,15 +367,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="8dp"
                 app:srcCompat="@drawable/ic_description" />
-
-
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
-
-
-
 
 </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-

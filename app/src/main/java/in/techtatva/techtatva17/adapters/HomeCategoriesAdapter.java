@@ -27,13 +27,10 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     private Context context;
     Activity activity;
 
-
-
     public HomeCategoriesAdapter(List<CategoryModel> categoriesList, Activity activity) {
         this.categoriesList = categoriesList;
         this.activity = activity;
     }
-
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -41,8 +38,6 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
         context = parent.getContext();
         return new  HomeViewHolder(itemView);
     }
-
-
     @Override
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         CategoryModel category = categoriesList.get(position);
@@ -50,7 +45,6 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
         IconCollection icons = new IconCollection();
         holder.categoryLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
     }
-
     @Override
     public int getItemCount() {
         return categoriesList.size();
@@ -61,13 +55,10 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
         public TextView categoryName;
         public RelativeLayout categoryItem;
         public  HomeViewHolder(View view) {
-
             super(view);
             initializeViews(view);
-
         }
         public void onBind(final CategoryModel category) {
-
             categoryName.setText(category.getCategoryName());
             categoryItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,5 +77,4 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
             categoryItem = (RelativeLayout)view.findViewById(R.id.home_categories_item);
         }
     }
-
 }

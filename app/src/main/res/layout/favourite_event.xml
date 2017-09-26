@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     android:id="@+id/fav_event_item"
     android:layout_width="98dp"
@@ -23,7 +22,6 @@
             android:src="@drawable/ic_sample_image_24dp" />
 
     </FrameLayout>
-
     <TextView
         android:id="@+id/fav_event_round_text_view"
         android:layout_width="24dp"
@@ -77,5 +75,4 @@
             android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
-
 </RelativeLayout>

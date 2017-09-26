@@ -25,25 +25,21 @@ public class AboutUsFragment extends Fragment {
     Context context;
     String TAG = "AboutUsFragment";
     public AboutUsFragment() {
-        // Required empty public constructor
     }
 
     public static AboutUsFragment newInstance() {
         AboutUsFragment fragment = new AboutUsFragment();
         return fragment;
     }
-
-        @Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
             getActivity().setTitle(R.string.about_us_title);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
         instaIV = (ImageView) view.findViewById(R.id.insta_image);
         fbIV = (ImageView)view.findViewById(R.id.fb_image);

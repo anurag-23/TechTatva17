@@ -29,40 +29,32 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         this.categoriesList = categoriesList;
         this.activity = activity;
     }
-
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new CategoryViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_category, parent, false));
     }
-
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         CategoryModel category = categoriesList.get(position);
         holder.catName.setText(category.getCategoryName());
-
         IconCollection icons = new IconCollection();
         holder.catLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
-
     }
-
     @Override
     public int getItemCount() {
         return categoriesList.size();
     }
 
     class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         ImageView catLogo;
         TextView catName;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
-
             catLogo = (ImageView) itemView.findViewById(R.id.cat_logo_image_view);
             catName = (TextView) itemView.findViewById(R.id.cat_name_text_view);
             itemView.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(activity, CategoryActivity.class);
@@ -71,6 +63,5 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             intent.putExtra("catDesc", categoriesList.get(getAdapterPosition()).getCategoryDescription());
             activity.startActivity(intent);
         }
-
     }
 }

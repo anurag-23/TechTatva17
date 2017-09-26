@@ -40,21 +40,18 @@ public class CategoriesFragment extends Fragment {
     private MenuItem searchItem;
 
     public CategoriesFragment() {
-        // Required empty public constructor
     }
 
     public static CategoriesFragment newInstance() {
         CategoriesFragment fragment = new CategoriesFragment();
         return fragment;
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         getActivity().setTitle(R.string.categories);
         mDatabase = Realm.getDefaultInstance();
-
         try{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().findViewById(R.id.toolbar).setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
@@ -64,14 +61,10 @@ public class CategoriesFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_categories, container, false);
-
         RecyclerView categoriesRecyclerView = (RecyclerView)view.findViewById(R.id.categories_recycler_view);
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
@@ -84,13 +77,10 @@ public class CategoriesFragment extends Fragment {
         }
         return view;
     }
-
     private void displayData(){
-
         if (mDatabase != null){
             categoriesList.clear();
             RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
-
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
@@ -98,22 +88,17 @@ public class CategoriesFragment extends Fragment {
             }
         }
     }
-
     private void displaySearchData(String text){
-
         if (mDatabase != null){
             categoriesList.clear();
             RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName");
-
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
             }
-
         }
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -122,8 +107,6 @@ public class CategoriesFragment extends Fragment {
         if (dialog != null && dialog.isShowing())
             dialog.hide();
     }
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_hardware, menu);
@@ -131,11 +114,9 @@ public class CategoriesFragment extends Fragment {
         MenuItem filter = menu.findItem(R.id.menu_filter);
         filter.setVisible(false);
         final SearchView searchView = (SearchView)searchItem.getActionView();
-
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setSubmitButtonEnabled(false);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
@@ -143,7 +124,6 @@ public class CategoriesFragment extends Fragment {
                 TechTatva.searchOpen = 1;
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String text) {
                 displaySearchData(text);
@@ -152,13 +132,11 @@ public class CategoriesFragment extends Fragment {
             }
         });
         searchView.setQueryHint("Search Categories");
-
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 displayData();
                 searchView.clearFocus();
-
                 TechTatva.searchOpen = 1;
                 return false;
             }
@@ -166,20 +144,15 @@ public class CategoriesFragment extends Fragment {
 
         });
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
         setHasOptionsMenu(false);
         setMenuVisibility(false);
     }
-
     @Override
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
     }
-
-
-
 }

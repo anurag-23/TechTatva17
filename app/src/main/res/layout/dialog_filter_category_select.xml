@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-
-    >
+    android:gravity="center">
 
     <NumberPicker
         android:id="@+id/numberPicker"
@@ -19,10 +17,7 @@
         android:descendantFocusability="blocksDescendants"
         android:divider="@drawable/numpicker_custom_divider"
         android:focusable="false"
-        android:gravity="center"
-
-
-        />
+        android:gravity="center" />
 
     <Button
         android:id="@+id/button"
