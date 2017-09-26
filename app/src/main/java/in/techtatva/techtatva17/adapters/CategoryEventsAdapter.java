@@ -151,6 +151,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
             ImageView deleteIcon = (ImageView) view.findViewById(R.id.event_delete_icon);
             deleteIcon.setVisibility(View.GONE);
+            dialog.setContentView(view);
+            dialog.show();
         }
     }
 }
