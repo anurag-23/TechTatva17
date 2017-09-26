@@ -21,9 +21,6 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -178,7 +175,8 @@ public class DaysFragment extends Fragment {
                 eventDescription.setText(schedule.getDescription());
 
                 final ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
-
+                final ImageView favIcon = (ImageView)view.findViewById(R.id.event_fav_icon);
+                favIcon.setVisibility(View.GONE);
                 String sDay = Integer.toString(day);
 
                 final RealmResults<FavouritesModel> results =    realm.where(FavouritesModel.class).equalTo("id", eventID).contains("day", (day + 1) + "").findAll();
@@ -191,11 +189,11 @@ public class DaysFragment extends Fragment {
                         realm.beginTransaction();
                         results.deleteAllFromRealm();
                         realm.commitTransaction();
-                        ImageView fave = (ImageView) view1.findViewById(R.id.event_fav_ico);
-                        fave.setImageResource(R.drawable.ic_fav_deselected);
-                        fave.setTag("deselected");
+                        ImageView favIcon = (ImageView) view1.findViewById(R.id.event_fav_ico);
+                        favIcon.setImageResource(R.drawable.ic_fav_deselected);
+                        favIcon.setTag("deselected");
                         deleteIcon.setVisibility(View.GONE);
-                        }
+                    }
 
 
 
@@ -233,11 +231,11 @@ public class DaysFragment extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
             SimpleDateFormat sdfFilter = new SimpleDateFormat("hh:mm aa", Locale.US);
 
-            Date startDate = null;
-            Date endDate = null;
+            Date startDate;
+            Date endDate;
 
-            Date startDateFilter = null;
-            Date endDateFilter = null;
+            Date startDateFilter;
+            Date endDateFilter;
 
             if (categoryFilter.equals("All")) {
                 categoryFilter = "";

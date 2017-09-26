@@ -83,13 +83,14 @@
             android:clickable="true" />
 
         <ImageView
-            android:id="@+id/event_fav_selection"
+            android:id="@+id/event_fav_icon"
             android:visibility="visible"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_fav_deselected"
+            android:tag="deselected"
             android:clickable="true"
             />
     </LinearLayout>
