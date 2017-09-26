@@ -11,14 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="No Connection"
+        android:text="@string/no_connection"
         android:textAllCaps="true"
         android:layout_marginBottom="@dimen/padding_2x"
         android:textColor="@color/white"/>
-
-    <!--
-        TODO : change connection error message
-    -->
 
     <ImageView
         android:layout_width="128dp"
@@ -31,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please connect to the internet and retry"
+        android:text="@string/no_connection_text"
         android:textSize="@dimen/typography_title"
         android:layout_marginTop="@dimen/padding_default"
         android:gravity="center"/>
@@ -46,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:text="Retry" />
+            android:text="@string/retry" />
 
     </android.support.v7.widget.CardView>
 

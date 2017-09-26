@@ -30,19 +30,16 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
     private final EventClickListener eventListener;
     private Context context;
     Activity activity;
-
     private Realm mDatabase = Realm.getDefaultInstance();
 
     public interface EventClickListener {
         void onItemClick(ScheduleModel event);
     }
-
     public HomeEventsAdapter(List<ScheduleModel> events, EventClickListener eventListener, Activity activity) {
         this.events = events;
         this.activity = activity;
         this.eventListener = eventListener;
     }
-
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -50,16 +47,13 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
                 .inflate(R.layout.favourite_event, parent, false);
         return new EventViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         ScheduleModel event = events.get(position);
         holder.onBind(event);
-
         IconCollection icons = new IconCollection();
         holder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
     }
-
     @Override
     public int getItemCount() {
         return events.size();
@@ -71,7 +65,6 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
         public TextView eventName;
         public TextView eventTime;
         public RelativeLayout eventItem;
-
         public EventViewHolder(View view) {
             super(view);
             eventLogo = (ImageView) view.findViewById(R.id.fav_event_logo_image_view);
@@ -79,7 +72,6 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             eventName = (TextView) view.findViewById(R.id.fav_event_name_text_view);
             eventTime = (TextView) view.findViewById(R.id.fav_event_time_text_view);
             eventItem = (RelativeLayout)view.findViewById(R.id.fav_event_item);
-
         }
         public void onBind(final ScheduleModel event) {
             eventName.setText(event.getEventName());
@@ -95,18 +87,14 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
                     displayBottomSheet(event);
                 }
             });
-
         }
         private void displayBottomSheet(final ScheduleModel event){
             final View view = View.inflate(context, R.layout.activity_event_dialogue, null);
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
             Log.i("TT17", "displayBottomSheet: NEW!");
             final String eventID = event.getEventID();
-
             EventDetailsModel schedule = mDatabase.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
-
             ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
-
             IconCollection icons = new IconCollection();
             eventLogo1.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
@@ -131,22 +119,6 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
 
-
-//            TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-//            eventContactName.setText(event.getContactName() + " : ");
-
-//            TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-//            eventContact.setText(  event.getContactNumber());
-//            eventContact.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-//
-//            eventContact.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
-//                    context.startActivity(intent);
-//                }
-//            });
-
             TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
             eventDescription.setText(schedule.getDescription());
 
@@ -155,7 +127,5 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             dialog.setContentView(view);
             dialog.show();
         }
-
     }
 }
-

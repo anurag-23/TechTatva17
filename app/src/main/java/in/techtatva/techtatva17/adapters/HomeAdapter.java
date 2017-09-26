@@ -27,7 +27,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
     String TAG = "HomeAdapter";
     private InstagramFeed feed;
     private Context context;
-
     public HomeAdapter(InstagramFeed feed) {
         this.feed = feed;
     }
@@ -39,14 +38,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
         context = parent.getContext();
         return new  HomeViewHolder(itemView);
     }
-    
-
     @Override
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         InstaFeedModel instaItem = feed.getFeed().get(position);
         holder.onBind(instaItem);
     }
-
     @Override
     public int getItemCount() {
         return feed.getFeed().size();
@@ -60,7 +56,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
         public TextView instaLikes;
         public TextView instaComments;
         public LinearLayout instaItem;
-
         public  HomeViewHolder(View view) {
             super(view);
             initializeViews(view);
@@ -98,7 +93,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
             instaItem = (LinearLayout)view.findViewById(R.id.insta_feed_item_linear_layout);
         }
     }
-
     public void launchInstagramImage(InstaFeedModel instaItem){
         try {
             Uri uri = Uri.parse(instaItem.getLink());
@@ -135,6 +129,3 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter. HomeViewHolde
         }
     }
 }
-
-
-

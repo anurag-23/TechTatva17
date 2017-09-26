@@ -10,7 +10,6 @@ import io.realm.RealmConfiguration;
  */
 
 public class TechTatva extends Application {
-
     public static int searchOpen =0;
 
     @Override
@@ -19,7 +18,5 @@ public class TechTatva extends Application {
         Realm.init(this);
         RealmConfiguration realmConfiguration= new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);
-
-
     }
 }

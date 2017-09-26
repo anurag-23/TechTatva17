@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -68,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/insta_text_grey"
                 android:textSize="14sp"
-
                 tools:text="username Description" />
 
             <TextView
@@ -80,8 +80,6 @@
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_favorite"
                 android:textColor="@color/insta_text_grey"
-
-
                 android:textSize="14sp"
                 tools:text="0 likes" />
 
@@ -94,14 +92,10 @@
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_comment"
                 android:textColor="@color/insta_text_grey"
-
-
                 android:textSize="14sp"
                 tools:text="0 comments" />
 
 
         </LinearLayout>
-
-
     </LinearLayout>
 </android.support.v7.widget.CardView>

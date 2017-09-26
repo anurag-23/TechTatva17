@@ -35,7 +35,6 @@ public class CategoryActivity extends AppCompatActivity {
     private String catName;
     private String catID;
     private String catDesc;
-    private String text;
     private Realm mDatabase;
     private TextView noEventsDay1;
     private TextView noEventsDay2;
@@ -140,7 +139,6 @@ public class CategoryActivity extends AppCompatActivity {
         if(day1List.isEmpty()){
             noEventsDay1.setVisibility(View.VISIBLE);
             recyclerViewDay1.setVisibility(View.GONE);
-            //Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
         }
         else{
             recyclerViewDay1.setAdapter(new CategoryEventsAdapter(day1List,this,getBaseContext()));

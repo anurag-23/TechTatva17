@@ -19,7 +19,6 @@ public class EventsTabsPagerAdapter extends FragmentStatePagerAdapter {
     String endTimeFilter;
     boolean filter;
 
-
     public EventsTabsPagerAdapter(FragmentManager fm,String searchTerm,String categoryFilter, String venueFilter, String startTimeFilter, String endTimeFilter,boolean filter){
         super(fm);
         this.searchTerm=searchTerm;
@@ -29,22 +28,18 @@ public class EventsTabsPagerAdapter extends FragmentStatePagerAdapter {
         this.endTimeFilter=endTimeFilter;
         this.filter=filter;
     }
-
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
-
     @Override
     public Fragment getItem(int position) {
         return DaysFragment.newInstance(position,searchTerm,categoryFilter,venueFilter,startTimeFilter,endTimeFilter,filter);
     }
-
     @Override
     public int getCount() {
         return 4;
     }
-
     @Override
     public CharSequence getPageTitle(int position) {
         return tabTitles[position];

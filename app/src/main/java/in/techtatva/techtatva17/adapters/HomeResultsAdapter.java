@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -31,12 +29,10 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
     private Context context;
     Activity activity;
 
-
     public HomeResultsAdapter(List<EventResultModel> resultsList, Activity activity) {
         this.resultsList=resultsList;
         this.activity = activity;
     }
-
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -44,23 +40,17 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
         context = parent.getContext();
         return new  HomeViewHolder(itemView);
     }
-
-
     @Override
     public void onBindViewHolder( HomeViewHolder holder, int position) {
         EventResultModel result = resultsList.get(position);
         holder.onBind(result);
-
         IconCollection icons = new IconCollection();
         holder.resultsLogo.setImageResource(icons.getIconResource(activity, result.eventCategory));
     }
-
     @Override
     public int getItemCount() {
         return resultsList.size();
     }
-
-
 
     public class  HomeViewHolder extends RecyclerView.ViewHolder{
         public ImageView resultsLogo;
@@ -73,7 +63,6 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
         }
 
         public void onBind(final EventResultModel result) {
-            //TODO:Change Results Logo accordingly here
             if(resultsItem!=null) {
                 resultsName.setText(result.eventName);
                 resultsRound.setText("Round: "+result.eventRound);
@@ -93,11 +82,9 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
             resultsItem = (FrameLayout) view.findViewById(R.id.home_results_frame);
             Log.i(TAG, "initializeViews:"+resultsItem);
         }
-
         public void displayBottomSheet(EventResultModel result){
             View bottomSheetView = View.inflate(context, R.layout.dialog_results, null);
             final BottomSheetDialog dialog = new BottomSheetDialog(context);
-
             dialog.setContentView(bottomSheetView);
 
             BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
@@ -115,7 +102,5 @@ public class HomeResultsAdapter extends RecyclerView.Adapter<HomeResultsAdapter.
 
             dialog.show();
         }
-
     }
-
 }

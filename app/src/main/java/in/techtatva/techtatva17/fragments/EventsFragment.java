@@ -60,23 +60,17 @@ public class EventsFragment extends Fragment {
     private MenuItem filterItem;
     private ArrayList<String> categoryNames = new ArrayList<>();
     private List<String> venueList = new ArrayList<>();
-
-
     public EventsFragment() {
-        // Required empty public constructor
     }
-
     public static EventsFragment newInstance() {
         EventsFragment fragment = new EventsFragment();
         return fragment;
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         mDatabase.close();
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,31 +86,23 @@ public class EventsFragment extends Fragment {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
         scheduleResult = mDatabase.where(ScheduleModel.class).distinctAsync("venue").sort("venue");
         venueList.add("All");
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         result = inflater.inflate(R.layout.fragment_events, container, false);
         viewPager = (ViewPager) result.findViewById(R.id.events_view_pager);
-
         TabLayout tabLayout = (TabLayout) result.findViewById(R.id.events_tab_layout);
         viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
         tabLayout.setupWithViewPager(viewPager);
-
-
         //Set the Tab to the current day-
         Calendar cal = Calendar.getInstance();
         int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
         viewPager.setCurrentItem((dayOfMonth-04)%4);
         return result;
     }
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_hardware, menu);
@@ -149,20 +135,15 @@ public class EventsFragment extends Fragment {
                             venue += temp.charAt(i);
                         } else break;
                     }
-
                     if (!venue.isEmpty() && !venueList.contains(venue))
                         venueList.add(venue);
                 }
-
-
                 if (!filterMode) {
-                    //searchItem.setVisible(true);
                     filterCategories.setText("All");
                     filterTimeRange.setText("12:00PM to 9:00PM");
                     filterVenue.setText("All");
                     rangeBar.setRangePinsByIndices(0, 9);
                 } else {
-                    //searchItem.setVisible(false);
                     filterCategories.setText(categoryFilterTerm);
                     filterTimeRange.setText(startTimeFilterTerm + "PM to " + endTimeFilterTerm + "PM");
                     filterVenue.setText(venueFilterTerm);
@@ -199,26 +180,13 @@ public class EventsFragment extends Fragment {
                         viewPager.getAdapter().notifyDataSetChanged();
                         viewPager.setCurrentItem(item,false);
                         bottomSheetDialog.dismiss();
-
-//                        if (!filterMode) {
-//                            //searchItem.setVisible(false);
-//                            filterMode = true;
-//
-//                        } else {
-//                            //searchItem.setVisible(true);
-//                            filterMode = false;
-//
-//                        }
                     }
                 });
-
                 RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
                 categoryNames.add("All");
-
                 for (CategoryModel category : categoryResults) {
                     categoryNames.add(category.getCategoryName());
                 }
-
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.filter_recycler);
                 recyclerView.removeAllViews();
                 recyclerView.removeAllViewsInLayout();
@@ -227,9 +195,7 @@ public class EventsFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
                 recyclerDisplayed = true;
                 adapter.notifyDataSetChanged();
-
                 CardView filterCategoriesCard = (CardView) view.findViewById(R.id.filter_categories_card);
-
                 filterCategoriesCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -238,7 +204,6 @@ public class EventsFragment extends Fragment {
                         Rect displayRectangle = new Rect();
                         Window window = getActivity().getWindow();
                         window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
-
                         view1.setMinimumWidth((int) (displayRectangle.width() * 0.5f));
                         d.setContentView(view1);
 
@@ -251,11 +216,9 @@ public class EventsFragment extends Fragment {
                                 d.dismiss();
                             }
                         });
-
                         numberPicker.setMinValue(0);
                         numberPicker.setMaxValue(categoryNames.size() - 1);
                         numberPicker.setWrapSelectorWheel(false);
-
                         numberPicker.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -263,14 +226,12 @@ public class EventsFragment extends Fragment {
                                 d.dismiss();
                             }
                         });
-
                         numberPicker.setFormatter(new NumberPicker.Formatter() {
                             @Override
                             public String format(int value) {
                                 return categoryNames.get(value);
                             }
                         });
-
                         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                             @Override
                             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -278,16 +239,13 @@ public class EventsFragment extends Fragment {
                             }
                         });
                         d.show();
-
                     }
                 });
-
 
                 rangeBar.setFormatter(new IRangeBarFormatter() {
                     @Override
                     public String format(String value) {
                         String time;
-
                         if (Integer.parseInt(value) == 0) {
                             time = "12:00";
                         } else {
@@ -300,7 +258,6 @@ public class EventsFragment extends Fragment {
                 rangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
                     @Override
                     public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
-
                         String startTime;
                         String endTime;
 
@@ -309,8 +266,6 @@ public class EventsFragment extends Fragment {
                         } else {
                             startTime = leftPinValue + ":00";
                         }
-
-
                         if (rightPinIndex == 0) {
                             endTime = "12:00";
                         } else {
@@ -328,7 +283,6 @@ public class EventsFragment extends Fragment {
                 return false;
             }
         });
-
         final SearchView searchView = (SearchView) searchItem.getActionView();
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -360,9 +314,7 @@ public class EventsFragment extends Fragment {
                 return false;
             }
         });
-
         searchView.setQueryHint("Search Events");
-
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {

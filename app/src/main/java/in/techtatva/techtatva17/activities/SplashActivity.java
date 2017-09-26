@@ -38,55 +38,33 @@ public class SplashActivity extends AppCompatActivity {
 
     boolean isWiFi;
     boolean isConnected;
-
     public Runnable test;
-
     private RelativeLayout rootLayout;
-
     private Realm mDatabase;
-
     boolean dataAvailableLocally;
-
     int i = 0;
-
     private int counter = 0;
     private int apiCallsRecieved = 0;
-
     private Context context = this;
-
     private Handler mHandler = new Handler();
-
     private boolean eventsDataAvailableLocally = false;
     private boolean schedulesDataAvailableLocally = false;
     private boolean categoriesDataAvailableLocally = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         mDatabase = Realm.getDefaultInstance();
-
         rootLayout = (RelativeLayout) findViewById(R.id.splash_root_layout);
-
-
-
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         dataAvailableLocally = sharedPref.getBoolean("dataAvailableLocally",false);
-
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-
         isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         if (isConnected){
             isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
         }
-        //moveForward();
-
-        //loadAnimation();
-
         final ImageView iconLeft = (ImageView) findViewById(R.id.splash_left_tt_icon);
         final ImageView iconRight = (ImageView) findViewById(R.id.splash_right_tt_icon);
         final ImageView text = (ImageView) findViewById(R.id.splash_tt_text);
@@ -107,7 +85,6 @@ public class SplashActivity extends AppCompatActivity {
 
                     if(isConnected){
                         Log.d("Splash","Is connected");
-                        //loadAnimation();
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -115,16 +92,11 @@ public class SplashActivity extends AppCompatActivity {
 
                                 loadAllFromInternet();
                                 moveForward();
-                                // moveForward();
                             }
                         }, 1000);
-                /*
-                loadAllFromInternet();
-                moveForward();*/
                     }
 
                     else{Log.d("Splash","not connected");
-                        //loadAnimation();
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -134,25 +106,20 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                 }
-
                 else{
                     Log.d("Splash","Data not avail local");
-
                     if (!isConnected){Log.d("Splash","not connected");
 
                         final LinearLayout noConnectionLayout = (LinearLayout)findViewById(R.id.splash_no_connection_layout);
                         Button retry = (Button)noConnectionLayout.findViewById(R.id.retry);
-
                         noConnectionLayout.setVisibility(View.VISIBLE);
                         iconLeft.setVisibility(View.GONE);
                         iconRight.setVisibility(View.GONE);
                         text.setVisibility(View.GONE);
                         container.setVisibility(View.GONE);
-
                         retry.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
                                 ConnectivityManager cmTemp = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
                                 NetworkInfo activeNetworkTemp = cmTemp.getActiveNetworkInfo();
                                 boolean isConnectedTemp = activeNetworkTemp != null && activeNetworkTemp.isConnectedOrConnecting();
@@ -172,26 +139,19 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                     else{Log.d("Splash"," connected");
                         Snackbar.make(rootLayout, "Loading data... takes a couple of seconds.", Snackbar.LENGTH_SHORT).show();
                         loadAllFromInternet();
                     }
                 }
-
             }
-
             @Override
             public void onAnimationRepeat(Animation animation) {
 
             }
         });
         text.startAnimation(animation);
-
-
     }
-
-
     private void loadAllFromInternet(){
         loadEventsFromInternet();
         loadSchedulesFromInternet();
@@ -201,7 +161,6 @@ public class SplashActivity extends AppCompatActivity {
         test = new Runnable() {
             @Override
             public void run() {
-
                 if (eventsDataAvailableLocally && schedulesDataAvailableLocally && categoriesDataAvailableLocally){
                     SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -210,14 +169,9 @@ public class SplashActivity extends AppCompatActivity {
                     if(!dataAvailableLocally){
                         moveForward();
                     }
-
                 }
-
-
-
                 if (!(eventsDataAvailableLocally && schedulesDataAvailableLocally && categoriesDataAvailableLocally)){
                     counter++;
-
                     if(apiCallsRecieved == 3){
                         if(i==0){
                         i = counter;}
@@ -226,22 +180,18 @@ public class SplashActivity extends AppCompatActivity {
                             moveForward();
                         }
                     }
-
                     if (counter == 10 && !dataAvailableLocally){
                         if(eventsDataAvailableLocally || schedulesDataAvailableLocally || categoriesDataAvailableLocally){
                             Snackbar.make(rootLayout, "Possible slow internet connection", Snackbar.LENGTH_SHORT).show();
-
                         }
                         else{
                             Snackbar.make(rootLayout, "Server may be down. Please try again later", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                     mHandler.postDelayed(test,1000);
-
                 }
             }
         };
-
         mHandler.postDelayed(test,1000);
     }
 
@@ -253,14 +203,11 @@ public class SplashActivity extends AppCompatActivity {
     private void loadEventsFromInternet() {
 
         Call<EventsListModel> eventsCall = APIClient.getAPIInterface().getEventsList();
-
         eventsCall.enqueue(new Callback<EventsListModel>() {
-
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
                     apiCallsRecieved++;
-
                     mDatabase.beginTransaction();
                     mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getEvents());
@@ -269,26 +216,19 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("TAG","Events");
                 }
             }
-
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
                 apiCallsRecieved++;
-                //Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
-
     private void loadSchedulesFromInternet() {
-
         Call<ScheduleListModel> schedulesCall = APIClient.getAPIInterface().getScheduleList();
-
         schedulesCall.enqueue(new Callback<ScheduleListModel>() {
-
             @Override
             public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
                     apiCallsRecieved++;
-
                     mDatabase.beginTransaction();
                     mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getData());
@@ -297,27 +237,20 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("TAG","Schedules");
                 }
             }
-
             @Override
             public void onFailure(Call<ScheduleListModel> call, Throwable t) {
                 apiCallsRecieved++;
-                //Snackbar.make(rootLayout, "Unable to update Events!", Snackbar.LENGTH_SHORT).show();
-
             }
         });
     }
 
     private void loadCategoriesFromInternet() {
-
         Call<CategoriesListModel> categoriesCall = APIClient.getAPIInterface().getCategoriesList();
-
         categoriesCall.enqueue(new Callback<CategoriesListModel>() {
-
             @Override
             public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
                     apiCallsRecieved++;
-
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getCategoriesList());
@@ -327,26 +260,18 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("TAG","Categories");
                 }
             }
-
             @Override
             public void onFailure(Call<CategoriesListModel> call, Throwable t) {
                 apiCallsRecieved++;
-                //Snackbar.make(rootLayout, "Unable to update Categories!", Snackbar.LENGTH_SHORT).show();
-
             }
         });
     }
-
     private void loadResultsFromInternet(){
-
         Call<ResultsListModel> resultsCall = APIClient.getAPIInterface().getResultsList();
-
         resultsCall.enqueue(new Callback<ResultsListModel>() {
-
             @Override
             public void onResponse(Call<ResultsListModel> call, Response<ResultsListModel> response) {
                 if (response.isSuccess() && response.body() != null && mDatabase != null) {
-
                     mDatabase.beginTransaction();
                     mDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getData());
@@ -354,20 +279,14 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("TAG","Results");
                 }
             }
-
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                //Snackbar.make(rootLayout, "Unable to update Results!", Snackbar.LENGTH_SHORT).show();
-
             }
         });
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         mDatabase.close();
     }
-
-
 }

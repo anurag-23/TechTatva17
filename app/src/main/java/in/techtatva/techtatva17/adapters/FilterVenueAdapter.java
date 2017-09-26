@@ -24,9 +24,7 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
     private List<String> mVenueNames = new ArrayList<>();
     private  Context mContext;
     private TextView mVenue;
-
     int currentlySelectedCard=-1;
-
     ArrayList<CardView> allViews = new ArrayList<>();
 
     public FilterVenueAdapter(List<String> venueNames, Context context,TextView venue){
@@ -35,12 +33,10 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
         this.mVenue=venue;
 
     }
-
     @Override
     public FilterVenueAdapter.FilterVenueViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new FilterVenueViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_filter_venue,parent,false));
     }
-
     @Override
     public void onBindViewHolder(FilterVenueAdapter.FilterVenueViewHolder holder, int position) {
 
@@ -48,7 +44,6 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
             holder.cardView1.setId(position);
             allViews.add(position,holder.cardView1);
     }
-
     @Override
     public int getItemCount() {
         return (mVenueNames.size());
@@ -57,14 +52,11 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
     public class FilterVenueViewHolder extends RecyclerView.ViewHolder {
         CardView cardView1;
         TextView textView1;
-
         public FilterVenueViewHolder(final View itemView) {
             super(itemView);
-
              cardView1 = (CardView) itemView.findViewById(R.id.cardView);
              textView1 = (TextView) itemView.findViewById(R.id.filter_venue_text_one);
-
-            cardView1.setOnClickListener(new View.OnClickListener() {
+                cardView1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(currentlySelectedCard != -1){
@@ -73,8 +65,6 @@ public class FilterVenueAdapter extends RecyclerView.Adapter<FilterVenueAdapter.
                         TextView tempView = (TextView) tempCard.getChildAt(0);
                         tempView.setTextColor(Color.parseColor("#ffffff"));
                         tempCard.setCardBackgroundColor(Color.parseColor("#424242"));
-
-
                     }
                     cardView1.setCardBackgroundColor(Color.parseColor("#18BADE"));
                     TextView tempView = (TextView) cardView1.getChildAt(0);

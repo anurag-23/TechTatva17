@@ -24,5 +24,4 @@
         android:textSize="@dimen/typography_body"
         tools:text="Team ID" />
 
-
 </LinearLayout>

@@ -92,14 +92,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                         removeFavourite(event);
                         Snackbar.make(v, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
                     }
-
                 }
             });
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     eventListener.onItemClick(event,v);
-
                 }
             });
             eventItem.setOnLongClickListener(new View.OnLongClickListener() {
@@ -111,7 +109,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             });
             eventName.setText(event.getEventName());
             eventTime.setText(event.getStartTime() + " - " + event.getEndTime());
-            //eventIcon.setImageResource(R.drawable.ic_sample_image_24dp);
             eventVenue.setText(event.getVenue());
             if(favouritesContainsEvent(event)){
                 favIcon.setImageResource(R.drawable.ic_fav_selected);
@@ -120,11 +117,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 favIcon.setImageResource(R.drawable.ic_fav_deselected);
                 favIcon.setTag("deselected");
             }
-
         }
     }
-
-
     public EventsAdapter(Activity activity, List<EventModel> events, EventClickListener eventListener, EventLongPressListener eventLongPressListener, FavouriteClickListener favouriteListener){
         this.eventList = events;
         this.eventListener = eventListener;
@@ -132,16 +126,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         this.eventLongPressListener=eventLongPressListener;
         this.activity = activity;
     }
-
-
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_event, parent, false);
-
         return new EventViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         EventModel event = eventList.get(position);
@@ -150,25 +140,18 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             Log.d("T",event.getEventId());
             Log.d("T",event.getDay());
             Log.d("T"," ");}
-
         IconCollection icons = new IconCollection();
         holder.eventIcon.setImageResource(icons.getIconResource(activity, event.getCatName()));
-
         holder.onBind(event,eventListener, eventLongPressListener,favouriteListener );
     }
-
     @Override
     public int getItemCount() {
-
         return eventList.size();
     }
-
     private void addFavourite(ScheduleModel eventSchedule){
         FavouritesModel favourite = new FavouritesModel();
-
         //Get Corresponding EventDetailsModel from Realm
         EventDetailsModel eventDetails = realm.where(EventDetailsModel.class).equalTo("eventID",eventSchedule.getEventID()).findFirst();
-
         //Create and Set Values for FavouritesModel
         favourite.setId(eventSchedule.getEventID());
         favourite.setCatID(eventSchedule.getCatID());
@@ -184,15 +167,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         favourite.setContactNumber(eventDetails.getContactNo());
         favourite.setCatName(eventDetails.getCatName());
         favourite.setDescription(eventDetails.getDescription());
-
         //Commit to Realm
         realm.beginTransaction();
         realm.copyToRealm(favourite);
         realm.commitTransaction();
         addNotification(eventSchedule);
         favourites.add(favourite);
-
-
     }
     private void removeFavourite(ScheduleModel eventSchedule){
         realm.beginTransaction();
@@ -213,7 +193,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             //Checking if Corresponding Event exists
             if((favourite.getId().equals(eventSchedule.getEventID()))&&(favourite.getDay().equals(eventSchedule.getDay()))){
                 return true;
-
             }
         }
         return false;
@@ -234,29 +213,23 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         pendingIntent2 = PendingIntent.getBroadcast(activity, RC2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
         Date d = null;
-
         try {
             d = sdf.parse(event.getStartTime());
         } catch (ParseException e) {
             e.printStackTrace();
             return;
         }
-
         int eventDate = EVENT_DAY_ZERO + Integer.parseInt(event.getDay());   //event dates start from 04th October
-
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTime(d);
-
         calendar1.set(Calendar.MONTH,EVENT_MONTH);
         calendar1.set(Calendar.YEAR, 2017);
         calendar1.set(Calendar.DATE, eventDate);
         calendar1.set(Calendar.SECOND, 0);
-
         long eventTimeInMillis = calendar1.getTimeInMillis();
         calendar1.set(Calendar.HOUR_OF_DAY, calendar1.get(Calendar.HOUR_OF_DAY)-1);
 
         Calendar calendar2 = Calendar.getInstance();
-
         Log.d("Calendar 1", calendar1.getTimeInMillis()+"");
         Log.d("Calendar 2", calendar2.getTimeInMillis()+"");
 
@@ -271,17 +244,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         calendar3.set(Calendar.MONTH, Calendar.SEPTEMBER);
         calendar3.set(Calendar.YEAR, 2017);
         calendar3.set(Calendar.DATE, eventDate);
-
         Log.d("Calendar 3", calendar3.getTimeInMillis()+"");
-
         if (calendar2.getTimeInMillis() < calendar3.getTimeInMillis()){
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent2);
 
             Log.d("Alarm", "set for "+calendar3.toString());
         }
-
-
-
     }
     private void removeNotification(ScheduleModel event){
         Intent intent = new Intent(activity, NotificationReceiver.class);

@@ -60,19 +60,13 @@ public class FavouritesFragment extends Fragment {
     private FavouritesEventsAdapter adapterDay3;
     private FavouritesEventsAdapter adapterDay4;
 
-
-
     public FavouritesFragment() {
-        // Required empty public constructor
     }
-
 
     public static FavouritesFragment newInstance() {
         FavouritesFragment fragment = new FavouritesFragment();
-
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,13 +87,11 @@ public class FavouritesFragment extends Fragment {
         favouritesDay4 = realm.copyFromRealm( realm.where(FavouritesModel.class).equalTo("day","4").findAll());
         setHasOptionsMenu(true);
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         realm.close();
     }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_favourites_fragment, menu);
@@ -138,7 +130,6 @@ public class FavouritesFragment extends Fragment {
                                 if(adapterDay4!=null){
                                     adapterDay4.notifyItemRangeRemoved(0,favSize4);
                                 }
-
                                 displayEvents();
                                 updateRealm();
                             }
@@ -148,12 +139,9 @@ public class FavouritesFragment extends Fragment {
             }
         });
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favourites, container, false);
         recyclerViewDay1 = (RecyclerView)view.findViewById(R.id.favourites_day_1_recycler_view);
         recyclerViewDay2 = (RecyclerView)view.findViewById(R.id.favourites_day_2_recycler_view);
@@ -168,23 +156,18 @@ public class FavouritesFragment extends Fragment {
         displayEvents();
         return view;
     }
-
     public void displayEvents(){
-
         FavouritesEventsAdapter.EventClickListener eventListener = new  FavouritesEventsAdapter.EventClickListener(){
             @Override
             public void onItemClick(FavouritesModel event) {
-                //Event Clicked
                 displayBottomSheet(event);
             }
         };
-
         if(favouritesDay1.isEmpty()){
             recyclerViewDay1.setVisibility(View.GONE);
             ((View)recyclerViewDay1.getParent()).setVisibility(View.GONE);
             noEventsDay1.setVisibility(View.VISIBLE);
             ((View)noEventsDay1.getParent()).setVisibility(View.VISIBLE);
-
         }else{
             adapterDay1 = new FavouritesEventsAdapter(favouritesDay1, eventListener,getActivity());
             recyclerViewDay1.setAdapter(adapterDay1);
@@ -209,7 +192,6 @@ public class FavouritesFragment extends Fragment {
             ((View)recyclerViewDay3.getParent()).setVisibility(View.GONE);
             noEventsDay3.setVisibility(View.VISIBLE);
             ((View)noEventsDay3.getParent()).setVisibility(View.VISIBLE);
-
         }else{
             adapterDay3 = new FavouritesEventsAdapter(favouritesDay3, eventListener,getActivity());
             recyclerViewDay3.setAdapter(adapterDay3);
@@ -222,7 +204,6 @@ public class FavouritesFragment extends Fragment {
             ((View)recyclerViewDay4.getParent()).setVisibility(View.GONE);
             noEventsDay4.setVisibility(View.VISIBLE);
             ((View)noEventsDay4.getParent()).setVisibility(View.VISIBLE);
-
         }else{
             adapterDay4 = new FavouritesEventsAdapter(favouritesDay4, eventListener,getActivity());
             recyclerViewDay4.setAdapter(adapterDay4);
@@ -236,9 +217,7 @@ public class FavouritesFragment extends Fragment {
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         Log.i("TT17", "displayBottomSheet: NEW!");
         final String eventID = event.getId();
-
         EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID",eventID).findFirst();
-
 
         ImageView eventLogo1 = (ImageView) view.findViewById(R.id.event_logo_image_view);
 
@@ -259,6 +238,7 @@ public class FavouritesFragment extends Fragment {
             eventTime.setText(event.getStartTime());
         else
             eventTime.setText(event.getStartTime());
+
         TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
         eventVenue.setText(event.getVenue());
 
@@ -279,7 +259,6 @@ public class FavouritesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + event.getContactNumber()));
-
                 startActivity(intent);
             }
         });
@@ -303,20 +282,16 @@ public class FavouritesFragment extends Fragment {
                         favouritesDay2.remove(event);
                         adapterDay2.notifyItemRemoved(pos2);
                         displayEvents();
-
                         break;
                     case 3: int pos3 = favouritesDay3.indexOf(event);
                         favouritesDay3.remove(event);
                         adapterDay3.notifyItemRemoved(pos3);
                         displayEvents();
-
                         break;
                     case 4:  int pos4 = favouritesDay4.indexOf(event);
                         favouritesDay4.remove(event);
                         adapterDay4.notifyItemRemoved(pos4);
                         displayEvents();
-
-
                         break;
                 }
                 Snackbar snackbar = Snackbar.make(view,"Removed from Favourites:"+eventName,Snackbar.LENGTH_SHORT);
@@ -324,10 +299,8 @@ public class FavouritesFragment extends Fragment {
                 dialog.dismiss();
                 updateRealm();
                 removeNotification(event);
-
             }
         });
-
         dialog.setContentView(view);
         dialog.show();
     }

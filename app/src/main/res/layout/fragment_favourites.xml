@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/category_toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?android:attr/actionBarSize"-->
-            <!--app:background="?attr/colorPrimary"-->
-            <!--app:layout_scrollFlags="scroll|enterAlways"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay"/>-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
-
     <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -52,7 +36,6 @@
                         android:text="@string/day_1"
                         android:textColor="@color/white"
                         android:fontFamily="sans-serif-medium"
-
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:paddingLeft="@dimen/padding_default"
@@ -70,8 +53,7 @@
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
                         android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default"
-                        />
+                        android:layout_marginBottom="@dimen/padding_default" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/favourites_day_1_recycler_view"
@@ -118,8 +100,7 @@
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
                         android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default"
-                        />
+                        android:layout_marginBottom="@dimen/padding_default" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/favourites_day_2_recycler_view"
@@ -167,8 +148,7 @@
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
                         android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default"
-                        />
+                        android:layout_marginBottom="@dimen/padding_default" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/favourites_day_3_recycler_view"
@@ -217,8 +197,7 @@
                         android:paddingRight="@dimen/padding_default"
                         android:textSize="@dimen/typography_subheading"
                         android:layout_marginTop="6dp"
-                        android:layout_marginBottom="@dimen/padding_default"
-                        />
+                        android:layout_marginBottom="@dimen/padding_default" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/favourites_day_4_recycler_view"

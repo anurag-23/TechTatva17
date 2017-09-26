@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<RelativeLayout
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.techtatva.techtatva17.activities.MainActivity"
-    >
+    tools:context="in.techtatva.techtatva17.activities.MainActivity">
 
 <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
     android:layout_above="@+id/bottom_nav_container"
     android:layout_alignParentTop="true">
 
@@ -30,24 +28,18 @@
             android:layout_marginTop="8dp"
             app:cardElevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways">
-
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@color/themeBackground"
-
-                />
+                android:background="@color/themeBackground" />
         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
-
 
     <include layout="@layout/activity_main_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-         />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
@@ -57,11 +49,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-
         android:background="@color/transparent"
         android:hapticFeedbackEnabled="false"
         android:orientation="horizontal">
-
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
@@ -72,13 +62,6 @@
             android:hapticFeedbackEnabled="false"
             app:elevation="10dp"
             app:menu="@menu/menu_bottom_nav" />
-
     </LinearLayout>
-
-
-
-
-
-
 
 </RelativeLayout>

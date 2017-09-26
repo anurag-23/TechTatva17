@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity  {
     private AppBarLayout appBarLayout;
     String TAG = "MainActivity";
     String CCT_LAUNCH_URL = "https://www.techtatva.in";
-    boolean CCT_flag = false;
 
     @Override
     protected void onPostResume() {
@@ -70,17 +69,13 @@ public class MainActivity extends AppCompatActivity  {
             getWindow().setNavigationBarColor(Color.parseColor("#0d0d0d"));
 
         }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //drawer.setScrimColor(Color.TRANSPARENT);  //If enabled, drops GPU overdraw area to some extent
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         drawerView = (NavigationView) findViewById(R.id.nav_view);
         drawerView.setNavigationItemSelectedListener(mOnDrawerItemSelectedListener);
@@ -97,7 +92,6 @@ public class MainActivity extends AppCompatActivity  {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnBottomNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             selectedFragment=null;
@@ -116,7 +110,6 @@ public class MainActivity extends AppCompatActivity  {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.anim.slide_in_from_top,R.anim.blank).replace(R.id.main_frame_layout, selectedFragment);
             transaction.commit();
-
             return true;
         }
 
@@ -124,8 +117,6 @@ public class MainActivity extends AppCompatActivity  {
 
     private NavigationView.OnNavigationItemSelectedListener mOnDrawerItemSelectedListener
             = new NavigationView.OnNavigationItemSelectedListener() {
-
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             selectedFragment=null;
@@ -134,55 +125,45 @@ public class MainActivity extends AppCompatActivity  {
             int id = item.getItemId();
 
             if (id == R.id.drawer_home) {
-
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(VISIBLE);
-                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
                 navigation.setSelectedItemId(R.id.bottom_nav_home);
                 selectedFragment = HomeFragment.newInstance();
 
             } else if (id == R.id.drawer_favourites) {
-                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(GONE);
-
-
                 selectedFragment = FavouritesFragment.newInstance();
 
             } else if (id == R.id.drawer_online_events) {
-                /* appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-                appBarLayout.setVisibility(GONE);
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
-                navigation.setVisibility(VISIBLE);*/
-
                 selectedFragment = OnlineEventsFragment.newInstance();
 
             } else if (id == R.id.drawer_results) {
-                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(GONE);
-
                 selectedFragment = ResultsFragment.newInstance();
 
             } else if (id == R.id.drawer_developers) {
-                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(GONE);
 
                 selectedFragment = DevelopersFragment.newInstance();
 
             } else if (id == R.id.drawer_about_us) {
-                 appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+                appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
                 appBarLayout.setVisibility(VISIBLE);
-                 navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
+                navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
                 navigation.setVisibility(GONE);
 
                 selectedFragment = AboutUsFragment.newInstance();
-
             }
 
             if(selectedFragment.getClass()==OnlineEventsFragment.class){
@@ -197,8 +178,6 @@ public class MainActivity extends AppCompatActivity  {
             drawer.closeDrawer(GravityCompat.START);
             return true;
         }
-
-
     };
 
     @Override
@@ -209,29 +188,23 @@ public class MainActivity extends AppCompatActivity  {
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
-
             if (drawerView.getMenu().getItem(0).isChecked() &&  navigation.getMenu().getItem(0).isChecked() ){
                 finishAffinity();
             }
             else{
                 if(TechTatva.searchOpen ==1 && drawerView.getMenu().getItem(0).isChecked()){
-
                     fm.beginTransaction().replace(R.id.main_frame_layout, new CategoriesFragment()).commit();
                     TechTatva.searchOpen =0;
                 }
-
                 if(TechTatva.searchOpen ==2 && drawerView.getMenu().getItem(0).isChecked()){
-
                     fm.beginTransaction().replace(R.id.main_frame_layout, new EventsFragment()).commit();
                     TechTatva.searchOpen =0;
                 }
-
                 else{
                     fm.beginTransaction().replace(R.id.main_frame_layout, new HomeFragment()).commit();
                     drawerView.setCheckedItem(R.id.drawer_home);
                     navigation.setSelectedItemId(R.id.bottom_nav_home);
                 }
-
                 if(navigation.getVisibility()==GONE)
                 { navigation.setVisibility(VISIBLE);}
 
@@ -240,7 +213,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     }
-
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -283,9 +255,4 @@ public class MainActivity extends AppCompatActivity  {
         transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left).replace(R.id.main_frame_layout, fragment);
         transaction.commit();
     }
-
-
-
 }
-
-
