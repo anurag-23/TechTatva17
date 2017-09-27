@@ -3,6 +3,7 @@ package in.techtatva.techtatva17.fragments;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,7 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva17.R;
+import in.techtatva.techtatva17.activities.EasterEggActivity;
+import in.techtatva.techtatva17.activities.MainActivity;
 import in.techtatva.techtatva17.adapters.CategoriesAdapter;
+import in.techtatva.techtatva17.adapters.EasterEggAdapter;
 import in.techtatva.techtatva17.application.TechTatva;
 import in.techtatva.techtatva17.models.categories.CategoryModel;
 import io.realm.Realm;
@@ -89,6 +93,10 @@ public class CategoriesFragment extends Fragment {
         }
     }
     private void displaySearchData(String text){
+        if(text.equals("Memelord")){
+            Intent intent = new Intent(getContext(),EasterEggActivity.class);
+            startActivity(intent);
+        }
         if (mDatabase != null){
             categoriesList.clear();
             RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName");

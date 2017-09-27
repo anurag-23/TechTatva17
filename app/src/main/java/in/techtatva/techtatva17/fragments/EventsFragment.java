@@ -49,7 +49,7 @@ public class EventsFragment extends Fragment {
     View result;
     ViewPager viewPager;
     boolean recyclerDisplayed = false;
-    boolean filterMode = false;
+
     RealmResults<ScheduleModel> scheduleResult;
     String categoryFilterTerm = "All";
     String venueFilterTerm = "All";
@@ -57,10 +57,22 @@ public class EventsFragment extends Fragment {
     String endTimeFilterTerm = "9:00";
     int startTimeFilterPin = 0;
     int endTimeFilterPin = 9;
+
+    String remCategoryFilterTerm;
+    String remVenueFilterTerm;
+    String remStartTimeFilterTerm;
+    String remEndTimeFilterTerm;
+    int remStartTimeFilterPin;
+    int remEndTimeFilterPin;
+
+    boolean filterMode = false;
+
     private MenuItem searchItem;
     private MenuItem filterItem;
     private ArrayList<String> categoryNames = new ArrayList<>();
     private List<String> venueList = new ArrayList<>();
+
+
     public EventsFragment() {
     }
     public static EventsFragment newInstance() {
@@ -166,6 +178,7 @@ public class EventsFragment extends Fragment {
                         viewPager.setAdapter(new EventsTabsPagerAdapter(getChildFragmentManager(), "", "All", "All", "12:00 pm", "9:00 pm", false));
                         viewPager.getAdapter().notifyDataSetChanged();
                         viewPager.setCurrentItem(item,false);
+                        filterMode=false;
                     }
                 });
 
@@ -181,6 +194,7 @@ public class EventsFragment extends Fragment {
                         viewPager.getAdapter().notifyDataSetChanged();
                         viewPager.setCurrentItem(item,false);
                         bottomSheetDialog.dismiss();
+                        filterMode =true;
                     }
                 });
                 RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
