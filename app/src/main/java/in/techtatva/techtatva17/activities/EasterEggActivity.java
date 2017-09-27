@@ -1,5 +1,6 @@
 package in.techtatva.techtatva17.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
@@ -29,7 +31,15 @@ public class EasterEggActivity extends AppCompatActivity {
 
     RecyclerView eggsRecycler;
     String [] eggList = new String[500];
+    Toolbar toolbar;
 
+//    @Override
+//    public boolean onNavigateUp() {
+//        finish();
+//        return true;
+//    }
+//
+//    pu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,10 @@ public class EasterEggActivity extends AppCompatActivity {
 
 
         eggsRecycler = (RecyclerView) findViewById(R.id.eggs_recycler);
+        toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         loadEggsFromInternet();
 
 
@@ -57,8 +71,9 @@ public class EasterEggActivity extends AppCompatActivity {
     private void displayEggs(){
 
         eggsRecycler.setAdapter(new EasterEggAdapter(eggList));
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
-        eggsRecycler.setLayoutManager(gridLayoutManager);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+        eggsRecycler.setLayoutManager(staggeredGridLayoutManager);
     }
 
     private void loadEggsFromInternet() {

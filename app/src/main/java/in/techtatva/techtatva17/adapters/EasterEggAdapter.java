@@ -1,6 +1,7 @@
 package in.techtatva.techtatva17.adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,9 +51,10 @@ public class EasterEggAdapter extends RecyclerView.Adapter<EasterEggAdapter.East
     public class EasterEggViewHolder extends RecyclerView.ViewHolder {
         public ImageView egg;
 
-        public EasterEggViewHolder(View itemView) {
+        public EasterEggViewHolder(final View itemView) {
             super(itemView);
             egg = (ImageView) itemView.findViewById(R.id.image_egg);
+
         }
     }
 }
