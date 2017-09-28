@@ -8,9 +8,11 @@
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
+    android:scrollbars="vertical"
+    android:overScrollMode="always"
+    android:isScrollContainer="true"
     android:scrollbarAlwaysDrawHorizontalTrack="false"
-    android:id="@+id/nestedScrollView"
-    android:scrollbars="vertical">
+    android:id="@+id/nestedScrollView">
 
 
 <RelativeLayout

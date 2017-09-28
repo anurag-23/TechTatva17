@@ -67,7 +67,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_snapchat" />
+                        android:src="@drawable/mit_post" />
             </LinearLayout>
 
             <TextView
