@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.techtatva.techtatva17.fragments.OnlineEventsFragment">
+    tools:context="in.tt.tt17.fragments.OnlineEventsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

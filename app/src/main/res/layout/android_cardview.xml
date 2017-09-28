@@ -60,7 +60,7 @@
                 </RelativeLayout>
             </FrameLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/imageViewAndroid"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
@@ -86,7 +86,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:layout_marginBottom="@dimen/padding_half"
@@ -118,7 +118,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:layout_marginBottom="@dimen/padding_half"
@@ -151,7 +151,7 @@
                 android:orientation="vertical"
                 android:paddingRight="4dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:layout_marginBottom="@dimen/padding_half"

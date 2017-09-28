@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:paddingLeft="40dp"
-            android:src="@drawable/techtatvabanner"
+            android:src="@drawable/ttbanner"
             android:scaleType="centerCrop"/>
 
 

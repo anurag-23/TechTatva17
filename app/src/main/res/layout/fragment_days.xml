@@ -1,6 +1,6 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.techtatva.techtatva17.fragments.DaysFragment"
+    tools:context="in.tt.tt17.fragments.DaysFragment"
     android:id="@+id/days_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

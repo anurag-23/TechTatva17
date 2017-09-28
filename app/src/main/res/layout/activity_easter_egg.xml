@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.techtatva.techtatva17.activities.EasterEggActivity">
+    tools:context="in.tt.tt17.activities.EasterEggActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -22,7 +22,7 @@
             android:background="@color/themeBackground"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:subtitle="-- Courtesy of Qnax Memes"
+            app:subtitle="-- Courtesy of Qnax Zrzrf"
             app:title="You called for me?" />
     </android.support.design.widget.AppBarLayout>
 

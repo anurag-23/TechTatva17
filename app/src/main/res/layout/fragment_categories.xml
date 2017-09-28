@@ -6,7 +6,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="8dp"
-    tools:context="in.techtatva.techtatva17.fragments.CategoriesFragment">
+    tools:context="in.tt.tt17.fragments.CategoriesFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

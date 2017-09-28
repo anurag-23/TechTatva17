@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="in.techtatva.techtatva17.fragments.HomeFragment">
+    tools:context="in.tt.tt17.fragments.HomeFragment">
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -204,6 +204,22 @@
                 android:text="@string/home_insta_title"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/typography_title" />
+            <ProgressBar
+                android:id="@+id/insta_progress"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:padding="10dp"
+                android:indeterminateTint="@color/insta_text_grey"/>
+            <TextView
+                android:id="@+id/insta_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unable_to_load_insta"
+                android:textSize="@dimen/typography_body"
+                android:visibility="gone"
+                android:padding="10dp"/>
             <!--InstaFeed Recycler View-->
             <android.support.v7.widget.RecyclerView
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"

@@ -25,7 +25,7 @@
             android:layout_width="280dp"
             android:layout_height="250dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/techtatvabanner" />
+            android:src="@drawable/ttbanner" />
             </LinearLayout>
 
         <LinearLayout
