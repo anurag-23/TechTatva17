@@ -21,8 +21,7 @@ public class AboutUsFragment extends Fragment {
     String URL_TWITTER  = "http://www.twitter.com/MITtechtatva";
     String URL_FB  = "http://www.facebook.com/MITtechtatva";
     String URL_INSTA  = "http://www.instagram.com/MITtechtatva";
-    String URL_MITPOST = "http://themitpost.com/techtatva17-liveblog";
-    ImageView instaIV, fbIV, snapchatIV, twitterIV, mitpostIV;
+    ImageView instaIV, fbIV, snapchatIV, twitterIV;
     Context context;
     String TAG = "AboutUsFragment";
     public AboutUsFragment() {
@@ -46,7 +45,6 @@ public class AboutUsFragment extends Fragment {
         fbIV = (ImageView)view.findViewById(R.id.fb_image);
         twitterIV = (ImageView)view.findViewById(R.id.twitter_image);
         snapchatIV = (ImageView)view.findViewById(R.id.snapchat_image);
-        mitpostIV = (ImageView)view.findViewById(R.id.mitpost_image);
         context = container.getContext();
         instaIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +68,6 @@ public class AboutUsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 launchURL(URL_TWITTER);
-            }
-        });
-        mitpostIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchURL(URL_MITPOST);
             }
         });
         return view;

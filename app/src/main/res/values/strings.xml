@@ -62,5 +62,6 @@
     <string name="retry">Retry</string>
     <string name="about_categories">About Categories</string>
     <string name="unable_to_load_insta">Unable to load Instagram feed. Swipe down to retry!</string>
+    <string name="scroll_up">Scroll up for more</string>
 
 </resources>
