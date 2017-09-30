@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -109,8 +110,8 @@ public class DaysFragment extends Fragment {
         // Inflate the layout for this fragment
         if (container == null)
             Log.i("onCreateView", "NULL Container");
-        View view = inflater.inflate(R.layout.fragment_days, container, false);
-        daysRecyclerView = (RecyclerView) view.findViewById(R.id.days_recycler_view);
+        final View daysView = inflater.inflate(R.layout.fragment_days, container, false);
+        daysRecyclerView = (RecyclerView) daysView.findViewById(R.id.days_recycler_view);
         EventsAdapter.FavouriteClickListener favouriteClickListener = new EventsAdapter.FavouriteClickListener() {
             @Override
             public void onItemClick(ScheduleModel event) {
@@ -118,13 +119,13 @@ public class DaysFragment extends Fragment {
             }
         };
 
+
          EventsAdapter.EventClickListener eventClickListener = new EventsAdapter.EventClickListener() {
             @Override
             public void onItemClick(final ScheduleModel event, final View view1) {
 
                 final View view = View.inflate(getContext(), R.layout.activity_event_dialogue, null);
                 final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
-
                 String eventID = event.getEventID();
 
                 final EventDetailsModel schedule = realm.where(EventDetailsModel.class).equalTo("eventID", eventID).findFirst();
@@ -201,6 +202,7 @@ public class DaysFragment extends Fragment {
                 });
 
                 dialog.setContentView(view);
+                Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
                 dialog.show();
             }
         };
@@ -219,7 +221,7 @@ public class DaysFragment extends Fragment {
         daysRecyclerView.setAdapter(adapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(daysRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         daysRecyclerView.addItemDecoration(dividerItemDecoration);
-        return view;
+        return daysView;
     }
     public void getSearchDataFromRealm(String text, String categoryFilter, String venueFilter, String startTimeFilter, String endTimeFilter, boolean filter) {
         if (filter) {

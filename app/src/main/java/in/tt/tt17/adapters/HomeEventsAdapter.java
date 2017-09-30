@@ -173,6 +173,7 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
             ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
             deleteIcon.setVisibility(View.GONE);
             dialog.setContentView(view);
+            Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
             dialog.show();
         }
         private void addFavourite(ScheduleModel eventSchedule){

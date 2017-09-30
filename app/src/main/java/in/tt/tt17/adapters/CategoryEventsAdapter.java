@@ -190,6 +190,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
                 favIcon.setTag("deselected");
             }
             dialog.setContentView(view);
+            Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
             dialog.show();
         }
     }
