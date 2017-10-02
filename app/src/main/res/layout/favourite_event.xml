@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/fav_event_item"
+<RelativeLayout android:id="@+id/fav_event_item"
     android:layout_width="98dp"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?android:attr/selectableItemBackground">
+    android:background="?android:attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:id="@+id/fav_event_logo_frame"
@@ -19,7 +19,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/background_circle"
-            android:src="@drawable/ic_sample_image_24dp" />
+            app:srcCompat="@drawable/ic_sample_image_24dp" />
 
     </FrameLayout>
     <TextView
