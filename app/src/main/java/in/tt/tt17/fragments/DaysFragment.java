@@ -47,7 +47,7 @@ public class DaysFragment extends Fragment {
     private static final String ARG_PARAM5 = "start";
     private static final String ARG_PARAM6 = "end";
     private static final String ARG_PARAM7 = "filter";
-    public static EventsAdapter adapter;
+    public EventsAdapter adapter;
     public List<EventModel> events = new ArrayList<>();
     public List<EventModel> filteredEvents = new ArrayList<>();
     Activity activity;
@@ -262,7 +262,7 @@ public class DaysFragment extends Fragment {
                     endDateFilter = sdfFilter.parse(endTimeFilter);
 
                     Log.d("TAG", startDateFilter.toString());
-                    if (startDate.after(startDateFilter) && endDate.before(endDateFilter)) {
+                    if ((startDate.after(startDateFilter) ||startDate.equals(startDateFilter)) && (endDate.equals(endDateFilter) || endDate.before(endDateFilter))) {
                         filteredEvents.add(schedule);
                     }
 
