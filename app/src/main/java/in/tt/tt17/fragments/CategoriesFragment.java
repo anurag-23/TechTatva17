@@ -100,6 +100,7 @@ public class CategoriesFragment extends Fragment {
             RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).contains("categoryName",text).findAllSorted("categoryName");
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
+                //categoriesList = mDatabase.copyFromRealm(categoryResults);
                 categoriesList.addAll(categoryResults);
                 adapter.notifyDataSetChanged();
             }
