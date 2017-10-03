@@ -297,7 +297,7 @@ public class FavouritesFragment extends Fragment {
                         displayEvents();
                         break;
                 }
-                Snackbar snackbar = Snackbar.make(view,"Removed from Favourites:"+eventName,Snackbar.LENGTH_SHORT);
+                Snackbar snackbar = Snackbar.make(view.getRootView().getRootView(),"Removed from Favourites:"+eventName,Snackbar.LENGTH_SHORT);
                 snackbar.show();
                 dialog.dismiss();
                 updateRealm();
@@ -305,6 +305,7 @@ public class FavouritesFragment extends Fragment {
             }
         });
         dialog.setContentView(view);
+        Snackbar.make(view.getRootView().getRootView(),"Swipe up for more", Snackbar.LENGTH_SHORT).show();
         dialog.show();
     }
     private void updateRealm(){
