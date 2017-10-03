@@ -173,12 +173,12 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
                         favIcon.setImageResource(R.drawable.ic_fav_selected);
                         favIcon.setTag("selected");
                         addFavourite(getScheduleFromEvent(event));
-                        Snackbar.make(v, event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(v.getRootView(), event.getEventName()+" Added to Favourites", Snackbar.LENGTH_LONG).show();
                     }else{
                         favIcon.setImageResource(R.drawable.ic_fav_deselected);
                         favIcon.setTag("deselected");
                         removeFavourite(getScheduleFromEvent(event));
-                        Snackbar.make(v, event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(v.getRootView(), event.getEventName()+" removed from Favourites", Snackbar.LENGTH_LONG).show();
                     }
                 }
             });
