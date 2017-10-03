@@ -1,6 +1,7 @@
 package in.tt.tt17.application;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -11,6 +12,7 @@ import io.realm.RealmConfiguration;
 
 public class TT17 extends Application {
     public static int searchOpen =0;
+
 
     @Override
     public void onCreate(){

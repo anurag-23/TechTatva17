@@ -67,33 +67,60 @@
                 android:id="@+id/insta_feed_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:textColor="@color/insta_text_grey"
                 android:textSize="14sp"
                 tools:text="username Description" />
 
-            <TextView
-                android:id="@+id/insta_feed_likes_text_view"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/ic_favorite"
-                android:drawablePadding="5dp"
-                android:drawableStart="@drawable/ic_favorite"
-                android:textColor="@color/insta_text_grey"
-                android:textSize="14sp"
-                tools:text="0 likes" />
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/insta_feed_comments_text_view"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_favorite" />
+
+                <TextView
+                    android:id="@+id/insta_feed_likes_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/insta_text_grey"
+                    android:textSize="14sp"
+                    tools:text="0 likes" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/ic_comment"
-                android:drawablePadding="5dp"
-                android:drawableStart="@drawable/ic_comment"
-                android:textColor="@color/insta_text_grey"
-                android:textSize="14sp"
-                tools:text="0 comments" />
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_comment"/>
+
+                <TextView
+                    android:id="@+id/insta_feed_comments_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/insta_text_grey"
+                    android:textSize="14sp"
+                    tools:text="0 comments"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+
+
+
 
 
         </LinearLayout>

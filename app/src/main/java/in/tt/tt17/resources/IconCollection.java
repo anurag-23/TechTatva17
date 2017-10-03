@@ -16,6 +16,8 @@ public class IconCollection {
     private final int airborne = R.drawable.airborne;
     private final int alacrity = R.drawable.alacrity;
     private final int bizzmaestro = R.drawable.bizzmaestro;
+    private final int bizzventure = R.drawable.bizzventure;
+
     private final int cheminova = R.drawable.cheminova;
     private final int chrysalis = R.drawable.chrysalis;
 //    private final int conclave = R.drawable.tt_themanipalconclave;
@@ -49,6 +51,7 @@ public class IconCollection {
             case "alacrity": return alacrity;
             case "airborne": return airborne;
             case "bizzmaestro": return bizzmaestro;
+            case "bizzventure": return bizzventure;
             case "cheminova": return cheminova;
             case "chrysalis": return chrysalis;
             case "constructure": return constructure;

@@ -253,8 +253,9 @@ public class SplashActivity extends AppCompatActivity {
                     apiCallsRecieved++;
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
+                    //mDatabase.copyToRealmOrUpdate(response.body().getCategoriesList());
                     mDatabase.copyToRealm(response.body().getCategoriesList());
-                    mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
+                    //mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
                     categoriesDataAvailableLocally=true;
                     Log.d("TAG","Categories");
