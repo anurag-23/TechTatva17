@@ -154,21 +154,21 @@ public class HomeEventsAdapter extends RecyclerView.Adapter<HomeEventsAdapter.Ev
 
             TextView eventVenue = (TextView)view.findViewById(R.id.event_venue);
             eventVenue.setText(event.getVenue());
+            if(schedule !=null){
+                TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
+                eventTeamSize.setText(schedule.getMaxTeamSize());
 
-            TextView eventTeamSize = (TextView)view.findViewById(R.id.event_team_size);
-            eventTeamSize.setText(schedule.getMaxTeamSize());
+                TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
+                eventDescription.setText(schedule.getDescription());
 
+                TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
+                eventContactName.setText(schedule.getContactName() + " : ");
+
+                TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
+                eventContact.setText(  schedule.getContactNo());
+            }
             TextView eventCategory = (TextView)view.findViewById(R.id.event_category);
             eventCategory.setText(event.getCatName());
-
-            TextView eventDescription = (TextView)view.findViewById(R.id.event_description);
-            eventDescription.setText(schedule.getDescription());
-
-            TextView eventContactName = (TextView) view.findViewById(R.id.event_contact_name);
-            eventContactName.setText(schedule.getContactName() + " : ");
-
-            TextView eventContact = (TextView) view.findViewById(R.id.event_contact);
-            eventContact.setText(  schedule.getContactNo());
 
             ImageView deleteIcon = (ImageView)view.findViewById(R.id.event_delete_icon);
             deleteIcon.setVisibility(View.GONE);
