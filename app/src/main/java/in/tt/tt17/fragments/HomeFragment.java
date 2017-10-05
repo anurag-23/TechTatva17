@@ -273,12 +273,19 @@ public class HomeFragment extends Fragment {
         }
         Log.i(TAG, "displayResults: resultsList size:"+resultsList.size());
         //Moving favourite results to top
-        for(EventResultModel result: resultsList){
+        for(int i=0;i<resultsList.size();i++){
+            EventResultModel result= resultsList.get(i);
             if(isFavourite(result)){
                 resultsList.remove(result);
                 resultsList.add(0, result);
             }
         }
+        /*for(EventResultModel result: resultsList){
+            if(isFavourite(result)){
+                resultsList.remove(result);
+                resultsList.add(0, result);
+            }
+        }*/
         //Picking first 10 results to display
         if(resultsList.size()>10){
             resultsList.subList(10,resultsList.size()).clear();

@@ -71,9 +71,8 @@ public class IconCollection {
             case "questionable intelligence": return qi;
             case "robotrek": return robotrek;
             case "robowars": return robowars;
-            case "turing": {Log.i(TAG,"Turing case called"); return turing;}
-            case "vedanth 7.0":{
-                Log.i(TAG,"Vedanth case called"); return vedanth;}
+            case "turing":  {return turing;}
+            case "vedanth 7.0":{return vedanth;}
             default: {
                 Log.i(TAG,catName);
                 return R.mipmap.ic_launcher;}
