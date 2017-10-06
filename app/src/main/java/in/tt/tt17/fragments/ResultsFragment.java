@@ -93,7 +93,7 @@ public class ResultsFragment extends Fragment {
             return;
         }
 
-        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
+        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position",Sort.ASCENDING );
         if (!results.isEmpty()){
             resultsList.clear();
             List<String> eventNamesList = new ArrayList<>();
