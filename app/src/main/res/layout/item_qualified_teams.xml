@@ -8,15 +8,23 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/qualified_team_heading"
+        android:id="@+id/qualified_team_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:text="@string/team_id"
+        android:text="@string/team_position"
+        android:textColor="@color/white"
+        android:textSize="@dimen/typography_body"
+        android:visibility="gone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="Team ID :"
         android:textColor="@color/white"
         android:textSize="@dimen/typography_body" />
-
     <TextView
         android:id="@+id/qualified_teams_id"
         android:layout_width="wrap_content"

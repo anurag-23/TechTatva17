@@ -251,7 +251,7 @@ public class HomeFragment extends Fragment {
         });
     }
     public void updateResultsList(){
-        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "teamID",Sort.ASCENDING );
+        RealmResults<ResultModel> results = mDatabase.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position",Sort.ASCENDING );
         if (!results.isEmpty()){
             resultsList.clear();
             List<String> eventNamesList = new ArrayList<>();

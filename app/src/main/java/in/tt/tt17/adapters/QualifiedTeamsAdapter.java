@@ -32,6 +32,11 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
     public void onBindViewHolder(QualifiedTeamViewHolder holder, int position) {
         ResultModel result = resultsList.get(position);
         holder.teamID.setText(result.getTeamID());
+        if(result.getRound().toLowerCase().contains("f")||result.getRound().toLowerCase().contains("final")){
+            holder.teamPosition.setVisibility(View.VISIBLE);
+            holder.teamPosition.setText(result.getPosition()+".");
+        }
+
     }
     @Override
     public int getItemCount() {
@@ -40,9 +45,12 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
 
     class QualifiedTeamViewHolder extends RecyclerView.ViewHolder {
         TextView teamID;
+        TextView teamPosition;
         public QualifiedTeamViewHolder(View itemView) {
             super(itemView);
             teamID = (TextView)itemView.findViewById(R.id.qualified_teams_id);
+            teamPosition = (TextView)itemView.findViewById(R.id.qualified_team_position);
+
         }
     }
 }
